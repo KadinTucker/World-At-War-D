@@ -1,6 +1,4 @@
-
 import std.random;
-import std.stdio;
 import std.math;
 
 class Coordinate{
@@ -11,6 +9,10 @@ class Coordinate{
     this(int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    override string toString(){
+        return "(",x,", ",y,")";
     }
 
 }
@@ -121,6 +123,8 @@ int getNthDigit(int num, int digit){
 }
 
 unittest{
+
+    import std.stdio;
 
     int number = 89304;
     writeln(getNthDigit(89304, 5));
