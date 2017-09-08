@@ -1,46 +1,46 @@
 import std.random;
 import std.math;
 
-class Coordinate{
+import City;
+import Player;
+import Unit;
 
-    int x;
-    int y;
+enum Terrain {
 
-    this(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
+    WATER=0,
+    LAND=1,
 
-    override string toString(){
-        return "(",x,", ",y,")";
+}
+
+class Tile {
+
+    Terrain terrain;
+    Batallion battalion;
+    City city;
+    Player owner;
+
+    this(Terrain terrain){
+        this.terrain = terrain;
     }
 
 }
 
-class World{
+class World {
 
-    char[][] tiles = [];
-    char[] playerTerritory;
-    char[] playerMilitary;
-    char[] playerCities;
-    char water;
-    char land;
+    Tile[][] tiles = [];
 
-    this(int ncontinents, int nrows, int ncols, char water, char land){
-        this.land = land;
-        this.water = water;
-
-        char[] blankArray = [];
+    this(int ncontinents, int nrows, int ncols){
+        Tile[] blankArray = [];
         for(int x = 0; x < nrows; x++){
             //writeln("iterate outer x",x);
             tiles ~= blankArray.dup;
             //writeln(tiles);
             for(int y = 0; y < ncols; y++){
-                tiles[x] ~= water;
+                tiles[x] ~= Tile(Terrain.WATER);
             }
         }
         for(int i = 0; i < ncontinents; i++){
-            tiles[uniform(0, nrows - 1)][uniform(0, ncols - 1)] = land;
+            tiles[uniform(0, nrows - 1)][uniform(0, ncols - 1)].terrain = Terrain.LAND;
         }
         int generated = ncontinents;
         double correlation;
@@ -49,20 +49,20 @@ class World{
                 for(int y = 0; y < tiles[x].length; y++){
                     if(tiles[x][y] != land){
                         correlation = 0;
-                        if(y < tiles[x].length - 1 && tiles[x][y+1] == land){
+                        if(y < tiles[x].length - 1 && tiles[x][y+1].terrain == Terrain.LAND){
                             correlation += 0.25;
                         }
-                        if(y > 0 && tiles[x][y-1] == land){
+                        if(y > 0 && tiles[x][y-1].terrain == Terrain.LAND){
                             correlation += 0.25;
                         }
-                        if(x < tiles.length - 1 && tiles[x+1][y] == land){
+                        if(x < tiles.length - 1 && tiles[x+1][y].terrain == Terrain.LAND){
                             correlation += 0.25;
                         }
-                        if(x > 0 && tiles[x-1][y] == land){
+                        if(x > 0 && tiles[x-1][y] == tiles[x-1][y].terrain == Terrain.LAND){
                             correlation += 0.25;
                         }
                         if(uniform(0.0, 1.0) < correlation){
-                            tiles[x][y] = land;
+                            tiles[x][y].terrain = Terrain.LAND;
                             generated += 1;
                         }
                     }
@@ -71,7 +71,7 @@ class World{
         }
     }
 
-    void printWorld(){
+    void printWorld() {
         for(int x = 0; x < tiles.length; x++){
             for(int y = 0; y < tiles[x].length; y++){
                 write('|');
@@ -106,7 +106,7 @@ class World{
     }
 }
 
-int countDigits(int num){
+int countDigits(int num) {
     if(num == 0){
         return 1;
     }
@@ -118,7 +118,7 @@ int countDigits(int num){
     return count;
 }
 
-int getNthDigit(int num, int digit){
+int getNthDigit(int num, int digit) {
     return (num / pow(10, digit - 1)) % 10;
 }
 

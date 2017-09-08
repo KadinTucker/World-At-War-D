@@ -30,7 +30,14 @@ struct Unit {
 
 }
 
-abstract class Batallion {
+struct BatallionType {
+
+    char[] passableTerrain;
+    UnitTypes[] unitTypes;
+
+}
+
+class Batallion {
 
     Coordinate location;
     Player owner;
@@ -38,14 +45,14 @@ abstract class Batallion {
     int[UnitTypes] units;
     char[] passableTiles;
 
-    this(Coordinate location, Player owner, int moves, UnitTypes[] unitTypes, char[] passableTiles){
+    this(Coordinate location, Player owner, int moves, BattalionType type){
         this.location = location;
         this.owner = owner;
         this.moves = moves;
-        foreach(unit; unitTypes){
+        foreach(unit; type.unitTypes){
             units[unit] = 0;
         }
-        this.passableTiles = passableTiles;
+        this.passableTiles = type.passableTerrain;
     }
 
     void add(Batallion other){
