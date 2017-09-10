@@ -12,10 +12,28 @@ enum Terrain {
 
 }
 
+enum Direction {
+    NORTH=[0, -1],
+    EAST=[1, 0],
+    SOUTH=[0, 1],
+    WEST=[-1, 0],
+}
+
+struct Coordinate {
+
+    int x;
+    int y;
+
+}
+
+Coordinate getCoordinateFromDirection(Coordinate location, Direction direction){
+    return Coordinate(this.location.x + direction[0], this.location.y + direction[1]);
+}
+
 class Tile {
 
     Terrain terrain;
-    Batallion battalion;
+    Battalion battalion;
     City city;
     Player owner;
 
@@ -58,7 +76,7 @@ class World {
                         if(x < tiles.length - 1 && tiles[x+1][y].terrain == Terrain.LAND){
                             correlation += 0.25;
                         }
-                        if(x > 0 && tiles[x-1][y] == tiles[x-1][y].terrain == Terrain.LAND){
+                        if(x > 0 && tiles[x-1][y].terrain == Terrain.LAND){
                             correlation += 0.25;
                         }
                         if(uniform(0.0, 1.0) < correlation){
@@ -69,6 +87,10 @@ class World {
                 }
             }
         }
+    }
+
+    Tile getTileAt(Coordinate location){
+        return tiles[location.x][location.y];
     }
 
     void printWorld() {

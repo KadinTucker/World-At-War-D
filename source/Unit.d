@@ -8,13 +8,18 @@ enum Attributes {
     TARGET_SUBMARINES=3,
 }
 
-enum UnitTypes{
+enum UnitTypes {
     INFANTRY=Unit(2, 1, 1, null, 1, 3, 5, "Infantry"),
     TANK=Unit(30, 10, 10, [Attributes.TANK], 1, 20, 8, "Tank"),
     ARTILLERY=Unit(5, 15, 7, null, 3, 10, 3, "Artillery"),
     DESTROYER=Unit(25, 8, 8, [Attributes.TARGET_SUBMARINES], 2, 15, 10, "Destroyer"),
     BATTLESHIP=Unit(40, 12, 12, null, 3, 20, 8, "Battleship"),
     SUBMARINE=Unit(15, 5, 15, [Attributes.SUBMERGE], 2, 10, 13, "Submarine"),
+}
+
+enum BattalionTypes {
+    ARMY=BattalionType([Terrain.LAND], [UnitTypes.INFANTRY, UnitTypes.TANK, UnitTypes.ARTILLERY]),
+    NAVY=BattalionType([Terrain.WATER], [UnitTypes.DESTROYER, UnitTypes.BATTLESHIP, UnitTypes.SUBMARINE])
 }
 
 struct Unit {
@@ -30,20 +35,20 @@ struct Unit {
 
 }
 
-struct BatallionType {
+struct BattalionType {
 
-    char[] passableTerrain;
+    Terrain[] passableTerrain;
     UnitTypes[] unitTypes;
 
 }
 
-class Batallion {
+class Battalion {
 
     Coordinate location;
     Player owner;
     int moves;
     int[UnitTypes] units;
-    char[] passableTiles;
+    Terrain[] passableTiles;
 
     this(Coordinate location, Player owner, int moves, BattalionType type){
         this.location = location;
@@ -55,7 +60,7 @@ class Batallion {
         this.passableTiles = type.passableTerrain;
     }
 
-    void add(Batallion other){
+    void add(Battalion other){
         if(this.units.keys == other.units.keys){
             foreach(unit; this.units.keys){
                 this.units[unit] += other.units[unit];
@@ -70,6 +75,16 @@ class Batallion {
             }
         }
         return false;
+    }
+
+    bool canMoveTo(Coordinate location, World world){
+        return this.passableTiles.canFind(world[location.x][location.y].terrain) && world.getTileAt(location).battalion == null;
+    }
+
+    void move(Direction direction, World world){
+        if(this.canMoveTo(getCoordinateFromDirection(this.location, direction), world)){
+            this.location = getCoordinateFromDirection(this.location, direcion);
+        }
     }
 
 }

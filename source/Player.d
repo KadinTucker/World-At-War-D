@@ -13,7 +13,7 @@ class Player{
     int resources;
     int territory;
     City[] cities;
-    Batallion[][] military;
+    Battalion[][] military;
 
     this(string name, int number){
         this.name = name;
