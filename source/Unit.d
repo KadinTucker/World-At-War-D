@@ -1,3 +1,6 @@
+import std.conv;
+import std.algorithm;
+
 import World;
 import Player;
 
@@ -42,6 +45,14 @@ struct BattalionType {
 
 }
 
+BattalionType[] getAllBattalionTypes(){
+    BattalionType[] allTypes;
+    foreach(type; __traits(allMembers, BattalionTypes)){
+        allTypes ~= type.to!BattalionTypes;
+    }
+    return allTypes;
+}
+
 class Battalion {
 
     Coordinate location;
@@ -78,12 +89,12 @@ class Battalion {
     }
 
     bool canMoveTo(Coordinate location, World world){
-        return this.passableTiles.canFind(world[location.x][location.y].terrain) && world.getTileAt(location).battalion == null;
+        return this.passableTiles.canFind(world.tiles[location.x][location.y].terrain) && world.getTileAt(location).battalion is null;
     }
 
     void move(Direction direction, World world){
-        if(this.canMoveTo(getCoordinateFromDirection(this.location, direction), world)){
-            this.location = getCoordinateFromDirection(this.location, direcion);
+        if(this.canMoveTo(this.location.getCoordinateFromDirection(direction), world)){
+            this.location = this.location.getCoordinateFromDirection(direction);
         }
     }
 

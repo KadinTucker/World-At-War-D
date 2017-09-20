@@ -13,10 +13,10 @@ enum Terrain {
 }
 
 enum Direction {
-    NORTH=[0, -1],
-    EAST=[1, 0],
-    SOUTH=[0, 1],
-    WEST=[-1, 0],
+    NORTH=0,
+    EAST=1,
+    SOUTH=2,
+    WEST=3,
 }
 
 struct Coordinate {
@@ -24,11 +24,26 @@ struct Coordinate {
     int x;
     int y;
 
+    Coordinate getCoordinateFromDirection(Direction direction){
+        int[2] change;
+        if(direction == Direction.NORTH){
+            change[1] = -1;
+        }
+        else if(direction == Direction.EAST){
+            change[0] = 1;
+        }
+        if(direction == Direction.SOUTH){
+            change[1] = 1;
+        }
+        if(direction == Direction.WEST){
+            change[0] = -1;
+        }
+        return Coordinate(x + change[0], y + change[1]);
+    }
+
 }
 
-Coordinate getCoordinateFromDirection(Coordinate location, Direction direction){
-    return Coordinate(this.location.x + direction[0], this.location.y + direction[1]);
-}
+
 
 class Tile {
 
@@ -54,7 +69,7 @@ class World {
             tiles ~= blankArray.dup;
             //writeln(tiles);
             for(int y = 0; y < ncols; y++){
-                tiles[x] ~= Tile(Terrain.WATER);
+                tiles[x] ~= new Tile(Terrain.WATER);
             }
         }
         for(int i = 0; i < ncontinents; i++){
@@ -65,7 +80,7 @@ class World {
         while (generated < (nrows * ncols) / 3){
             for(int x = 0; x < tiles.length; x++){
                 for(int y = 0; y < tiles[x].length; y++){
-                    if(tiles[x][y] != land){
+                    if(tiles[x][y].terrain != Terrain.LAND){
                         correlation = 0;
                         if(y < tiles[x].length - 1 && tiles[x][y+1].terrain == Terrain.LAND){
                             correlation += 0.25;
@@ -92,56 +107,6 @@ class World {
     Tile getTileAt(Coordinate location){
         return tiles[location.x][location.y];
     }
-
-    void printWorld() {
-        for(int x = 0; x < tiles.length; x++){
-            for(int y = 0; y < tiles[x].length; y++){
-                write('|');
-                write(tiles[x][y]);
-            }
-            write(" |",x);
-            writeln();
-        }
-
-        for(int i=0; i < tiles[0].length; i++){
-            write("__");
-        }
-        writeln();
-
-        int maxDigits = countDigits(tiles[0].length);
-        int numToWrite;
-        int numIterations;
-        for(int i = maxDigits; i > 0; i--){
-            write(" ");
-            for(int j = 0; j < tiles[0].length; j++){
-                if(countDigits(j) > numIterations){
-                    numToWrite = j * pow(10, maxDigits - countDigits(j));
-                    write(getNthDigit(numToWrite, i));
-                }else{
-                    write(" ");
-                }
-                write(" ");
-            }
-            writeln();
-            numIterations++;
-        }
-    }
-}
-
-int countDigits(int num) {
-    if(num == 0){
-        return 1;
-    }
-    int count = 0;
-    while(num > 0){
-        num /= 10;
-        count += 1;
-    }
-    return count;
-}
-
-int getNthDigit(int num, int digit) {
-    return (num / pow(10, digit - 1)) % 10;
 }
 
 unittest{

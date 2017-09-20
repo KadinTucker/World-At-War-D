@@ -13,12 +13,19 @@ class Player{
     int resources;
     int territory;
     City[] cities;
-    Battalion[][] military;
+    Battalion[BattalionType] military;
 
     this(string name, int number){
         this.name = name;
         this.number = number;
         this.resources = startingResources;
+    }
+
+    void settleCity(World world, Coordinate location){
+        if(world.getTileAt(location).owner == this){
+            territory -= 1;
+            cities ~= new City(location);
+        }
     }
 
 }
