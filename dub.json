@@ -1,0 +1,20 @@
+﻿{
+	"name": "world-at-war",
+
+	"authors": [
+
+		"Kadin Tucker"
+
+	],
+
+	"description": "A turn-based strategy game about world war era combat, city building, and territorial expansion.",
+
+	"copyright": "Copyright © 2017, Kadin Tucker",
+
+	"license": "proprietary",
+	"dependencies": {
+			 "gfm:sdl2": "~>6.2.12",
+			 "gfm:logger": "~>6.2.12"
+     }
+
+}
