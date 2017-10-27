@@ -1,33 +1,73 @@
 import World;
 import Unit;
+import Player;
 
 immutable int baseCityLevel = 3;
+immutable int resourcesPerLevel = 1;
+immutable int levelsPerAction = 5;
+immutable double percentRepairedPerTurn = 0.1;
 
-class City{
+class City {
 
-    Coordinate location;
-    int level;
-    Battalion[] garrison;
-    int defense;
-    int maxDefense;
+    Coordinate location;            ///The location of this city.
+    Player owner;                   ///The player who controls this city.
+    int level;                      ///The level of this city, affects production and number of actions.
+    int actions;                    ///The number of actions this city can take.
+    Battalion[] garrison;           ///The armies/fleets garrisoned in the city.
+    int defense;                    ///The current defense value of the city.
+    int maxDefense;                 ///The maximum defense value of the city.
 
-    this(Coordinate location, int level=3){
+    /**
+     * Constructs a new city.
+     * Params:
+     *      location = the location where this city is placed
+     *      owner = the one placing the city; to become the owner
+     *      level = the starting level of the city; by default the base city level variable. Starting cities start at level 5
+     */
+    this(Coordinate location, Player owner, int level=baseCityLevel){
         this.location = location;
+        this.owner = owner;
         this.level = level;
     }
 
-    void getDefense(){
+    /**
+     * Gets the maximum defense that this city can have.
+     * The city level times 10 is the base defense, plus the defensive strength of all units garrisoned.
+     */
+    int getDefense(){
         int totalDefense = 0;
         foreach(battalion; garrison){
             foreach(unitType; battalion.units.keys){
                 totalDefense += this.level * unitType.defenseValue * battalion.units[unitType];
             }
         }
-        this.defense = this.level * 10 + (totalDefense / 100);
+        return this.level * 10 + (totalDefense / 100);
     }
 
+    /**
+     * The actions that are performed when the turn ends.
+     * The city repairs itself if damaged, and if not, provides its owner with resources.
+     * The city's actions are refreshed.
+     */
+    void resolveTurn(){
+        this.maxDefense = this.getDefense();  //TODO: Make sure that when garrison is mobilized, reduce defense to its proportional value. Make repair method?
+        if(this.defense < this.maxDefense){
+            this.defense += this.maxDefense * percentRepairedPerTurn;
+            if(this.defense > this.maxDefense){
+                this.defense = this.maxDefense;
+            }
+        }else{
+            this.owner.resources += this.level * resourcesPerLevel;
+        }
+        this.actions = this.level / levelsPerAction + 1;
+    }
+
+    /**
+     * Consumes a city action to increase the city's level by one.
+     */
     void develop(){
         this.level += 1;
+        this.actions -= 1;
     }
 
     void produce(){
