@@ -13,8 +13,8 @@
 
 	"license": "proprietary",
 	"dependencies": {
-			 "gfm:sdl2": "~>6.2.12",
-			 "gfm:logger": "~>6.2.12"
+			 "gfm": "~>6.2.12"
+
      }
 
 }

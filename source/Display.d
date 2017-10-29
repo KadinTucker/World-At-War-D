@@ -16,8 +16,7 @@ enum GuiSlotCoordinates {
 
 }
 */
-
-class Display{
+class Display {
 
     Logger logger;
     SDL2 sdl;
@@ -28,8 +27,8 @@ class Display{
     this(int width, int height){
         this.logger = new ConsoleLogger();
         this.sdl = new SDL2(logger);
-        this.window = new SDL2Window(this.sdl, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS);
-        this.renderer = new SDL2Renderer(this.window, SDL_RENDERER_SOFTWARE);
+        this.window = new SDL2Window(this.sdl, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS);
+        this.renderer = new SDL2Renderer(this.window);
         this.window.setTitle("World at War");
     }
 
@@ -46,4 +45,11 @@ class Display{
         }
     }
 
+}
+
+unittest{
+    Logger logger = new ConsoleLogger();
+    SDL2 sdl = new SDL2(logger);
+    SDL2Window window = new SDL2Window(sdl, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS);
+    SDL2Renderer renderer = new SDL2Renderer(window);
 }

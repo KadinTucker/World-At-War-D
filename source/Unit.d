@@ -89,7 +89,7 @@ class Battalion {
     }
 
     bool canMoveTo(Coordinate location, World world){
-        return this.passableTiles.canFind(world.tiles[location.x][location.y].terrain) && world.getTileAt(location).battalion is null && (world.getTileAt(location).city is null || world.getTileAt(location).city.owner = this.owner);
+        return this.passableTiles.canFind(world.tiles[location.x][location.y].terrain) && world.getTileAt(location).battalion is null && (world.getTileAt(location).city is null || world.getTileAt(location).city.owner == this.owner);
     }
 
     void move(Direction direction, World world){

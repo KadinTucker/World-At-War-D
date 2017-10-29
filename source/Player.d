@@ -37,7 +37,7 @@ class Player{
     bool settleCity(World world, Coordinate location){
         if(world.getTileAt(location).owner == this){
             territory -= 1;
-            cities ~= new City(location);
+            cities ~= new City(location, this);
             return true;
         }
         return false;
