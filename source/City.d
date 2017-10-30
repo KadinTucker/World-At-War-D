@@ -52,7 +52,7 @@ class City {
     void resolveTurn(){
         this.maxDefense = this.getDefense();  //TODO: Make sure that when garrison is mobilized, reduce defense to its proportional value. Make repair method?
         if(this.defense < this.maxDefense){
-            this.defense += this.maxDefense * percentRepairedPerTurn;
+            this.defense += cast(int)(this.maxDefense * percentRepairedPerTurn);
             if(this.defense > this.maxDefense){
                 this.defense = this.maxDefense;
             }
