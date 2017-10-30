@@ -30,11 +30,7 @@ class Display {
     SDL2Window window;
     SDL2Renderer renderer;
     bool quit;
-
-    SDLTTF sdlttf;
-    SDLFont font;
-    SDL2Surface renderedText;
-    SDL2Texture textTexture;
+    GUI activeGui;
 
     this(int width, int height){
         this.logger = new ConsoleLogger();
@@ -42,20 +38,12 @@ class Display {
         this.window = new SDL2Window(this.sdl, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN |  SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS);
         this.renderer = new SDL2Renderer(this.window);
         this.window.setTitle("World at War");
-        this.sdlttf = new SDLTTF(this.sdl);
-        this.font = new SDLFont(sdlttf, "Cantarell-Regular.ttf", 15);
-        this.renderedText = this.font.renderTextBlended("Hello World", SDL_Color(0, 0, 0, 255));
-        this.textTexture = new SDL2Texture(this.renderer, this.renderedText);
     }
 
     ~this(){
         this.sdl.destroy();
         this.window.destroy();
         this.renderer.destroy();
-        this.font.destroy();
-        this.sdlttf.destroy();
-        this.renderedText.destroy();
-        this.textTexture.destroy();
     }
 
     void clearDisplay(RGBColor bgColor){
@@ -75,9 +63,8 @@ class Display {
 
     void displayAll(){
         this.clearDisplay(RGBColor(100, 100, 100));
-        this.renderer.setColor(50, 50, 50, 255);
-        this.renderer.drawRect(295, 295, 165, 25);
-        this.renderer.copy(textTexture, 300, 300);
+
+
         this.renderer.present();
     }
 
@@ -85,15 +72,71 @@ class Display {
 
 class GUI {
 
+    Panel[] panels;
+    bool[] enabled;
 
+    void addPanel(Panel toAdd){
+        this.panels ~= toAdd;
+        this.enabled ~= true;
+    }
 
+}
+
+GUI getMainMenuGui(Display display){
+    GUI gui = new GUI();
+    gui.addPanel(new TextPanel(RGBColor(100, 125, 100), 400, 200, "New Game", 37, display));
+    return gui;
 }
 
 class Panel {
 
+    RGBColor color;
+    int x;
+    int y;
+    int width;
+    int height;
+
+    this(RGBColor color, int x, int y, int width, int height){
+        this.color = color;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    void render(SDL2Renderer renderer){
+        renderer.setColor(this.color.r, this.color.g, this.color.b);
+        renderer.fillRect(this.x, this.y, this.width, this.height);
+        renderer.setColor(0, 0, 0);
+        renderer.drawRect(this.x, this.y, this.width, this.height);
+    }
+
 }
 
-class Button : Panel {
+class TextPanel : Panel {
 
+    string text;
+    SDL2Texture textTexture;
+
+    this(RGBColor color, int x, int y, string text, int fontsize, Display display){
+        SDLTTF sdlttf = new SDLTTF(display.sdl);
+        SDLFont font = new SDLFont(sdlttf, "Cantarell-Regular.ttf", fontsize);
+        SDL2Surface renderedText = font.renderTextBlended("Hello World", SDL_Color(0, 0, 0, 255));
+        this.textTexture = new SDL2Texture(display.renderer, renderedText);
+        super(color, x, y, cast(int)(fontsize * 0.67 * text.length), fontsize + 10);
+        //sdlttf.destroy();
+        font.destroy();
+        renderedText.destroy();
+    }
+
+    override void render(SDL2Renderer renderer){
+        super.render(renderer);
+        renderer.copy(textTexture, x + 5, y + 5);
+    }
 
 }
+
+//class Button : TextPanel {
+
+
+//}

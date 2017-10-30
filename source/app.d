@@ -5,7 +5,9 @@ import std.experimental.logger;
 import Display;
 
 void main(){
+
     Display display = new Display(1200, 600);
+    display.activeGui = getMainMenuGui(display);
     while(!display.quit){
         display.displayAll();
         display.handleEvents();
