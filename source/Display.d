@@ -66,6 +66,9 @@ class Display {
         foreach(panel; this.activeGui.panels){
             panel.render(this.renderer);
         }
+        foreach(button; this.activeGui.buttons){
+            button.render(this.renderer);
+        }
         this.renderer.present();
     }
 
@@ -89,9 +92,9 @@ class GUI {
 GUI getMainMenuGui(Display display){
     GUI gui = new GUI();
     gui.addPanel(new TextPanel(RGBColor(55, 60, 25), 350, 67, "WORLD AT WAR ", 50, display));
-    gui.addPanel(new TextPanel(RGBColor(110, 125, 50), 450, 200, "New Game ", 37, display));
-    gui.addPanel(new TextPanel(RGBColor(110, 125, 50), 450, 300, "Load Game", 37, display));
-    gui.addPanel(new TextPanel(RGBColor(110, 125, 50), 450, 400, "Quit     ", 37, display));
+    gui.addButton(new TextPanel(RGBColor(110, 125, 50), 450, 200, "New Game ", 37, display));
+    gui.addButton(new TextPanel(RGBColor(110, 125, 50), 450, 300, "Load Game", 37, display));
+    gui.addButton(new TextPanel(RGBColor(110, 125, 50), 450, 400, "Quit     ", 37, display));
     return gui;
 }
 
@@ -118,6 +121,10 @@ class Panel {
         renderer.drawRect(this.x, this.y, this.width, this.height);
     }
 
+    bool isPointIn(int x, int y){
+        return this.x - x >= 0 && this.x - x <= this.x + this.width && this.y - y >= 0 && this.y - y <= this.y + this.height;
+    }
+
 }
 
 class TextPanel : Panel {
@@ -134,6 +141,10 @@ class TextPanel : Panel {
         //sdlttf.destroy();
         font.destroy();
         renderedText.destroy();
+    }
+
+    ~this(){
+        this.textTexture.destroy();
     }
 
     override void render(SDL2Renderer renderer){
