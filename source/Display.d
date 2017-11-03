@@ -23,27 +23,43 @@ struct RGBColor {
     int b;
 }
 
+class SDLResource {
+
+    static SDL2 sdl;
+    static SDLTTF sdlttf;
+    static SDLImage sdlimage;
+
+    static void initialize(){
+        this.sdl = new SDL2(null);
+        this.sdlttf = new SDLTTF(sdl);
+        this.sdlimage = new SDLImage(sdl);
+    }
+
+    static void destroyAllResources(){
+        this.sdl.destroy();
+        this.sdlttf.destroy();
+        this.sdlimage.destroy();
+    }
+
+}
+
 class Display {
 
-    Logger logger;
-    SDL2 sdl;
     SDL2Window window;
     SDL2Renderer renderer;
     bool quit;
     GUI activeGui;
 
     this(int width, int height){
-        this.logger = new ConsoleLogger();
-        this.sdl = new SDL2(logger);
-        this.window = new SDL2Window(this.sdl, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN |  SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS);
+        this.window = new SDL2Window(SDLResource.sdl, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN |  SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS);
         this.renderer = new SDL2Renderer(this.window);
         this.window.setTitle("World at War");
     }
 
     ~this(){
-        this.sdl.destroy();
         this.window.destroy();
         this.renderer.destroy();
+        this.activeGui.destroy();
     }
 
     void clearDisplay(RGBColor bgColor){
@@ -54,7 +70,7 @@ class Display {
 
     void handleEvents(){
         SDL_Event event;
-        while(this.sdl.pollEvent(&event)){
+        while(SDLResource.sdl.pollEvent(&event)){
             if(event.type == SDL_QUIT){
                 this.quit = true;
             }
@@ -78,6 +94,15 @@ class GUI {
 
     Panel[] panels;
     Panel[] buttons;
+
+    ~this(){
+        foreach(panel; this.panels){
+            panel.destroy();
+        }
+        foreach(button; this.buttons){
+            button.destroy();
+        }
+    }
 
     void addPanel(Panel toAdd){
         this.panels ~= toAdd;
@@ -133,12 +158,10 @@ class TextPanel : Panel {
     SDL2Texture textTexture;
 
     this(RGBColor color, int x, int y, string text, int fontsize, Display display){
-        SDLTTF sdlttf = new SDLTTF(display.sdl);
-        SDLFont font = new SDLFont(sdlttf, "Cantarell-Regular.ttf", fontsize);
+        SDLFont font = new SDLFont(SDLResource.sdlttf, "Cantarell-Regular.ttf", fontsize);
         SDL2Surface renderedText = font.renderTextBlended(text, SDL_Color(0, 0, 0, 255));
         this.textTexture = new SDL2Texture(display.renderer, renderedText);
         super(color, x, y, cast(int)(fontsize * 0.67 * text.length), fontsize + 10);
-        //sdlttf.destroy();
         font.destroy();
         renderedText.destroy();
     }

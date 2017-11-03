@@ -6,16 +6,13 @@ import Display;
 
 void main(){
 
+    SDLResource.initialize();
     Display display = new Display(1200, 600);
     display.activeGui = getMainMenuGui(display);
     while(!display.quit){
         display.displayAll();
         display.handleEvents();
     }
-    import std.stdio;
-    writeln("finised loop");
-    display.sdl.destroy();
-    display.window.destroy();
-    display.renderer.destroy();
     display.destroy();
+    SDLResource.destroyAllResources();
 }
