@@ -13,8 +13,7 @@
 
 	"license": "proprietary",
 	"dependencies": {
-			 "gfm": "~>6.2.12"
-
+			 "d2d": "~>1.4.13"
      }
 
 }
