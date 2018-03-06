@@ -1,7 +1,7 @@
 module logic.player.Player;
 
 import logic.player.City;
-import logic.player.Unit;
+import logic.unit.Unit;
 import logic.world.Tile;
 import logic.world.World;
 
@@ -14,7 +14,7 @@ class Player{
     int resources;                      ///The number of resources this player has.
     int territory;                      ///The number of tiles this player owns.
     City[] cities;                      ///The cities under this player's control.
-    Battalion[BattalionType] military;  ///The armies and fleets this player controls.
+    Unit[] military;  ///The units this player controls.
 
     /**
      * Constructs a new Player.

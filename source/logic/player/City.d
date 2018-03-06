@@ -1,7 +1,7 @@
 module logic.player.City;
 
 import logic.player.Player;
-import logic.player.Unit;
+import logic.unit.Unit;
 import logic.world.Tile;
 import logic.world.World;
 
@@ -17,7 +17,6 @@ class City {
     Player owner;                   ///The player who controls this city.
     int level;                      ///The level of this city, affects production and number of actions.
     int actions;                    ///The number of actions this city can take.
-    Battalion[] garrison;           ///The armies/fleets garrisoned in the city.
     int defense;                    ///The current defense value of the city.
     int maxDefense;                 ///The maximum defense value of the city.
 
@@ -37,15 +36,10 @@ class City {
     /**
      * Gets the maximum defense that this city can have.
      * The city level times 10 is the base defense, plus the defensive strength of all units garrisoned.
+     * TODO
      */
     int getDefense(){
-        int totalDefense = 0;
-        foreach(battalion; garrison){
-            foreach(unitType; battalion.units.keys){
-                totalDefense += this.level * unitType.defenseValue * battalion.units[unitType];
-            }
-        }
-        return this.level * 10 + (totalDefense / 100);
+        return 0;
     }
 
     /**

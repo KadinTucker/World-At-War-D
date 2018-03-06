@@ -2,7 +2,7 @@ module logic.world.Tile;
 
 import logic.player.City;
 import logic.player.Player;
-import logic.player.Unit;
+import logic.unit.Unit;
 
 /**
  * An enumeration of all terrain types
@@ -61,7 +61,7 @@ Coordinate moveDirection(Coordinate coord, Direction direction) {
 class Tile {
 
     Terrain terrain;
-    Battalion battalion;
+    Unit unit;
     City city;
     Player owner;
 
