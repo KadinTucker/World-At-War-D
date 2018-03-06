@@ -1,5 +1,9 @@
 module logic.world.Tile;
 
+import logic.player.City;
+import logic.player.Player;
+import logic.player.Unit;
+
 /**
  * An enumeration of all terrain types
  */

@@ -1,6 +1,10 @@
-import World;
-import Unit;
-import Player;
+module logic.player.City;
+
+import logic.player.Player;
+import logic.player.Unit;
+import logic.world.Tile;
+import logic.world.World;
+
 
 immutable int baseCityLevel = 3;
 immutable int resourcesPerLevel = 1;

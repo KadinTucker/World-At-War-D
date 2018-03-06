@@ -1,8 +1,9 @@
-import std.stdio;
+module logic.player.Player;
 
-import Unit;
-import World;
-import City;
+import logic.player.City;
+import logic.player.Unit;
+import logic.world.Tile;
+import logic.world.World;
 
 immutable int startingResources = 50;
 

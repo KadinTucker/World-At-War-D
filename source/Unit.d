@@ -1,8 +1,11 @@
+module logic.player.Unit;
+
 import std.conv;
 import std.algorithm;
 
-import World;
-import Player;
+import logic.player.Player;
+import logic.world.Tile;
+import logic.world.World;
 
 enum Attributes {
     TANK=0,
@@ -93,8 +96,8 @@ class Battalion {
     }
 
     void move(Direction direction, World world){
-        if(this.canMoveTo(this.location.getCoordinateFromDirection(direction), world)){
-            this.location = this.location.getCoordinateFromDirection(direction);
+        if(this.canMoveTo(moveDirection(this.location, direction), world)) {
+            this.location = moveDirection(this.location, direction);
         }
     }
 
