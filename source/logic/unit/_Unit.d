@@ -10,7 +10,7 @@ import logic.world.World;
  */
 abstract class Unit {
 
-    UnitType[] troops; ///A list of all of the troop types in the unit
+    int[] troops; ///A list of all of the troop types in the unit
     Coordinate location; ///The location of the unit on the map
     Player owner; ///The owner of the unit
     World world; ///The world of which this unit is a part
