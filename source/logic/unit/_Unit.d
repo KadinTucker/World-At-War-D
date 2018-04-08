@@ -1,8 +1,11 @@
 module logic.unit.Unit;
 
+import logic.player.City;
 import logic.player.Player;
 import logic.world.Tile;
 import logic.world.World;
+
+import std.algorithm;
 
 /**
  * A unit to be found on the map
@@ -27,9 +30,18 @@ abstract class Unit {
         world.getTileAt(location).unit = this;
     }
 
+    /**
+     * The unit gets destroyed
+     * Any traces are removed
+     */
+    void getDestroyed() {
+        this.owner.military.remove(this.owner.military.countUntil(this));
+        world.getTileAt(location).unit = null;
+    }
+
     void takeDamage(int damage); ///What happens when the unit takes a certain amount of damage
     void move(); ///What happens when the unit moves
     void attack(Coordinate target); ///What happens when the unit attacks
-    int garrison(); ///What strength the unit provides for a city while garrisoned
+    void garrison(Unit attacker, City toDefend); ///What the unit does when its city is attacked
 
 }
