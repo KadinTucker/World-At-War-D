@@ -12,6 +12,8 @@ class World {
 
     Tile[][] tiles; ///The tiles of the world
 
+    alias tiles this;
+
     /**
      * Constructs a new world, using the given world parameters
      * TODO: Add config file to determine worldgen parameters
