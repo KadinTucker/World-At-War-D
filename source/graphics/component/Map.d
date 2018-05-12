@@ -13,7 +13,7 @@ class Map : Component {
     iVector pan; //The offset of the center of the map
     World world; //The world to be drawn by the map
     Texture waterTexture; //The water texture to be drawn
-    Texture landTexture; //The land textuer
+    Texture landTexture; //The land texture
 
     /**
      * Constructs a new map in the given display, bounded by the given rectangle 
