@@ -40,18 +40,7 @@ class Map : Component {
      * Pans the map using the arrow keys
      */
     void handleEvent(SDL_Event event) {
-        if(this.container.keyboard.allKeys[SDLK_UP].isPressed) {
-            this.pan.y += 7;
-        }
-        if(this.container.keyboard.allKeys[SDLK_RIGHT].isPressed) {
-            this.pan.x -= 7;
-        }
-        if(this.container.keyboard.allKeys[SDLK_DOWN].isPressed) {
-            this.pan.y -= 7;
-        }
-        if(this.container.keyboard.allKeys[SDLK_LEFT].isPressed) {
-            this.pan.x += 7;
-        }
+        
     }
 
     /**
@@ -68,6 +57,18 @@ class Map : Component {
                             this._location.initialPoint.y + this.pan.y + 50 * y);
                 }
             }
+        }
+        if(this.container.keyboard.allKeys[SDLK_UP].isPressed) {
+            this.pan.y += 7;
+        }
+        if(this.container.keyboard.allKeys[SDLK_RIGHT].isPressed) {
+            this.pan.x -= 7;
+        }
+        if(this.container.keyboard.allKeys[SDLK_DOWN].isPressed) {
+            this.pan.y -= 7;
+        }
+        if(this.container.keyboard.allKeys[SDLK_LEFT].isPressed) {
+            this.pan.x += 7;
         }
     }
 
