@@ -30,7 +30,10 @@ class Map : Component {
         this.waterTexture = new Texture(loadImage("res/Tile/water.png"), this.container.renderer);
         this.landTexture = new Texture(loadImage("res/Tile/land.png"), this.container.renderer);
         this.cityTexture = new Texture(loadImage("res/City/shenyang.png"), this.container.renderer);
-        this.world[4][6].city = new City(Coordinate(4, 7), null, 8);
+        this.selectedColor = Color(255, 255, 255, 100);
+        this.world[4][7].city = new City(Coordinate(4, 7), null, 8);
+        this.world[7][7].city = new City(Coordinate(7, 7), null, 30);
+        this.world[14][12].city = new City(Coordinate(14, 12), null, 13);
     }
 
     /**
@@ -52,6 +55,7 @@ class Map : Component {
      * Draws the map to the screen
      */
     override void draw() {
+        //Draw tiles, cities, armies
         for(int x; x < this.world.length; x++) {
             for(int y; y < this.world[x].length; y++) {
                 if(world[x][y].terrain == Terrain.WATER) {
@@ -67,6 +71,9 @@ class Map : Component {
                 }
             }
         }
+        this.container.renderer.fill(new iRectangle(this.pan.x + 50 * ((this.container.mouse.location.x - this.pan.x) / 50), 
+                this.pan.y + 50 * ((this.container.mouse.location.y - this.pan.y) / 50), 50, 50), Color(255, 255, 255, 100));
+        //Pan map with arrow keys
         if(this.container.keyboard.allKeys[SDLK_UP].isPressed) {
             this.pan.y += 14;
         }
