@@ -8,21 +8,20 @@ import logic.world.Tile;
  * A class which gets the location on the map where the user clicks
  * Stores the location where the player clicked
  */
-class LocationQuery : Query!Coordinate {
+class DirectionQuery : Query!Direction {
 
-    Coordinate coord;
+    Direction direction;
 
     /**
      * Constructs a new Query
      */
-    this(void delegate(Coordinate) action) {
+    this(void delegate(Direction) action) {
         super(action);
     }
 
     /**
-     * Checks if the player clicked a valid location
-     * If so, sets the query's location to be such
-     *  and returns true
+     * Checks if the player has chosen a direction
+     * Uses the arrow keys to determine direction
      * TODO:
      */
     override void ask(SDL_Event event) {
@@ -31,7 +30,7 @@ class LocationQuery : Query!Coordinate {
 
     /**
      * Indicates that the player should choose a location
-     * Indicates by highlighting 
+     * by displaying a message 
      * TODO:
      */
     override void indicate(Display display) {
