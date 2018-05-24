@@ -1,4 +1,4 @@
-module graphics.gui.query.LocationQuery;
+module graphics.gui.query.KeyboardQuery;
 
 import d2d;
 import graphics.gui.query.Query;
