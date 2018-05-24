@@ -1,7 +1,7 @@
-module graphics.gui.LocationQuery;
+module graphics.gui.query.LocationQuery;
 
 import d2d;
-import graphics.gui.Query;
+import graphics.gui.query.Query;
 
 /**
  * A class which gets input from the user's keyboard

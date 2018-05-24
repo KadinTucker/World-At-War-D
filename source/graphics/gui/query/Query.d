@@ -1,4 +1,4 @@
-module graphics.gui.Query;
+module graphics.gui.query.Query;
 
 import d2d;
 
