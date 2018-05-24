@@ -7,7 +7,6 @@ import logic.world.World;
 
 /**
  * The main game activity
- * TODO: basically everything
  */
 class GameActivity : Activity {
 

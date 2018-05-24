@@ -17,6 +17,10 @@ void loadSkylines() {
     skylines ~= loadImage("res/City/ny.png");
 }
 
+/**
+ * Generates a semi-random texture for a city
+ * Creates mostly unique textures
+ */
 Texture generateCityTexture(City city, Renderer renderer) {
     Surface cityTexture = new Surface(50, 50, SDL_PIXELFORMAT_RGBA32);
     foreach(i; 0..city.level) {

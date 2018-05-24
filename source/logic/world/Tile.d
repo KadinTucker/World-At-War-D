@@ -15,7 +15,7 @@ enum Terrain {
 }
 
 /**
- * An enumeration of all directions
+ * An enumeration of all directions one can travel
  */
 enum Direction {
     NORTH=0,
@@ -25,7 +25,7 @@ enum Direction {
 }
 
 /**
- * A coordinate, with x and y values
+ * A coordinate, with x and y value
  */
 struct Coordinate {
 
@@ -35,7 +35,8 @@ struct Coordinate {
 }
 
 /**
- * Given a coordinate, returns the coordinate that results from moving in the given direction
+ * Given a coordinate, returns the coordinate that 
+ * results from moving in the given direction
  */
 Coordinate moveDirection(Coordinate coord, Direction direction) {
         int[2] change;
@@ -56,15 +57,19 @@ Coordinate moveDirection(Coordinate coord, Direction direction) {
 
 /**
  * A tile to be found in the world
- * Has a terrain; may also house a battalion, city, and may be owned by a player as territory
+ * Has a terrain; may also house a battalion, city, 
+ * and may be owned by a player as territory
  */
 class Tile {
 
-    Terrain terrain;
-    Unit unit;
-    City city;
-    Player owner;
+    Terrain terrain; ///The terrain type of the tile
+    Unit unit; ///Any unit that may be on this tile
+    City city; ///A city that may be on this tile
+    Player owner; ///The owner of this tile
 
+    /**
+     * Constructs a new tile with the given terrain
+     */
     this(Terrain terrain) {
         this.terrain = terrain;
     }

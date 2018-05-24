@@ -12,10 +12,13 @@ class World {
 
     Tile[][] tiles; ///The tiles of the world
 
-    alias tiles this;
+    alias tiles this; //Allows the world to be indexed to get tiles at coordinates
 
     /**
      * Constructs a new world, using the given world parameters
+     * Randomly places ncontinents land tiles, then places land tiles
+     * next to existing land with a higher chance the more tiles there are surrounding
+     * until the world is about one third land
      * TODO: Add config file to determine worldgen parameters
      */
     this(int ncontinents, int nrows, int ncols){

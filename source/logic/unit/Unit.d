@@ -39,9 +39,27 @@ abstract class Unit {
         world.getTileAt(location).unit = null;
     }
 
-    void takeDamage(int damage); ///What happens when the unit takes a certain amount of damage
-    void move(); ///What happens when the unit moves
-    void attack(Coordinate target); ///What happens when the unit attacks
-    void garrison(Unit attacker, City toDefend); ///What the unit does when its city is attacked
+    /**
+     * What happens when the unit is attacked
+     * with the given amount of damage
+     */
+    void takeDamage(int damage); 
+
+    /**
+     * What happens when the unit takes a movement action
+     */
+    void move();
+
+    /**
+     * Attacks the given target
+     * Index references the specific troop that attacks
+     */
+    void attack(Coordinate target, int index);
+
+    /**
+     * How the unit impacts a city while garrisoned
+     * and being attacked
+     */
+    void garrison(Unit attacker, City toDefend);
 
 }
