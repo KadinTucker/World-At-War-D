@@ -40,7 +40,7 @@ class Army : Unit {
     /**
      * Attacks the target location
      */
-    override void attack(Coordinate target) {
+    override void attack(Coordinate target, int index) {
 
     }
 
