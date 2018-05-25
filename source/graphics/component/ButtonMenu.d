@@ -12,20 +12,23 @@ import graphics.gui.ActionButton;
 class ButtonMenu : Component {
 
     ActionButton[6] configuration; ///The configuration of buttons currently used
+    Texture blankButton; ///The texture to draw when there is no button
+    iRectangle _location; ///The location and dimensions of the menu
 
     /**
      * Constructs a new button menu in the given display
      */
-    this(Display container) {
+    this(Display container, iRectangle location) {
         super(container);
+        this._location = location;
+        this.blankButton = new Texture(loadImage("res/Button/base.png"), container.renderer);
     }
 
     /**
      * Returns the location of the button menu
-     * TODO:
      */
     override @property iRectangle location() {
-        return null;
+        return this._location;
     }
 
     /**
@@ -41,7 +44,12 @@ class ButtonMenu : Component {
      * TODO:
      */
     override void draw() {
-
+        for(int i; i < 6; i++) {
+            if(this.configuration[i] is null) {
+                this.container.renderer.copy(this.blankButton, this._location.initialPoint.x + i * 115,
+                        this._location.initialPoint.y);
+            }
+        }
     }
         
 }

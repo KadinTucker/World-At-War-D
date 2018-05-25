@@ -2,7 +2,7 @@ module graphics.activity.GameActivity;
 
 import d2d;
 
-import graphics.components.Map;
+import graphics.components;
 import logic.world.World;
 
 /**
@@ -20,7 +20,8 @@ class GameActivity : Activity {
     this(Display container) {
         super(container);
         this.world = new World(6, 30, 40);
-        this.components ~= new Map(container, new iRectangle(0, 0, 900, 600), this.world);
+        this.components ~= new Map(container, new iRectangle(0, 0, 1100, 540), this.world);
+        this.components ~= new ButtonMenu(container, new iRectangle(0, 540, 690, 60));
     }
 
     override void draw() {
