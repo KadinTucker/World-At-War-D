@@ -8,17 +8,17 @@ import logic;
  * A class which tries to take an input from the user
  * Template is that which the query will yield
  */
-abstract class Query(T) {
+abstract class Query {
 
-    void delegate(T) action; ///The action performed once the query is fulfilled
+    Action action; ///The action performed once the query is fulfilled
     bool isFulfilled; ///Whether or not this query is fulfilled
 
-    this(void delegate(T) action) {
+    this(Action action) {
         this.action = action;
     }
 
     /**
-     * Tries to get input from the user
+     * Tries to get input from the user to fulfil the query
      */
     abstract void ask(SDL_Event event);
 

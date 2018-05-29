@@ -1,6 +1,7 @@
 module graphics.gui.query.DirectionQuery;
 
 import d2d;
+import graphics.gui.action.Action;
 import graphics.gui.query.Query;
 import logic.world.Tile;
 
@@ -8,14 +9,14 @@ import logic.world.Tile;
  * A class which gets the location on the map where the user clicks
  * Stores the location where the player clicked
  */
-class DirectionQuery : Query!Direction {
+class DirectionQuery : Query {
 
     Direction direction;
 
     /**
      * Constructs a new Query
      */
-    this(void delegate(Direction) action) {
+    this(Action action) {
         super(action);
     }
 

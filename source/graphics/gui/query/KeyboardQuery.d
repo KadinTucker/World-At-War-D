@@ -1,20 +1,21 @@
 module graphics.gui.query.KeyboardQuery;
 
 import d2d;
+import graphics.gui.action.Action;
 import graphics.gui.query.Query;
 
 /**
  * A class which gets input from the user's keyboard
  * Can be numbers or a long string
  */
-class KeyboardQuery : Query!string {
+class KeyboardQuery : Query {
 
     string currentText;
 
     /**
      * Constructs a new Query
      */
-    this(void delegate(string) action) {
+    this(Action action) {
         super(action);
     }
 

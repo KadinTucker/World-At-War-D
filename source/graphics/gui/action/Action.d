@@ -7,15 +7,23 @@ import logic;
 /**
  * A class which denotes an action
  */
-class Action {
+abstract class Action {
 
     string name; ///The name of this action
+    GameActivity container; ///The activity containing this action
 
     /**
      * Constructs a new action with the given name
      */
-    this(string name) {
+    this(string name, GameActivity container) {
         this.name = name;
+    }
+
+    /**
+     * Performs the action
+     */
+    abstract void performWithLocation() {
+
     }
 
 }
