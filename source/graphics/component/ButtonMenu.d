@@ -2,8 +2,7 @@ module graphics.components.ButtonMenu;
 
 import d2d;
 import graphics.gui.query.Query;
-import graphics.gui.ActionButton;
-
+import graphics.gui.action;
 /**
  * A component which shows all of the buttons
  * Contains a button configuration
@@ -11,7 +10,7 @@ import graphics.gui.ActionButton;
  */
 class ButtonMenu : Component {
 
-    ActionButton[6] configuration; ///The configuration of buttons currently used
+    Action[6] configuration; ///The configuration of actions currently used
     Texture blankButton; ///The texture to draw when there is no button
     iRectangle _location; ///The location and dimensions of the menu
 

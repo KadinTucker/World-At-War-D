@@ -1,6 +1,8 @@
 module graphics.gui.query.Query;
 
 import d2d;
+import graphics;
+import logic;
 
 /**
  * A class which tries to take an input from the user
