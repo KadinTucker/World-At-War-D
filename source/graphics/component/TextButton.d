@@ -1,4 +1,4 @@
-module graphics.components.PanelText;
+module graphics.components.TextButton;
 
 import d2d;
 
