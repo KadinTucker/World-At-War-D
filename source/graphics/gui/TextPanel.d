@@ -1,32 +1,6 @@
-module graphics.components.TextButton;
+module graphics.gui.TextPanel;
 
 import d2d;
-
-/**
- * A button consisting of an image
- * Has no default action; must be manually accessed
- */
-class TextButton : Button {
-
-    Texture image; ///The image of the button to display
-
-    /**
-     * Creates a new text button
-     */
-    this(Display container, iRectangle location, Surface image) {
-        super(container, location);
-        this.image = new Texture(image, this.container.renderer);
-    }
-
-    override void action() {
-
-    }
-
-    override void draw() {
-        this.container.renderer.copy(this.image, this.location);
-    }
-
-}
 
 /**
  * Creates an panel image with given text to fit to the panel's dimensions
