@@ -11,4 +11,10 @@ class ActionButton {
     string name; ///The name of this action
     void delegate(Display container) action; ///The action this button performs
 
+    this(Texture texture, string name, void delegate(Display) action) {
+        this.texture = texture;
+        this.name = name;
+        this.action = action;
+    }
+
 }

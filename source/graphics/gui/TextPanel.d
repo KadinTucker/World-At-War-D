@@ -14,10 +14,3 @@ Surface createPanelWithText(Surface panelSurface, iRectangle panel, string text,
     panelSurface.blit(font.renderTextSolid(text, color), null, borderSize, borderSize);
     return panelSurface;
 }
-
-/**
- * Does two in one; creates a text button using the createPanelWithText function
- */
-Button createTextButton(Display display, string baseFilename, iRectangle location, string text, int borderSize = 3, Color color = Color(0, 0, 0)){
-    return new TextButton(display, location, createPanelWithText(loadImage(baseFilename), location, text, borderSize, color));
-}
