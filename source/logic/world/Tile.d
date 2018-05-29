@@ -27,10 +27,18 @@ enum Direction {
 /**
  * A coordinate, with x and y value
  */
-struct Coordinate {
+class Coordinate {
 
-    int x;
-    int y;
+    int x; ///The x value of the coordinate
+    int y; ///The y value of the coordinate
+
+    /**
+     * Constructs a new coordinate
+     */
+    this(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
 }
 
@@ -52,7 +60,7 @@ Coordinate moveDirection(Coordinate coord, Direction direction) {
         if(direction == Direction.WEST) {
             change[0] = -1;
         }
-        return Coordinate(coord.x + change[0], coord.y + change[1]);
+        return new Coordinate(coord.x + change[0], coord.y + change[1]);
     }
 
 /**
