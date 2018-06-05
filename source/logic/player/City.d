@@ -3,33 +3,30 @@ module logic.player.City;
 import logic.player.Player;
 import logic.unit.Unit;
 import logic.world.Tile;
+import logic.world.TileElement;
 import logic.world.World;
 
+immutable int baseCityLevel = 3; ///The normal level at which cities begin
+immutable int resourcesPerLevel = 1; ///The number of resources a city yields per turn per level
+immutable int levelsPerAction = 5; ///The number of levels a city must have before it can take an extra action
+immutable double percentRepairedPerTurn = 0.1; ///How much of a city's garrison is replenished every turn
 
-immutable int baseCityLevel = 3;
-immutable int resourcesPerLevel = 1;
-immutable int levelsPerAction = 5;
-immutable double percentRepairedPerTurn = 0.1;
+/**
+ * A stationary population and production center on the map
+ */
+class City : TileElement {
 
-class City {
-
-    Coordinate location;            ///The location of this city.
-    Player owner;                   ///The player who controls this city.
-    int level;                      ///The level of this city, affects production and number of actions.
-    int actions;                    ///The number of actions this city can take.
-    int defense;                    ///The current defense value of the city.
-    int maxDefense;                 ///The maximum defense value of the city.
+    int level; ///The level of this city, affects production and number of actions.
+    int actions; ///The number of actions this city can take.
+    int defense; ///The current defense value of the city.
+    int maxDefense; ///The maximum defense value of the city.
 
     /**
-     * Constructs a new city.
-     * Params:
-     *      location = the location where this city is placed
-     *      owner = the one placing the city; to become the owner
-     *      level = the starting level of the city; by default the base city level variable. Starting cities start at level 5
+     * Constructs a new city owned by the given player
+     * at the given location in the given world, starting at the given level
      */
-    this(Coordinate location, Player owner, int level=baseCityLevel){
-        this.location = location;
-        this.owner = owner;
+    this(Player owner, Coordinate location, World world, int level=baseCityLevel){
+        super(owner, location, world);
         this.level = level;
     }
 

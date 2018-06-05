@@ -30,9 +30,9 @@ class Map : Component {
         this.waterTexture = new Texture(loadImage("res/Tile/water.png"), this.container.renderer);
         this.landTexture = new Texture(loadImage("res/Tile/land.png"), this.container.renderer);
         this.cityTexture = new Texture(loadImage("res/City/shenyang.png"), this.container.renderer);
-        this.world[4][7].city = new City(new Coordinate(4, 7), null, 8);
-        this.world[7][7].city = new City(new Coordinate(7, 7), null, 30);
-        this.world[14][12].city = new City(new Coordinate(14, 12), null, 13);
+        this.world[4][7].city = new City(null, new Coordinate(4, 7), this.world, 8);
+        this.world[7][7].city = new City(null, new Coordinate(7, 7), this.world, 30);
+        this.world[14][12].city = new City(null, new Coordinate(14, 12), this.world, 13);
     }
 
     /**

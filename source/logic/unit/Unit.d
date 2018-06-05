@@ -3,6 +3,7 @@ module logic.unit.Unit;
 import logic.player.City;
 import logic.player.Player;
 import logic.world.Tile;
+import logic.world.TileElement;
 import logic.world.World;
 
 import std.algorithm;
@@ -11,21 +12,16 @@ import std.algorithm;
  * A unit to be found on the map
  * Units have varying properties which should be implemented in subclasses
  */
-abstract class Unit {
+abstract class Unit : TileElement {
 
     int[] troops; ///A list of all of the troop types in the unit
-    Coordinate location; ///The location of the unit on the map
-    Player owner; ///The owner of the unit
-    World world; ///The world of which this unit is a part
 
     /**
      * Constructs a new unit
      * Initializes the unit for the player at the given location in the given world
      */
     this(Player owner, Coordinate location, World world) {
-        this.owner = owner;
-        this.location = location;
-        this.world = world;
+        super(owner, location, world);
         owner.military ~= this;
         world.getTileAt(location).unit = this;
     }
