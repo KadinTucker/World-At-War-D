@@ -11,10 +11,12 @@ import logic;
 abstract class Query {
 
     Action action; ///The action performed once the query is fulfilled
+    Display container; ///The display taking this query
     bool isFulfilled; ///Whether or not this query is fulfilled
 
-    this(Action action) {
+    this(Action action, Display container) {
         this.action = action;
+        this.container = container;
     }
 
     /**
@@ -25,6 +27,11 @@ abstract class Query {
     /**
      * Indicates that the query is being made on the display
      */
-    abstract void indicate(Display display);
+    abstract void indicate();
+
+    /**
+     * Performs the action stored
+     */
+    abstract void performAction();
 
 }

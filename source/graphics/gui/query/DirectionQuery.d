@@ -16,8 +16,8 @@ class DirectionQuery : Query {
     /**
      * Constructs a new Query
      */
-    this(Action action) {
-        super(action);
+    this(Action action, Display container) {
+        super(action, container);
     }
 
     /**
@@ -34,8 +34,15 @@ class DirectionQuery : Query {
      * by displaying a message 
      * TODO:
      */
-    override void indicate(Display display) {
+    override void indicate() {
 
+    }
+
+    /**
+     * Does the stored action in the collected direction
+     */
+    override void performAction() {
+        this.action.performAfterQuery(moveDirection(this.action.origin, coord));
     }
 
 }

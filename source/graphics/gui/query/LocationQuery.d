@@ -16,8 +16,8 @@ class LocationQuery : Query {
     /**
      * Constructs a new Query
      */
-    this(Action action) {
-        super(action);
+    this(Action action, Display container) {
+        super(action, container);
     }
 
     /**
@@ -35,8 +35,15 @@ class LocationQuery : Query {
      * Indicates by highlighting 
      * TODO:
      */
-    override void indicate(Display display) {
+    override void indicate() {
 
+    }
+
+    /**
+     * Does the stored action with the collected location
+     */
+    override void performAction() {
+        this.action.performAfterQuery(coord);
     }
 
 }

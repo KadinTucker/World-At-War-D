@@ -15,8 +15,8 @@ class KeyboardQuery : Query {
     /**
      * Constructs a new Query
      */
-    this(Action action) {
-        super(action);
+    this(Action action, Display container) {
+        super(action, container);
     }
 
     /**
@@ -35,8 +35,15 @@ class KeyboardQuery : Query {
      * is typing
      * TODO:
      */
-    override void indicate(Display display) {
+    override void indicate() {
 
+    }
+
+    /**
+     * Does the stored action with the collected string
+     */
+    override void performAction() {
+        this.action.performAfterQuery(null, currentText);
     }
 
 }
