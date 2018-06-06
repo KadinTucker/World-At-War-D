@@ -1,8 +1,7 @@
 module graphics.gui.query.LocationQuery;
 
 import d2d;
-import graphics.gui.action.Action;
-import graphics.gui.query.Query;
+import graphics;
 import logic.world.Tile;
 
 /**
@@ -24,19 +23,23 @@ class LocationQuery : Query {
      * Checks if the player clicked a valid location
      * If so, sets the query's location to be such
      *  and returns true
-     * TODO:
      */
     override void ask(SDL_Event event) {
-        
+        if(event.type == SDL_MOUSEBUTTONDOWN) {
+            if(event.button.button == SDL_BUTTON_LEFT) {
+                if((cast(GameActivity)(this.container.activity)).components[0].location.contains(this.container.mouse.location)) {
+                    this.coord = (cast(Map)(cast(GameActivity)(this.container.activity)).components[0]).getHoveredTile();
+                }
+            }
+        }
     }
 
     /**
      * Indicates that the player should choose a location
      * Indicates by highlighting 
-     * TODO:
      */
     override void indicate() {
-
+        (cast(Map)(cast(GameActivity)(this.container.activity)).components[0]).fillHovered(Color(255, 0, 0, 50));
     }
 
     /**

@@ -70,8 +70,8 @@ class Map : Component {
                 }
             }
         }
-        this.container.renderer.fill(new iRectangle(this.pan.x + 50 * ((this.container.mouse.location.x - this.pan.x) / 50), 
-                this.pan.y + 50 * ((this.container.mouse.location.y - this.pan.y) / 50), 50, 50), Color(255, 255, 255, 100));
+        //Fill rectangle at hovered tile
+        this.fillHovered(Color(255, 255, 255, 100))
         //Pan map with arrow keys
         if(this.container.keyboard.allKeys[SDLK_UP].isPressed) {
             this.pan.y += 14;
@@ -85,6 +85,22 @@ class Map : Component {
         if(this.container.keyboard.allKeys[SDLK_LEFT].isPressed) {
             this.pan.x += 14;
         }
+    }
+
+    /**
+     * Fills in the hovered tile with the given color
+     */
+    void fillHovered(Color color) {
+        this.container.renderer.fill(new iRectangle(this.pan.x + 50 * this.getHoveredTile().x,
+                this.pan.y + 50 * this.getHoveredTile().y, 50, 50), color);
+    }
+
+    /**
+     * Gets the location of the tile hovered
+     */
+    Coordinate getHoveredTile() {
+        return new Coordinate((this.container.mouse.location.x - this.pan.x) / 50, 
+                (this.container.mouse.location.y - this.pan.y) / 50);
     }
 
 }
