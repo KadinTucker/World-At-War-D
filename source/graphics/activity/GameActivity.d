@@ -2,8 +2,8 @@ module graphics.activity.GameActivity;
 
 import d2d;
 
-import graphics.components;
-import logic.world.World;
+import graphics;
+import logic;
 
 /**
  * The main game activity
@@ -11,6 +11,8 @@ import logic.world.World;
 class GameActivity : Activity {
 
     World world; ///The world present in this game
+    Query query; ///The currently active query
+    TileElement selected; ///The currently selected object
 
     /**
      * Constructs a new GameActivity
@@ -25,7 +27,9 @@ class GameActivity : Activity {
     }
 
     override void draw() {
-
+        if(this.query !is null) {
+            this.query.indicate();
+        }
     }
 
 }

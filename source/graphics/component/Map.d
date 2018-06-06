@@ -71,7 +71,7 @@ class Map : Component {
             }
         }
         //Fill rectangle at hovered tile
-        this.fillHovered(Color(255, 255, 255, 100))
+        this.fillHovered(Color(255, 255, 255, 100));
         //Pan map with arrow keys
         if(this.container.keyboard.allKeys[SDLK_UP].isPressed) {
             this.pan.y += 14;
