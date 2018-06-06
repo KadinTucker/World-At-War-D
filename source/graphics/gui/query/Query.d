@@ -6,7 +6,6 @@ import logic;
 
 /**
  * A class which tries to take an input from the user
- * Template is that which the query will yield
  */
 abstract class Query {
 

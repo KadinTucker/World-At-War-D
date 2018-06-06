@@ -16,7 +16,6 @@ class Map : Component {
     World world; ///The world to be drawn by the map
     Texture waterTexture; ///The water texture to be drawn
     Texture landTexture; ///The land texture
-    Texture cityTexture; ///The texture for cities on the map
 
     /**
      * Constructs a new map in the given display, bounded by the given rectangle 
@@ -29,7 +28,6 @@ class Map : Component {
         this._location = location;
         this.waterTexture = new Texture(loadImage("res/Tile/water.png"), this.container.renderer);
         this.landTexture = new Texture(loadImage("res/Tile/land.png"), this.container.renderer);
-        this.cityTexture = new Texture(loadImage("res/City/shenyang.png"), this.container.renderer);
         this.world[4][7].city = new City(null, new Coordinate(4, 7), this.world, 8);
         this.world[7][7].city = new City(null, new Coordinate(7, 7), this.world, 30);
         this.world[14][12].city = new City(null, new Coordinate(14, 12), this.world, 13);
@@ -96,7 +94,7 @@ class Map : Component {
     }
 
     /**
-     * Gets the location of the tile hovered
+     * Gets the location of the tile over which the user's mouse is located 
      */
     Coordinate getHoveredTile() {
         return new Coordinate((this.container.mouse.location.x - this.pan.x) / 50, 

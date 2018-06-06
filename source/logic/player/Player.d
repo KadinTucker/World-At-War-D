@@ -20,10 +20,8 @@ class Player {
     Unit[] military;  ///The units this player controls.
 
     /**
-     * Constructs a new Player.
-     * Params:
-     *      name = the name of the player
-     *      number = the player number of the player
+     * Constructs a new Player with the given name
+     * and given player id
      */
     this(string name, int number) {
         this.name = name;

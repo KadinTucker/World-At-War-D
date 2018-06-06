@@ -3,6 +3,7 @@ module graphics.components.ButtonMenu;
 import d2d;
 import graphics.gui.query.Query;
 import graphics.gui.action;
+
 /**
  * A component which shows all of the buttons
  * Contains a button configuration
@@ -40,7 +41,6 @@ class ButtonMenu : Component {
     
     /**
      * Draws the button menu to the screen
-     * TODO:
      */
     override void draw() {
         for(int i; i < 6; i++) {

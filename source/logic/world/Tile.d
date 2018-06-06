@@ -10,7 +10,7 @@ import logic.unit.Unit;
 enum Terrain {
 
     WATER=0,
-    LAND=1,
+    LAND=1
 
 }
 
@@ -18,10 +18,12 @@ enum Terrain {
  * An enumeration of all directions one can travel
  */
 enum Direction {
+
     NORTH=0,
     EAST=1,
     SOUTH=2,
-    WEST=3,
+    WEST=3
+
 }
 
 /**

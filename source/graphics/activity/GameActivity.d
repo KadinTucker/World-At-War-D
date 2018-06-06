@@ -7,12 +7,14 @@ import logic;
 
 /**
  * The main game activity
+ * Contains the major elements of the game
  */
 class GameActivity : Activity {
 
     World world; ///The world present in this game
     Query query; ///The currently active query
     TileElement selected; ///The currently selected object
+    Player[] players; ///The players in the game
 
     /**
      * Constructs a new GameActivity

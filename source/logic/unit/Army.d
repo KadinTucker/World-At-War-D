@@ -24,6 +24,7 @@ class Army : Unit {
     /**
      * Moves the unit
      * Can only move on land
+     * TODO:
      */
     override void move() {
         
@@ -32,6 +33,7 @@ class Army : Unit {
     /**
      * Takes damage
      * Tanks take damage before other units, then infantry
+     * TODO:
      */
     override void takeDamage(int damage) {
          
@@ -39,6 +41,7 @@ class Army : Unit {
 
     /**
      * Attacks the target location
+     * TODO:
      */
     override void attack(Coordinate target, int index) {
 
@@ -46,6 +49,7 @@ class Army : Unit {
 
     /**
      * Provides extra defense to the city defending
+     * TODO:
      */
     override void garrison(Unit attacker, City toDefend) {
 
