@@ -23,7 +23,8 @@ class SettleAction : Action {
      * TODO:
      */
     override void perform() {
-
+        import std.stdio;
+        writeln("Settling");
     }
 
     /**

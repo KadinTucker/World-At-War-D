@@ -46,7 +46,10 @@ class ButtonMenu : Component {
     void handleEvent(SDL_Event event) {
         if(event.type == SDL_MOUSEBUTTONDOWN) {
             if(event.button.button == SDL_BUTTON_LEFT) {
-                this.configuration[this.container.mouse.location.x / 6].perform();
+                if(this._location.contains(this.container.mouse.location) && 
+                        this.configuration[this.container.mouse.location.x / 115] !is null) {
+                    this.configuration[this.container.mouse.location.x / 115].perform();
+                }
             }
         }
     }
