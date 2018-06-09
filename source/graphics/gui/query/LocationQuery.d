@@ -28,7 +28,7 @@ class LocationQuery : Query {
         if(event.type == SDL_MOUSEBUTTONDOWN) {
             if(event.button.button == SDL_BUTTON_LEFT) {
                 if((cast(GameActivity)(this.container.activity)).components[0].location.contains(this.container.mouse.location)) {
-                    this.coord = (cast(Map)(cast(GameActivity)(this.container.activity)).components[0]).getHoveredTile();
+                    this.coord = (cast(GameActivity)this.container.activity).map.getHoveredTile();
                 }
             }
         }
@@ -39,7 +39,7 @@ class LocationQuery : Query {
      * Indicates by highlighting 
      */
     override void indicate() {
-        (cast(Map)(cast(GameActivity)(this.container.activity)).components[0]).fillHovered(Color(255, 0, 0, 50));
+        (cast(GameActivity)(this.container.activity)).map.fillHovered(Color(255, 0, 0, 50));
     }
 
     /**

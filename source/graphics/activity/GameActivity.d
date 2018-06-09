@@ -15,6 +15,7 @@ class GameActivity : Activity {
     Query query; ///The currently active query
     TileElement selected; ///The currently selected object
     Player[] players; ///The players in the game
+    Map map; ///The map component; for easy access
 
     /**
      * Constructs a new GameActivity
@@ -24,7 +25,8 @@ class GameActivity : Activity {
     this(Display container) {
         super(container);
         this.world = new World(6, 30, 40);
-        this.components ~= new Map(container, new iRectangle(0, 0, 1100, 540), this.world);
+        this.map = new Map(container, new iRectangle(0, 0, 1100, 540), this.world);
+        this.components ~= this.map;
         this.components ~= new ButtonMenu(container, new iRectangle(0, 540, 690, 60));
     }
 
