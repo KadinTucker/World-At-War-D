@@ -12,7 +12,6 @@ import logic;
 class ButtonMenu : Component {
 
     Action[6] configuration; ///The configuration of actions currently used
-    Surface blankButton; ///The texture to draw when there is no button
     Texture[6] configTexture; ///The textures for each action button
     iRectangle _location; ///The location and dimensions of the menu
 
@@ -22,7 +21,6 @@ class ButtonMenu : Component {
     this(Display container, iRectangle location) {
         super(container);
         this._location = location;
-        this.blankButton = loadImage("res/Button/base.png");
         this.updateButtonTextures();
     }
 
@@ -66,14 +64,13 @@ class ButtonMenu : Component {
     /**
      * Updates the button textures based on the currently stored actions
      * Occurs whenever actions are modified
-     * For internal use only
      */
-    private void updateButtonTextures() {
+    void updateButtonTextures() {
         for(int i; i < 6; i++) {
             if(this.configuration[i] is null) {
-                this.configTexture[i] = new Texture(this.blankButton, this.container.renderer);
+                this.configTexture[i] = new Texture(loadImage("res/Button/base.png"), this.container.renderer);
             } else {
-            this.configTexture[i] = new Texture(createPanelWithText(this.blankButton, new iRectangle(0, 0, 115, 60), 
+            this.configTexture[i] = new Texture(createPanelWithText(loadImage("res/Button/base.png"), new iRectangle(0, 0, 115, 60), 
                     this.configuration[i].name), this.container.renderer);
             }
         }

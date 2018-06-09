@@ -16,6 +16,7 @@ class GameActivity : Activity {
     TileElement selected; ///The currently selected object
     Player[] players; ///The players in the game
     Map map; ///The map component; for easy access
+    ButtonMenu buttonMenu; ///The button menu for actions; for easy access
 
     /**
      * Constructs a new GameActivity
@@ -27,7 +28,10 @@ class GameActivity : Activity {
         this.world = new World(6, 30, 40);
         this.map = new Map(container, new iRectangle(0, 0, 1100, 540), this.world);
         this.components ~= this.map;
-        this.components ~= new ButtonMenu(container, new iRectangle(0, 540, 690, 60));
+        this.buttonMenu = new ButtonMenu(container, new iRectangle(0, 540, 690, 60));
+        this.components ~= this.buttonMenu;
+        this.buttonMenu.configuration[0] = new SettleAction(container, this.buttonMenu);
+        this.buttonMenu.updateButtonTextures();
     }
 
     override void draw() {
