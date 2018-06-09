@@ -42,7 +42,7 @@ class DirectionQuery : Query {
      * Does the stored action in the collected direction
      */
     override void performAction() {
-        this.action.performAfterQuery(moveDirection(this.action.origin, this.direction));
+        this.action.performAfterQuery(moveDirection(this.action.menu.origin.location, this.direction));
     }
 
 }

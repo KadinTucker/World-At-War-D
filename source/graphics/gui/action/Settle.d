@@ -13,8 +13,8 @@ class SettleAction : Action {
      * Constructs a new action with the given name
      * given container and action's origin location
      */
-    this(Display container, Coordinate origin) {
-        super("settle", container, origin);
+    this(Display container, ButtonMenu menu) {
+        super("settle", container, menu);
     }
 
     /**

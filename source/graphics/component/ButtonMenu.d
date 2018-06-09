@@ -1,8 +1,8 @@
 module graphics.components.ButtonMenu;
 
 import d2d;
-import graphics.gui.query.Query;
-import graphics.gui.action;
+import graphics;
+import logic;
 
 /**
  * A component which shows all of the buttons
@@ -32,11 +32,23 @@ class ButtonMenu : Component {
     }
 
     /**
+     * Returns the selected element on the map
+     * For easy access by actions
+     */
+    @property TileElement origin() {
+        return (cast(GameActivity)this.container.activity).map.selectedElement;
+    }
+
+    /**
      * Handles events
      * TODO:
      */
     void handleEvent(SDL_Event event) {
-
+        if(event.type == SDL_MOUSEBUTTONDOWN) {
+            if(event.button.button == SDL_BUTTON_LEFT) {
+                this.configuration[this.container.mouse.location.x / 6].perform();
+            }
+        }
     }
     
     /**

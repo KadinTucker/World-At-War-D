@@ -1,10 +1,8 @@
 module graphics.components.Map;
 
 import d2d;
-import graphics.CityDisplay;
-import logic.player.City;
-import logic.world.World;
-import logic.world.Tile;
+import graphics;
+import logic;
 
 /**
  * A component that displays and handles interation with the world
@@ -14,6 +12,7 @@ class Map : Component {
     iRectangle _location; ///The location on the screen of the map
     iVector pan; ///The offset of the center of the map
     World world; ///The world to be drawn by the map
+    TileElement selectedElement; ///The tile element selected by the player
     Texture waterTexture; ///The water texture to be drawn
     Texture landTexture; ///The land texture
 
