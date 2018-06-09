@@ -20,6 +20,7 @@ class World {
      * next to existing land with a higher chance the more tiles there are surrounding
      * until the world is about one third land
      * TODO: Add config file to determine worldgen parameters
+     * TODO: Make continent generation more evenly distributed by bounding boxes
      */
     this(int ncontinents, int nrows, int ncols){
         Tile[] blankArray;
