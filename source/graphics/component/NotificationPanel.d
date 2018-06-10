@@ -11,12 +11,15 @@ class NotificationPanel : Component {
 
     iRectangle _location; ///The location of the panel
     string _notification; ///The notification to display on the panel
+    Texture drawTexture; ///The texture to draw for the panel
 
     /**
      * Constructs a new notification panel in the given display
      */
-    this(Display container) {
+    this(Display container, iRectangle location) {
         super(container);
+        this.drawTexture = new Texture(loadImage("res/Button/notificationpanel.png"), container.renderer);
+        this._location = location;
     }
 
     /**
@@ -31,15 +34,27 @@ class NotificationPanel : Component {
      * TODO:
      */
     @property void notification(string newNotification) {
+        this._notification = newNotification;
+        if(newNotification.length > 0) {
+            this.drawTexture = new Texture(createPanelWithText(loadImage("res/Button/notificationpanel.png"), this._location, 
+                    newNotification, 4, Color(25, 150, 25)), this.container.renderer);
+        } else {
+            this.drawTexture = new Texture(loadImage("res/Button/notificationpanel.png"), container.renderer);
+        }
+    }
 
+    /**
+     * Returns the notification
+     */
+    @property string notification() {
+        return this._notification;
     }
 
     /**
      * Draws the notification panel
-     * TODO:
      */
     override void draw() {
-
+        this.container.renderer.copy(this.drawTexture, this._location);
     }
 
     /**

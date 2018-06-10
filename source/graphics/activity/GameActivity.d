@@ -17,6 +17,7 @@ class GameActivity : Activity {
     Player[] players; ///The players in the game
     Map map; ///The map component; for easy access
     ButtonMenu buttonMenu; ///The button menu for actions; for easy access
+    NotificationPanel notifications; ///The notification panel for easy access
 
     /**
      * Constructs a new GameActivity
@@ -27,7 +28,7 @@ class GameActivity : Activity {
         super(container);
         this.world = new World(6, 30, 40);
         this.players ~= new Player("Test", 0);
-        this.map = new Map(container, new iRectangle(0, 16, 1100, 524), this.world);
+        this.map = new Map(container, new iRectangle(0, 16, 1100, 464), this.world);
         this.components ~= this.map;
         this.buttonMenu = new ButtonMenu(container, new iRectangle(0, 540, 690, 60));
         this.components ~= this.buttonMenu;
@@ -36,6 +37,8 @@ class GameActivity : Activity {
         this.world[4][7].city = new City(this.players[0], new Coordinate(4, 7), this.world, 8);
         this.map.selectedElement = this.world[4][7].city;
         this.components ~= new QueryIndicator(container, this);
+        this.notifications = new NotificationPanel(container, new iRectangle(0, 480, 690, 60));
+        this.components ~= this.notifications;
     }
 
     /**
