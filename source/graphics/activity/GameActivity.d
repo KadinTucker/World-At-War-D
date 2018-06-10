@@ -26,18 +26,20 @@ class GameActivity : Activity {
     this(Display container) {
         super(container);
         this.world = new World(6, 30, 40);
-        this.map = new Map(container, new iRectangle(0, 0, 1100, 540), this.world);
+        this.players ~= new Player("Test", 0);
+        this.map = new Map(container, new iRectangle(0, 16, 1100, 524), this.world);
         this.components ~= this.map;
         this.buttonMenu = new ButtonMenu(container, new iRectangle(0, 540, 690, 60));
         this.components ~= this.buttonMenu;
         this.buttonMenu.configuration[0] = new SettleAction(container, this.buttonMenu);
         this.buttonMenu.updateButtonTextures();
+        this.world[4][7].city = new City(this.players[0], new Coordinate(4, 7), this.world, 8);
+        this.map.selectedElement = this.world[4][7].city;
+        this.components ~= new QueryIndicator(container, this);
     }
 
     override void draw() {
-        if(this.query !is null) {
-            this.query.indicate();
-        }
+
     }
 
 }

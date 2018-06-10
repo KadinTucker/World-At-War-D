@@ -27,7 +27,6 @@ class Map : Component {
         this._location = location;
         this.waterTexture = new Texture(loadImage("res/Tile/water.png"), this.container.renderer);
         this.landTexture = new Texture(loadImage("res/Tile/land.png"), this.container.renderer);
-        this.world[4][7].city = new City(null, new Coordinate(4, 7), this.world, 8);
         this.world[4][8].city = new City(null, new Coordinate(4, 8), this.world, 8);
         this.world[4][9].city = new City(null, new Coordinate(4, 9), this.world, 8);
         this.world[7][7].city = new City(null, new Coordinate(7, 7), this.world, 3);
@@ -93,8 +92,11 @@ class Map : Component {
      * Fills in the hovered tile with the given color
      */
     void fillHovered(Color color) {
-        this.container.renderer.fill(new iRectangle(this.pan.x + 50 * this.getHoveredTile().x,
-                this.pan.y + 50 * this.getHoveredTile().y, 50, 50), color);
+        this.container.renderer.clipRect = this._location;
+        this.container.renderer.fill(new iRectangle(this._location.initialPoint.x + this.pan.x + 50 * 
+                this.getHoveredTile().x, this._location.initialPoint.y + this.pan.y + 50 * 
+                this.getHoveredTile().y, 50, 50), color);
+        this.container.renderer.clipRect = null;
     }
 
     /**

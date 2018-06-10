@@ -36,4 +36,12 @@ abstract class Action {
      */
     abstract void performAfterQuery(Coordinate target, string str="");
 
+    /**
+     * Sets a query to the contained display
+     * For internal use only
+     */
+    void setQuery(Query query) {
+        (cast(GameActivity)this.container.activity).query = query;
+    }
+
 }

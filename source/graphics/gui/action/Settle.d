@@ -23,8 +23,9 @@ class SettleAction : Action {
      * TODO:
      */
     override void perform() {
-        import std.stdio;
-        writeln("Settling");
+        if(cast(City)this.menu.origin && this.menu.origin.owner.resources >= 30) {
+            this.setQuery(new LocationQuery(this, this.container));
+        }
     }
 
     /**
