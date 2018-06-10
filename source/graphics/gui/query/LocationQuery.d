@@ -22,13 +22,14 @@ class LocationQuery : Query {
     /**
      * Checks if the player clicked a valid location
      * If so, sets the query's location to be such
-     *  and returns true
      */
     override void ask(SDL_Event event) {
         if(event.type == SDL_MOUSEBUTTONDOWN) {
             if(event.button.button == SDL_BUTTON_LEFT) {
-                if((cast(GameActivity)(this.container.activity)).components[0].location.contains(this.container.mouse.location)) {
+                if((cast(GameActivity)(this.container.activity)).map.location.contains(this.container.mouse.location)) {
                     this.coord = (cast(GameActivity)this.container.activity).map.getHoveredTile();
+                    this.isFulfilled = true;
+                    this.performAction();
                 }
             }
         }

@@ -38,8 +38,24 @@ class GameActivity : Activity {
         this.components ~= new QueryIndicator(container, this);
     }
 
+    /**
+     * Sets the query to null if it is fulfilled
+     */
     override void draw() {
+        if(this.query !is null) {
+            if(this.query.isFulfilled) {
+                this.query = null;
+            }
+        }
+    }
 
+    /** 
+     * Asks the contained query for input from the user
+     */
+    override void handleEvent(SDL_Event event) {
+        if(this.query !is null) {
+            this.query.ask(event);
+        }
     }
 
 }
