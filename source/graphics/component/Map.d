@@ -103,8 +103,8 @@ class Map : Component {
      * Gets the location of the tile over which the user's mouse is located 
      */
     Coordinate getHoveredTile() {
-        return new Coordinate((this.container.mouse.location.x - this.pan.x) / 50, 
-                (this.container.mouse.location.y - this.pan.y) / 50);
+        return new Coordinate((this.container.mouse.location.x - this.pan.x - this._location.initialPoint.x) / 50, 
+                (this.container.mouse.location.y - this.pan.y - this._location.initialPoint.y) / 50);
     }
 
 }
