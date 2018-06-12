@@ -6,12 +6,15 @@ import logic;
 
 /**
  * The component which displays information at the top of the screen
- * Shows the turn number, amount of resources, and also handles
+ * Shows the territory amount, amount of resources, and also handles
  * access to the menu
  */
 class TopBar : Component {
 
     iRectangle _location; ///The location of the bar
+    Texture barBase; ///The base of the bar
+    Texture resourceBox; ///The box which displays resources
+    Texture territoryBox; ///The box which displays territory
 
     /**
      * Constructs a new top bar in the given container
@@ -19,6 +22,7 @@ class TopBar : Component {
     this(Display container, iRectangle location) {
         super(container);
         this._location = location;
+        this.barBase = new Texture(loadImage("res/Button/topbar.png"), container.renderer);
     }
 
     /**
@@ -40,13 +44,22 @@ class TopBar : Component {
      * TODO:
      */
     override void draw() {
-
+        this.container.renderer.copy(this.barBase, this._location);
     }
 
     /**
      * Handles events
      */
     void handleEvent(SDL_Event event) {
+
+    }
+
+    /**
+     * Updates the information displayed on the bar
+     * of the given player
+     * TODO:
+     */
+    void updateBoxes(Player activePlayer) {
 
     }
 

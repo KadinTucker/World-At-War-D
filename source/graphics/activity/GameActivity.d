@@ -39,6 +39,7 @@ class GameActivity : Activity {
         this.components ~= new QueryIndicator(container, this);
         this.notifications = new NotificationPanel(container, new iRectangle(0, 480, 690, 60));
         this.components ~= this.notifications;
+        this.components ~= new TopBar(container, new iRectangle(0, 0, 1100, 16));
     }
 
     /**
