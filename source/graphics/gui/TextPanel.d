@@ -10,7 +10,7 @@ Surface createPanelWithText(Surface panelSurface, iRectangle panel, string text,
     if(fontsize * 1.5 > panel.extent.y){
         fontsize = cast(int)(panel.extent.y * 0.67);
     }
-    Font font = new Font("res/Cantarell-Regular.ttf", fontsize);
+    Font font = new Font("res/Font/Cantarell-Regular.ttf", fontsize);
     panelSurface.blit(font.renderTextSolid(text, color), null, borderSize, borderSize);
     return panelSurface;
 }

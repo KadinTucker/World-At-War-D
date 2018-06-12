@@ -22,7 +22,7 @@ class TopBar : Component {
     this(Display container, iRectangle location) {
         super(container);
         this._location = location;
-        this.barBase = new Texture(loadImage("res/Button/topbar.png"), container.renderer);
+        this.barBase = new Texture(loadImage("res/Interface/topbar.png"), container.renderer);
     }
 
     /**

@@ -18,7 +18,7 @@ class NotificationPanel : Component {
      */
     this(Display container, iRectangle location) {
         super(container);
-        this.drawTexture = new Texture(loadImage("res/Button/notificationpanel.png"), container.renderer);
+        this.drawTexture = new Texture(loadImage("res/Interface/notificationpanel.png"), container.renderer);
         this._location = location;
     }
 
@@ -43,10 +43,10 @@ class NotificationPanel : Component {
     @property void notification(string newNotification) {
         this._notification = newNotification;
         if(newNotification.length > 0) {
-            this.drawTexture = new Texture(createPanelWithText(loadImage("res/Button/notificationpanel.png"), this._location, 
+            this.drawTexture = new Texture(createPanelWithText(loadImage("res/Interface/notificationpanel.png"), this._location, 
                     newNotification, 4, Color(25, 150, 25)), this.container.renderer);
         } else {
-            this.drawTexture = new Texture(loadImage("res/Button/notificationpanel.png"), container.renderer);
+            this.drawTexture = new Texture(loadImage("res/Interface/notificationpanel.png"), container.renderer);
         }
     }
 
