@@ -44,6 +44,13 @@ class Map : Component {
     }
 
     /**
+     * Sets the location of the map
+     */
+    @property void location(iRectangle newLocation) {
+        this._location = newLocation;
+    }
+
+    /**
      * Handles incoming events to the map component
      */
     void handleEvent(SDL_Event event) {

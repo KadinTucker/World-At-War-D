@@ -32,6 +32,13 @@ class ButtonMenu : Component {
     }
 
     /**
+     * Sets the location of the panel
+     */
+    @property void location(iRectangle newLocation) {
+        this._location = newLocation;
+    }
+
+    /**
      * Returns the selected element on the map
      * For easy access by actions
      */

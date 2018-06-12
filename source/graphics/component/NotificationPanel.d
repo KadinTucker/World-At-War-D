@@ -30,6 +30,13 @@ class NotificationPanel : Component {
     }
 
     /**
+     * Sets the location of the panel
+     */
+    @property void location(iRectangle newLocation) {
+        this._location = newLocation;
+    }
+
+    /**
      * Sets the notification to be a different notification
      * TODO:
      */

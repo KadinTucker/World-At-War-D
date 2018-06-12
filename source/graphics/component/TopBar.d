@@ -28,6 +28,9 @@ class TopBar : Component {
         return this._location;
     }
 
+    /**
+     * Sets the location of the top bar
+     */
     @property void location(iRectangle newLocation) {
         this._location = newLocation;
     }
