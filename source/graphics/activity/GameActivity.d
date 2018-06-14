@@ -30,7 +30,7 @@ class GameActivity : Activity {
         super(container);
         //Generate world and players
         this.world = new World(6, 30, 40);
-        foreach(i; 0..numPlayers) {
+        for(int i = 0; i < numPlayers; i++) {
             this.players ~= new Player("TestPlayer", i);
         }
         //Initialize components

@@ -42,7 +42,7 @@ class InitialSettleAction : Action {
             this.menu.origin.world.getTileAt(target).city = new City(this.menu.origin.owner, 
                     target, this.menu.origin.world, 5);
             this.playerIndex++;
-            if(!this.playerIndex - 1 >= (cast(GameActivity)this.container.activity).players.length) {
+            if(this.playerIndex < (cast(GameActivity)this.container.activity).players.length) {
                 this.perform();
             }
         } else {
