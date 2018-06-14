@@ -43,7 +43,6 @@ class LocationQuery : Query {
     override void indicate() {
         this.container.renderer.fill((cast(GameActivity)(this.container.activity)).map.location, Color(255, 0, 0, 50));
         (cast(GameActivity)(this.container.activity)).map.fillHovered(Color(255, 0, 0, 75));
-        (cast(GameActivity)(this.container.activity)).notifications.notification = "Select a location on the map";
     }
 
     /**

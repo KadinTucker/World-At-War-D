@@ -5,6 +5,8 @@ import d2d;
 import graphics;
 import logic;
 
+import std.conv;
+
 immutable int numPlayers = 2; ///TODO: Make this a chosen option at start of game
 
 /**
@@ -31,7 +33,7 @@ class GameActivity : Activity {
         //Generate world and players
         this.world = new World(6, 30, 40);
         for(int i = 0; i < numPlayers; i++) {
-            this.players ~= new Player("TestPlayer", i);
+            this.players ~= new Player("Player "~i.to!string, i);
         }
         //Initialize components
         this.map = new Map(container, new iRectangle(0, 16, 1100, 464), this.world);

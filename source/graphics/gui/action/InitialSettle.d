@@ -28,6 +28,8 @@ class InitialSettleAction : Action {
      */
     override void perform() {
         this.menu.origin.owner = (cast(GameActivity)this.container.activity).players[this.playerIndex];
+        (cast(GameActivity)(this.container.activity)).notifications.notification = "Player "~this.menu.origin.owner.name~
+                ", choose a location for your starting city";
         this.setQuery(new LocationQuery(this, this.container));
     }
 
