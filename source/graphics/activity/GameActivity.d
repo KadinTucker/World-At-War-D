@@ -5,6 +5,8 @@ import d2d;
 import graphics;
 import logic;
 
+immutable int numPlayers = 2; ///TODO: Make this a chosen option at start of game
+
 /**
  * The main game activity
  * Contains the major elements of the game
@@ -26,16 +28,17 @@ class GameActivity : Activity {
      */
     this(Display container) {
         super(container);
+        //Generate world and players
         this.world = new World(6, 30, 40);
-        this.players ~= new Player("Test", 0);
+        foreach(i; 0..numPlayers) {
+            this.players ~= new Player("TestPlayer", i);
+        }
+        //Initialize components
         this.map = new Map(container, new iRectangle(0, 16, 1100, 464), this.world);
         this.components ~= this.map;
         this.buttonMenu = new ButtonMenu(container, new iRectangle(0, 540, 690, 60));
         this.components ~= this.buttonMenu;
-        this.buttonMenu.configuration[0] = new SettleAction(container, this.buttonMenu);
         this.buttonMenu.updateButtonTextures();
-        this.world[4][7].city = new City(this.players[0], new Coordinate(4, 7), this.world, 8);
-        this.map.selectedElement = this.world[4][7].city;
         this.components ~= new QueryIndicator(container, this);
         this.notifications = new NotificationPanel(container, new iRectangle(0, 480, 690, 60));
         this.components ~= this.notifications;
@@ -60,6 +63,17 @@ class GameActivity : Activity {
         if(this.query !is null) {
             this.query.ask(event);
         }
+    }
+
+    /**
+     * Begins the game
+     * Players settle their initial cities
+     */
+    void startGame() {
+        Action initSettle = new InitialSettleAction(container, this.buttonMenu);
+        TileElement tempElement = new TileElement(null, null, this.world);
+        this.map.selectedElement = tempElement;
+        initSettle.perform();
     }
 
 }

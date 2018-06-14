@@ -27,13 +27,6 @@ class Map : Component {
         this._location = location;
         this.waterTexture = new Texture(loadImage("res/Tile/water.png"), this.container.renderer);
         this.landTexture = new Texture(loadImage("res/Tile/land.png"), this.container.renderer);
-        this.world[4][8].city = new City(null, new Coordinate(4, 8), this.world, 8);
-        this.world[4][9].city = new City(null, new Coordinate(4, 9), this.world, 8);
-        this.world[7][7].city = new City(null, new Coordinate(7, 7), this.world, 3);
-        this.world[8][7].city = new City(null, new Coordinate(8, 7), this.world, 4);
-        this.world[9][7].city = new City(null, new Coordinate(9, 7), this.world, 7);
-        this.world[10][7].city = new City(null, new Coordinate(10, 7), this.world, 14);
-        this.world[14][12].city = new City(null, new Coordinate(14, 12), this.world, 13);
     }
 
     /**

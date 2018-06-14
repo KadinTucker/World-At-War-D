@@ -12,12 +12,14 @@ import logic;
  */
 class InitialSettleAction : Action {
 
+    int playerIndex = 0; ///The currently reached index of the initial settlements
+
     /**
      * Constructs a new action with the given name
      * given container and action's origin location
      */
     this(Display container, ButtonMenu menu) {
-        super("InitSettle", container, menu);
+        super(" ", container, menu);
     }
 
     /**
@@ -25,6 +27,7 @@ class InitialSettleAction : Action {
      * Initiates a location query for the settlement
      */
     override void perform() {
+        this.menu.origin.owner = (cast(GameActivity)this.container.activity).players[this.playerIndex];
         this.setQuery(new LocationQuery(this, this.container));
     }
 
@@ -38,6 +41,10 @@ class InitialSettleAction : Action {
                 && this.menu.origin.world.getTileAt(target).city is null) {
             this.menu.origin.world.getTileAt(target).city = new City(this.menu.origin.owner, 
                     target, this.menu.origin.world, 5);
+            this.playerIndex++;
+            if(!this.playerIndex - 1 >= (cast(GameActivity)this.container.activity).players.length) {
+                this.perform();
+            }
         } else {
             this.perform();
         }
