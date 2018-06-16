@@ -37,12 +37,13 @@ class InitialSettleAction : Action {
      * If the location obtained from the query is land and has no city already on it,
      * add a city there starting at level 5
      * If not, restart the action
+     * If yes, move on to the next player
      */
     override void performAfterQuery(Coordinate target, string str="") {
         if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
                 && this.menu.origin.world.getTileAt(target).city is null) {
             this.menu.origin.world.getTileAt(target).city = new City(this.menu.origin.owner, 
-                    target, this.menu.origin.world, 5);
+                    target, this.menu.origin.world, 3);
             this.playerIndex++;
             if(this.playerIndex < (cast(GameActivity)this.container.activity).players.length) {
                 this.perform();
