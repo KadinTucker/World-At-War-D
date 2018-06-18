@@ -1,10 +1,6 @@
 module logic.unit.Army;
 
-import logic.player.City;
-import logic.player.Player;
-import logic.unit.Unit;
-import logic.world.Tile;
-import logic.world.World;
+import logic;
 
 /**
  * A land army unit
@@ -26,7 +22,7 @@ class Army : Unit {
      * Can only move on land
      * TODO:
      */
-    override void move() {
+    override void move(Direction direction) {
         
     }
 
@@ -54,5 +50,11 @@ class Army : Unit {
     override void garrison(Unit attacker, City toDefend) {
 
     }
+
+    /**
+     * Combines two armies
+     * The target unit must be an army
+     */
+    override void add(Unit unit)
 
 }

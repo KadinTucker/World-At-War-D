@@ -1,10 +1,6 @@
 module logic.unit.Unit;
 
-import logic.player.City;
-import logic.player.Player;
-import logic.world.Tile;
-import logic.world.TileElement;
-import logic.world.World;
+import logic;
 
 import std.algorithm;
 
@@ -42,20 +38,26 @@ abstract class Unit : TileElement {
     void takeDamage(int damage); 
 
     /**
-     * What happens when the unit takes a movement action
+     * What happens when the unit takes a movement action 
+     * when given a direction in which to move
      */
-    void move();
+    void move(Direction direction);
 
     /**
      * Attacks the given target
      * Index references the specific troop that attacks
      */
-    void attack(Coordinate target, int index);
+    void attack(TileElement target, int index);
 
     /**
      * How the unit impacts a city while garrisoned
      * and being attacked
      */
     void garrison(Unit attacker, City toDefend);
+
+    /**
+     * Adds to this unit another unit
+     */
+    void add(Unit unit);
 
 }
