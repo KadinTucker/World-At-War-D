@@ -41,7 +41,7 @@ abstract class Unit : TileElement {
      * What happens when the unit takes a movement action 
      * when given a direction in which to move
      */
-    void move(Direction direction);
+    void move(Coordinate target);
 
     /**
      * Attacks the given target
