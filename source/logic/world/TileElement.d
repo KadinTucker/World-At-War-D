@@ -21,4 +21,13 @@ class TileElement {
         this.world = world;
     }
 
+    /**
+     * Causes the tile element to take the given amount
+     * of damage from the given attacker
+     * Has no default implementation
+     */
+    void takeDamage(int damage, Unit attacker) {
+
+    }
+
 }

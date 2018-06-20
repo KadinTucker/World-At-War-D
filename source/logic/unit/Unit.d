@@ -11,6 +11,7 @@ import std.algorithm;
 abstract class Unit : TileElement {
 
     int[] troops; ///A list of all of the troop types in the unit
+    int[] wounds; ///A list of wounds of each troop type
 
     /**
      * Constructs a new unit
@@ -26,7 +27,7 @@ abstract class Unit : TileElement {
      * The unit gets destroyed
      * Any traces are removed
      */
-    void getDestroyed() {
+    abstract void getDestroyed() {
         this.owner.military.remove(this.owner.military.countUntil(this));
         world.getTileAt(location).unit = null;
     }
@@ -35,29 +36,29 @@ abstract class Unit : TileElement {
      * What happens when the unit is attacked
      * with the given amount of damage
      */
-    void takeDamage(int damage); 
+    abstract void takeDamage(int damage); 
 
     /**
      * What happens when the unit takes a movement action 
      * when given a direction in which to move
      */
-    void move(Coordinate target);
+    abstract void move(Coordinate target);
 
     /**
      * Attacks the given target
      * Index references the specific troop that attacks
      */
-    void attack(TileElement target, int index);
+    abstract void attack(TileElement target, int index);
 
     /**
      * How the unit impacts a city while garrisoned
      * and being attacked
      */
-    void garrison(Unit attacker, City toDefend);
+    abstract void garrison(Unit attacker, City toDefend);
 
     /**
      * Adds to this unit another unit
      */
-    void add(Unit unit);
+    abstract void add(Unit unit);
 
 }

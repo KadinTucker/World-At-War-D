@@ -36,7 +36,7 @@ class Army : Unit {
      * Can only move onto empty land
      */
     override void move(Coordinate target) {
-        if(this.world.getTileAt(target).terrain == Terrain.land 
+        if(this.world.getTileAt(target).terrain == Terrain.LAND
                 && this.world.getTileAt(target).unit is null) {
             this.world.getTileAt(this.location).unit = null;
             this.location = target;
@@ -49,7 +49,7 @@ class Army : Unit {
      * Tanks take damage before other units, then infantry,
      * then last artillery
      */
-    override void takeDamage(int damage) {
+    override void takeDamage(int damage, Unit attacker) {
          while(damage > 0 && this.troops[0] + this.troops[1] + this.troops[2] > 0) {
             if(this.troops[1] > 0) {
                 this.wounds[1] += 1;
@@ -94,6 +94,8 @@ class Army : Unit {
      * Combines two armies
      * The target unit must be an army
      */
-    override void add(Unit unit)
+    override void add(Unit unit) {
+
+    }
 
 }
