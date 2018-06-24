@@ -34,6 +34,10 @@ class City : TileElement {
      * Gets the maximum defense of the city
      */
     @property int maxDefense() {
+        int garrisonDefense;
+        foreach(unit; this.garrison) {
+            garrisonDefense += unit.garrisonValue();
+        }
         return 50 + this.level * 15;
     }
 
@@ -42,7 +46,7 @@ class City : TileElement {
      */
     override void takeDamage(int damage, Unit attacker) {
         foreach(unit; garrison) {
-            unit.garrison(attacker, this);
+            unit.garrisonAction(damage, attacker, this);
         }
         this.defense -= damage;
         if(this.defense <= 0) {

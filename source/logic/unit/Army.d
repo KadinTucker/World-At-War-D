@@ -11,9 +11,10 @@ immutable int infantryAttack = 3;
 immutable int tankAttack = 12;
 immutable int arilleryAttack = 13;
 
-immutable int infantrySiege = 3;
 immutable int tankSiege = 9;
-immutable int arillerySiege = 15;
+
+immutable int infantryDefense = 5;
+immutable int tankDefense = 6;
 
 /**
  * A land army unit
@@ -79,23 +80,43 @@ class Army : Unit {
      * TODO:
      */
     override void attack(TileElement target, int index) {
-
+        if(index == 0) {
+            target.takeDamage(infantryAttack * this.troops[0], this);
+        } else if(index == 1) {
+            if(cast(City)target) {
+                target.takeDamage(tankSiege * this.troops[1], this);
+            } else {
+                target.takeDamage(tankAttack * this.troops[1], this);
+            }
+        } else if(index == 2) {
+            target.takeDamage(arilleryAttack * this.troops[2], this);
+        }
     }
 
     /**
-     * Provides extra defense to the city defending
-     * TODO:
+     * Armies perform no actions to defend their cities
      */
-    override void garrison(Unit attacker, City toDefend) {
-
+    override void garrisonAction(int damage, Unit attacker, City toDefend) {
+        
     }
 
     /**
-     * Combines two armies
+     * Returns the value of each troop to a garrison
+     */
+    override int garrisonValue() {
+        return this.troops[0] * infantryDefense + this.troops[1] * tankDefense;
+    }
+
+    /**
+     * Adds the armies from another unit to this one
      * The target unit must be an army
      */
     override void add(Unit unit) {
-
+        if(cast(Army)unit) {
+            this.troops[0] += unit.troops[0];
+            this.troops[1] += unit.troops[1];
+            this.troops[2] += unit.troops[2];
+        }
     }
 
 }

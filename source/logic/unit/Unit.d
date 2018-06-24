@@ -53,8 +53,14 @@ abstract class Unit : TileElement {
     /**
      * How the unit impacts a city while garrisoned
      * and being attacked
+     * Returns the defense value given to the city by the garrison
      */
-    abstract void garrison(Unit attacker, City toDefend);
+    abstract void garrisonAction(int damage, Unit attacker, City toDefend);
+
+    /**
+     * Returns the value this unit adds to a city's defense value
+     */
+    abstract int garrisonValue();
 
     /**
      * Adds to this unit another unit
