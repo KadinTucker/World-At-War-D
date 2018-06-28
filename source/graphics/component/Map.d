@@ -69,6 +69,12 @@ class Map : Component {
                     this.container.renderer.copy(generateCityTexture(world[x][y].city, this.container.renderer), 
                             this._location.initialPoint.x + this.pan.x + 50 * x, this._location.initialPoint.y + this.pan.y + 50 * y);
                 }
+                if(world[x][y].unit !is null) {
+                    if(cast(Army)world[x][y].unit) {
+                        this.container.renderer.copy(generateArmyTexture(cast(Army)world[x][y].unit, this.container.renderer), 
+                                this._location.initialPoint.x + this.pan.x + 50 * x, this._location.initialPoint.y + this.pan.y + 50 * y);
+                    }
+                }
             }
         }
         //Fill rectangle at hovered tile
