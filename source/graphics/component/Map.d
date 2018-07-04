@@ -13,8 +13,7 @@ class Map : Component {
     iVector pan; ///The offset of the center of the map
     World world; ///The world to be drawn by the map
     TileElement selectedElement; ///The tile element selected by the player
-    Texture waterTexture; ///The water texture to be drawn
-    Texture landTexture; ///The land texture
+    Texture mapTexture; ///The compiled texture of all map elements on the screen
 
     /**
      * Constructs a new map in the given display, bounded by the given rectangle 
@@ -25,8 +24,7 @@ class Map : Component {
         this.world = world;
         this.pan = new iVector(0, 0);
         this._location = location;
-        this.waterTexture = new Texture(loadImage("res/Tile/water.png"), this.container.renderer);
-        this.landTexture = new Texture(loadImage("res/Tile/land.png"), this.container.renderer);
+        this.updateTexture();
     }
 
     /**
@@ -51,32 +49,46 @@ class Map : Component {
     }
 
     /**
-     * Draws the map to the screen
-     * Also pans the map 
+     * Updates the base map texture
+     * Updates whenever there is a change to the location of units or cities on the map
      */
-    override void draw() {
-        //Draw tiles, cities, armies
+    void updateTexture() {
+        Surface mapSurface = new Surface(this.world.length * 50, this.world[0].length * 50, SDL_PIXELFORMAT_RGBA32);
+        Surface waterSurface = loadImage("res/Tile/water.png");
+        Surface landSurface = loadImage("res/Tile/land.png");
         for(int x; x < this.world.length; x++) {
             for(int y; y < this.world[x].length; y++) {
                 if(world[x][y].terrain == Terrain.WATER) {
-                    this.container.renderer.copy(this.waterTexture, this._location.initialPoint.x + this.pan.x + 50 * x, 
-                            this._location.initialPoint.y + this.pan.y + 50 * y);
+                    mapSurface.blit(waterSurface, null, this._location.initialPoint.x + 50 * x, 
+                            this._location.initialPoint.y + 50 * y);
                 } else if(world[x][y].terrain == Terrain.LAND) {
-                    this.container.renderer.copy(this.landTexture, this._location.initialPoint.x + this.pan.x + 50 * x, 
-                            this._location.initialPoint.y + this.pan.y + 50 * y);
+                    mapSurface.blit(landSurface, null, this._location.initialPoint.x + 50 * x, 
+                            this._location.initialPoint.y + 50 * y);
                 }
                 if(world[x][y].city !is null) {
-                    this.container.renderer.copy(generateCityTexture(world[x][y].city, this.container.renderer), 
-                            this._location.initialPoint.x + this.pan.x + 50 * x, this._location.initialPoint.y + this.pan.y + 50 * y);
+                    mapSurface.blit(generateCityTexture(world[x][y].city), null,
+                            this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);
                 }
                 if(world[x][y].unit !is null) {
                     if(cast(Army)world[x][y].unit) {
-                        this.container.renderer.copy(generateArmyTexture(cast(Army)world[x][y].unit, this.container.renderer), 
-                                this._location.initialPoint.x + this.pan.x + 50 * x, this._location.initialPoint.y + this.pan.y + 50 * y);
+                        mapSurface.blit(generateArmyTexture(cast(Army)world[x][y].unit), null,
+                                this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);
                     }
                 }
             }
         }
+        this.mapTexture = new Texture(mapSurface, this.container.renderer);
+        import std.stdio;
+        writeln("Updated texture");
+    }
+
+    /**
+     * Draws the map to the screen
+     * Also pans the map 
+     */
+    override void draw() {
+        //Draw the base of the map
+        this.container.renderer.copy(this.mapTexture, this.pan.x, this.pan.y);
         //Fill rectangle at hovered tile
         this.fillHovered(Color(255, 255, 255, 100));
         //Pan map with arrow keys

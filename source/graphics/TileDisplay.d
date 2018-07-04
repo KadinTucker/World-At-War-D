@@ -30,10 +30,10 @@ void loadFlags() {
 }
 
 /**
- * Generates a semi-random texture for a city
+ * Generates a semi-random image for a city
  * Creates mostly unique textures
  */
-Texture generateCityTexture(City city, Renderer renderer) {
+Surface generateCityTexture(City city) {
     Surface cityTexture = new Surface(50, 50, SDL_PIXELFORMAT_RGBA32);
     foreach(i; 0..city.level) {
         if((i + 1) % 3 == 0) {
@@ -44,14 +44,14 @@ Texture generateCityTexture(City city, Renderer renderer) {
                 null, new iRectangle((i * 157 + city.location.x * 243 + city.location.y * 131) % 50 - 25, 30, 20, 20));
     }
     cityTexture.blit(flags[city.owner.number], null, 0, 0);
-    return new Texture(cityTexture, renderer);
+    return cityTexture;
 }
 
 /**
- * Generates the texture for an army based on its owner
+ * Generates the surface for an army based on its owner
  * and number of units
  */
-Texture generateArmyTexture(Army army, Renderer renderer) {
+Surface generateArmyTexture(Army army) {
     Surface armyTexture;
     int armyValue = army.troops[0] + 20 * army.troops[1] + 20 * army.troops[2];
     if(armyValue < 50) {
@@ -62,5 +62,5 @@ Texture generateArmyTexture(Army army, Renderer renderer) {
         armyTexture = loadImage("res/Unit/largearmy.png");
     }
     armyTexture.blit(flags[army.owner.number], null, 0, 0);
-    return new Texture(armyTexture, renderer);
+    return armyTexture;
 }

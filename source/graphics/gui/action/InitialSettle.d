@@ -28,7 +28,7 @@ class InitialSettleAction : Action {
      */
     override void perform() {
         this.menu.origin.owner = (cast(GameActivity)this.container.activity).players[this.playerIndex];
-        (cast(GameActivity)(this.container.activity)).notifications.notification = "Player "~this.menu.origin.owner.name~
+        (cast(GameActivity)this.container.activity).notifications.notification = "Player "~this.menu.origin.owner.name~
                 ", choose a location for your starting city";
         this.setQuery(new LocationQuery(this, this.container));
     }
@@ -44,6 +44,7 @@ class InitialSettleAction : Action {
                 && this.menu.origin.world.getTileAt(target).city is null) {
             this.menu.origin.world.getTileAt(target).city = new City(this.menu.origin.owner, 
                     target, this.menu.origin.world, 3);
+            (cast(GameActivity)this.container.activity).map.updateTexture();
             this.playerIndex++;
             if(this.playerIndex < (cast(GameActivity)this.container.activity).players.length) {
                 this.perform();
