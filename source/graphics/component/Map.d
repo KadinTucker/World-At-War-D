@@ -78,8 +78,6 @@ class Map : Component {
             }
         }
         this.mapTexture = new Texture(mapSurface, this.container.renderer);
-        import std.stdio;
-        writeln("Updated texture");
     }
 
     /**
