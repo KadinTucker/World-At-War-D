@@ -11,7 +11,7 @@ import logic;
  */
 class ButtonMenu : Component {
 
-    Action[6] configuration; ///The configuration of actions currently used
+    Action[6] _configuration; ///The configuration of actions currently used
     Texture[6] configTexture; ///The textures for each action button
     iRectangle _location; ///The location and dimensions of the menu
 
@@ -44,6 +44,15 @@ class ButtonMenu : Component {
      */
     @property TileElement origin() {
         return (cast(GameActivity)this.container.activity).map.selectedElement;
+    }
+
+    @property void configuration(Action[6] newConfig) {
+        this._configuration = newConfig;
+        this.updateButtonTextures();
+    }
+
+    @property Action[6] configuration() {
+        return this._configuration;
     }
 
     /**
