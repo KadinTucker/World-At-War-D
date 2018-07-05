@@ -4,6 +4,8 @@ import d2d;
 import graphics;
 import logic;
 
+import std.conv;
+
 //Define constants used in settling cities
 immutable int settleCost = 30;
 immutable int initialSize = 3;
@@ -29,6 +31,9 @@ class SettleAction : Action {
     override void perform() {
         if(cast(City)this.menu.origin && this.menu.origin.owner.resources >= settleCost) {
             this.setQuery(new LocationQuery(this, this.container));
+            this.menu.setNotification("Choose a location to settle the new city");
+        } else {
+            this.menu.setNotification("Not enough resources to settle a new city! You need "~settleCost.to!string);
         }
     }
 
@@ -44,6 +49,7 @@ class SettleAction : Action {
             this.menu.origin.owner.cities ~= cityToAdd;
             this.menu.origin.owner.resources -= settleCost;
             this.menu.updateMap();
+            this.menu.setNotification("Settled a new city at ("~target.x.to!string~", "~target.y.to!string~")");
         }
     }
 

@@ -4,6 +4,8 @@ import d2d;
 import graphics;
 import logic;
 
+import std.conv;
+
 /**
  * An action which causes a city to run its develop method
  */
@@ -20,8 +22,11 @@ class DevelopAction : Action {
      * Runs the city's develop method
      */
     override void perform() {
-        (cast(City)this.menu.origin).develop();
-        this.menu.updateMap();
+        if(cast(City)this.menu.origin) {
+            (cast(City)this.menu.origin).develop();
+            this.menu.updateMap();
+            this.menu.setNotification("Developed city to level "~(cast(City)this.menu.origin).level.to!string);
+        }
     }
 
     /**
