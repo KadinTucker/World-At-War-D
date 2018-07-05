@@ -15,7 +15,7 @@ class DevelopAction : Action {
      * Constructs a develop action in the given container and menu
      */
     this(Display container, ButtonMenu menu) {
-        super("Develop", container, menu);
+        super("Develop ", container, menu);
     }
 
     /**

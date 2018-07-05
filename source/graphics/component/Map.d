@@ -13,7 +13,9 @@ class Map : Component {
     iVector pan; ///The offset of the center of the map
     World world; ///The world to be drawn by the map
     TileElement selectedElement; ///The tile element selected by the player
+    Player activePlayer; ///The player currently taking their turn
     Texture mapTexture; ///The compiled texture of all map elements on the screen
+    Texture[3] selectionTextures; ///The textures used in drawing selections
 
     /**
      * Constructs a new map in the given display, bounded by the given rectangle 
@@ -24,6 +26,9 @@ class Map : Component {
         this.world = world;
         this.pan = new iVector(0, 0);
         this._location = location;
+        this.selectionTextures = [new Texture(loadImage("res/Tile/selection.png"), this.container.renderer),
+                new Texture(loadImage("res/Tile/selectionCompleted.png"), this.container.renderer),
+                new Texture(loadImage("res/Tile/selectionInactive.png"), this.container.renderer)];
         this.updateTexture();
     }
 
@@ -87,8 +92,9 @@ class Map : Component {
     override void draw() {
         //Draw the base of the map
         this.container.renderer.copy(this.mapTexture, this.pan.x, this.pan.y);
-        //Fill rectangle at hovered tile
+        //Fill rectangle at hovered tile and selected tile
         this.fillHovered(Color(255, 255, 255, 100));
+        this.drawSelectedTile();
         //Pan map with arrow keys
         if(this.container.keyboard.allKeys[SDLK_UP].isPressed) {
             this.pan.y += 14;
@@ -113,6 +119,27 @@ class Map : Component {
                 this.getHoveredTile().x, this._location.initialPoint.y + this.pan.y + 50 * 
                 this.getHoveredTile().y, 50, 50), color);
         this.container.renderer.clipRect = null;
+    }
+
+    /**
+     * Indicates the selected element on the map
+     */
+    void drawSelectedTile() {
+        if(this.selectedElement !is null && this.selectedElement.location !is null) {
+            if(this.selectedElement.owner != this.activePlayer) {
+                this.container.renderer.copy(this.selectionTextures[2], new iRectangle(this._location.initialPoint.x + this.pan.x + 50 * 
+                        this.selectedElement.location.x, this._location.initialPoint.y + this.pan.y + 50 * this.selectedElement.location.y, 
+                        50, 50));
+            } else if(!this.selectedElement.isActive) {
+                this.container.renderer.copy(this.selectionTextures[1], new iRectangle(this._location.initialPoint.x + this.pan.x + 50 * 
+                        this.selectedElement.location.x, this._location.initialPoint.y + this.pan.y + 50 * this.selectedElement.location.y, 
+                        50, 50));
+            } else {
+                this.container.renderer.copy(this.selectionTextures[0], new iRectangle(this._location.initialPoint.x + this.pan.x + 50 * 
+                        this.selectedElement.location.x, this._location.initialPoint.y + this.pan.y + 50 * this.selectedElement.location.y, 
+                        50, 50));
+            }
+        }
     }
 
     /**

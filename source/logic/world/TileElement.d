@@ -10,6 +10,7 @@ class TileElement {
     Player owner; ///The player owning this element
     Coordinate location; ///The location of the element
     World world; ///The world of which the element is a part
+    bool isActive; ///Whether or not this element still can take an action
 
     /**
      * Constructs a new tile element, owned by the given player,
@@ -19,6 +20,7 @@ class TileElement {
         this.owner = owner;
         this.location = location;
         this.world = world;
+        this.isActive = true;
     }
 
     /**
