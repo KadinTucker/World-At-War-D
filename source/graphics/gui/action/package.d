@@ -1,6 +1,7 @@
 module graphics.gui.action;
 
 public import graphics.gui.action.Action;
+public import graphics.gui.action.ActionMenu;
 public import graphics.gui.action.Develop;
 public import graphics.gui.action.InitialSettle;
 public import graphics.gui.action.Settle;

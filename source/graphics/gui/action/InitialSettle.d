@@ -42,12 +42,16 @@ class InitialSettleAction : Action {
     override void performAfterQuery(Coordinate target, string str="") {
         if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
                 && this.menu.origin.world.getTileAt(target).city is null) {
-            this.menu.origin.world.getTileAt(target).city = new City(this.menu.origin.owner, 
-                    target, this.menu.origin.world, 3);
+            City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, 3);
+            this.menu.origin.world.getTileAt(target).city = cityToAdd;
+            this.menu.origin.owner.cities ~= cityToAdd;
             (cast(GameActivity)this.container.activity).map.updateTexture();
             this.playerIndex++;
             if(this.playerIndex < (cast(GameActivity)this.container.activity).players.length) {
                 this.perform();
+            } else {
+                (cast(GameActivity)this.container.activity).map.selectedElement = this.menu.origin.owner.cities[0];
+                this.menu.configuration = menuCity(this.container, this.menu);
             }
         } else {
             this.perform();
