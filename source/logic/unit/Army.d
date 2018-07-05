@@ -16,11 +16,22 @@ immutable int tankSiege = 9;
 immutable int infantryDefense = 5;
 immutable int tankDefense = 6;
 
+immutable int infantryMovement = 5;
+immutable int inverseInfantryProportion = 5; //Reciprocal of how much infantry are counted in movement calculation
+immutable int tankMovement = 7;
+immutable int artilleryMovement = 4;
+
+//The movement point cost to capture a territory
+//divided by the army's hp
+immutable int territoryCaptureCost = 300;
+
 /**
  * A land army unit
  * TODO:
  */
 class Army : Unit {
+
+    int movementPoints; ///The amount of moves this army can take this turn
 
     /**
      * Constructs a new land army
@@ -30,6 +41,15 @@ class Army : Unit {
         super(owner, location, world);
         this.troops = [0, 0, 0];
         this.wounds = [0, 0, 0];
+    }
+
+    /**
+     * Returns the number of moves this army can make per turn
+     * Averages move amounts of each unit; infantry are counted 1/5 as much
+     */
+    @property int moves() {
+        return (infantryMovement * this.troops[0] / inverseInfantryProportion + tankMovement * this.troops[1] + artilleryMovement * this.troops[2])
+                / (this.troops[0] / inverseInfantryProportion + this.troops[1] + this.troops[2]);
     }
     
     /**
@@ -116,6 +136,20 @@ class Army : Unit {
             this.troops[0] += unit.troops[0];
             this.troops[1] += unit.troops[1];
             this.troops[2] += unit.troops[2];
+        }
+    }
+
+    /**
+     * Runs when the army captures a territory
+     * Reduces movement points based on the hitpoints of the army
+     */
+    private void captureTerritory(Tile tile) {
+        if(tile is null || tile.owner != this.owner) {
+            this.movementPoints -= territoryCaptureCost / 
+                    (this.troops[0] * infantryHP + this.troops[1] * tankHP + this.troops[2] * artilleryHP);
+            tile.owner.territory -= 1;
+            tile.owner = this.owner;
+            this.owner.territory += 1;
         }
     }
 
