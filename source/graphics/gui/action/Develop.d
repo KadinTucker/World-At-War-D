@@ -21,6 +21,7 @@ class DevelopAction : Action {
      */
     override void perform() {
         (cast(City)this.menu.origin).develop();
+        this.menu.updateMap();
     }
 
     /**

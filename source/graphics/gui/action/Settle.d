@@ -4,6 +4,10 @@ import d2d;
 import graphics;
 import logic;
 
+//Define constants used in settling cities
+immutable int settleCost = 30;
+immutable int initialSize = 3;
+
 /**
  * An action which settles a new city
  */
@@ -23,7 +27,7 @@ class SettleAction : Action {
      * TODO:
      */
     override void perform() {
-        if(cast(City)this.menu.origin && this.menu.origin.owner.resources >= 30) {
+        if(cast(City)this.menu.origin && this.menu.origin.owner.resources >= settleCost) {
             this.setQuery(new LocationQuery(this, this.container));
         }
     }
@@ -33,7 +37,14 @@ class SettleAction : Action {
      * add a city there
      */
     override void performAfterQuery(Coordinate target, string str="") {
-
+        if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
+                && this.menu.origin.world.getTileAt(target).city is null) {
+            City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, initialSize);
+            this.menu.origin.world.getTileAt(target).city = cityToAdd;
+            this.menu.origin.owner.cities ~= cityToAdd;
+            this.menu.origin.owner.resources -= settleCost;
+            this.menu.updateMap();
+        }
     }
 
 }

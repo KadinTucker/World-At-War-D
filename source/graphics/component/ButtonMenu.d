@@ -94,5 +94,21 @@ class ButtonMenu : Component {
             }
         }
     }
-        
+
+    /**
+     * Sets the notification bar to display the given message
+     * For easy access from actions
+     */
+    void setNotification(string notification) {
+        (cast(GameActivity)this.container.activity).notifications.notification = notification;
+    }
+
+    /**
+     * Updates the map texture after a change
+     * For easy access from actions
+     */
+    void updateMap() {
+        (cast(GameActivity)this.container.activity).map.updateTexture();
+    }
+    
 }
