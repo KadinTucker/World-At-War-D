@@ -22,6 +22,7 @@ class ButtonMenu : Component {
         super(container);
         this._location = location;
         this.updateButtonTextures();
+        ActionMenu.initializeMenuConfigurations(container, this);
     }
 
     /**

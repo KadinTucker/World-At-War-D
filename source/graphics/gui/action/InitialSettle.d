@@ -51,7 +51,7 @@ class InitialSettleAction : Action {
             } else {
                 (cast(GameActivity)this.container.activity).map.selectedElement = this.menu.origin.owner.cities[0];
                 (cast(GameActivity)this.container.activity).map.activePlayer = this.menu.origin.owner;
-                this.menu.configuration = ActionMenu.cityMenu(this.container, this.menu);
+                this.menu.configuration = ActionMenu.cityMenu;
             }
         } else {
             this.perform();

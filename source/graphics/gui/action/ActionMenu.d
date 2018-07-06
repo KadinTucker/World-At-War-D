@@ -10,23 +10,22 @@ import logic;
  */
 class ActionMenu {
 
-        /**
-         * Returns an empty button menu configuration
-         */
-        static Action[6] nullMenu(Display container, ButtonMenu menu) {
-                return [null, null, null, null, null, null];
-        }
+    static Action[6] nullMenu; ///An empty configuration
+    static Action[6] cityMenu; ///The configuration active when a city is selected
 
-        /**
-         * The root actions available when a city is selected
-         */
-        static Action[6] cityMenu(Display container, ButtonMenu menu) {
-                return [new DevelopAction(container, menu),
+    /**
+     * Initializes every menu configuration for the game
+     */
+    static void initializeMenuConfigurations(Display container, ButtonMenu menu) {
+        this.nullMenu = [null, null, null, null, null, null];
+        this.cityMenu = [
+                new DevelopAction(container, menu),
                 new SettleAction(container, menu), 
-                        null, 
-                        null, 
-                        null, 
-                        null];
-        }
+                null, 
+                null, 
+                null, 
+                null
+            ];
+    }
 
 }
