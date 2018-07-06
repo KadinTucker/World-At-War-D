@@ -52,7 +52,7 @@ abstract class Action {
         if(this.menu.origin !is null) {
             this.menu.origin.isActive = false;
         }
-        this.menu.configuration = menuNull(this.container, this.menu);
+        this.menu.configuration = ActionMenu.nullMenu(this.container, this.menu);
     }
 
 }
