@@ -26,6 +26,7 @@ class CancelAction : Action {
         } else if(cast(Army)this.menu.origin) {
             //TODO: Make army menu
         }
+        this.menu.setNotification(" ");
     }
 
     /**

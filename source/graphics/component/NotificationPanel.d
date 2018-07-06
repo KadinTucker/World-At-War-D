@@ -43,8 +43,8 @@ class NotificationPanel : Component {
     @property void notification(string newNotification) {
         this._notification = newNotification;
         if(newNotification.length > 0) {
-            this.drawTexture = new Texture(createPanelWithText(loadImage("res/Interface/notificationpanel.png"), this._location, 
-                    newNotification, 4, Color(25, 150, 25)), this.container.renderer);
+            this.drawTexture = new Texture(TextPanel.createPanelWithText(loadImage("res/Interface/notificationpanel.png"), 
+                    this._location, newNotification, 4, Color(25, 150, 25)), this.container.renderer);
         } else {
             this.drawTexture = new Texture(loadImage("res/Interface/notificationpanel.png"), container.renderer);
         }

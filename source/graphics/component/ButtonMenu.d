@@ -90,7 +90,7 @@ class ButtonMenu : Component {
             if(this.configuration[i] is null) {
                 this.configTexture[i] = new Texture(loadImage("res/Interface/base.png"), this.container.renderer);
             } else {
-            this.configTexture[i] = new Texture(createPanelWithText(loadImage("res/Interface/base.png"), new iRectangle(0, 0, 115, 60), 
+            this.configTexture[i] = new Texture(TextPanel.createPanelWithText(loadImage("res/Interface/base.png"), new iRectangle(0, 0, 115, 60), 
                     this.configuration[i].name), this.container.renderer);
             }
         }
