@@ -20,7 +20,7 @@ class SettleAction : Action {
      * given container and action's origin location
      */
     this(Display container, ButtonMenu menu) {
-        super("Settle", container, menu);
+        super("Settle  ", container, menu);
     }
 
     /**
