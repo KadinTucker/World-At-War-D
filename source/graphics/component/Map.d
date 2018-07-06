@@ -47,10 +47,60 @@ class Map : Component {
     }
 
     /**
+     * Returns the button menu contained in the activity 
+     */
+    @property ButtonMenu menu() {
+        return (cast(GameActivity)this.container.activity).buttonMenu;
+    }
+
+    /**
      * Handles incoming events to the map component
+     * Handles selection of tiles on the map
      */
     void handleEvent(SDL_Event event) {
-        
+        if(event.type == SDL_MOUSEBUTTONDOWN) {
+            if(event.button.button == SDL_BUTTON_LEFT) {
+                if(this._location.contains(this.container.mouse.location)
+                        && (cast(GameActivity)this.container.activity).query is null) {
+                    Tile hovered = this.world.getTileAt(this.getHoveredTile());
+                    if(hovered.city !is null) {
+                        this.selectCity(hovered.city);
+                    } else if(hovered.unit !is null) {
+                        this.selectUnit(hovered.unit);
+                    } else {
+                        this.menu.configuration = ActionMenu.nullMenu;
+                        this.menu.setNotification(" ");
+                        this.selectedElement = null;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Runs when a city on the map is selected
+     * If the city is active, set the action configuration
+     * to be the city actions
+     */
+    void selectCity(City city) {
+        this.selectedElement = city;
+        if(this.selectedElement.isActive && this.selectedElement.owner == this.activePlayer) {
+            this.menu.configuration = ActionMenu.cityMenu;
+        } else {
+            this.menu.configuration = ActionMenu.nullMenu;
+            this.menu.setNotification(" ");
+        }
+    }
+
+    /**
+     * Runs when a unit is selected
+     * Handles both armies and fleets
+     * TODO: Make action configurations for
+     * units to be set
+     */
+    void selectUnit(Unit unit) {
+        this.selectedElement = unit;
+        this.menu.configuration = ActionMenu.nullMenu;
     }
 
     /**

@@ -24,6 +24,8 @@ class ProduceAction : Action {
         if(cast(City)this.menu.origin) {
             this.menu.setNotification("Choose a unit to produce");
             this.menu.configuration = ActionMenu.produceOptionsLandMenu;
+            import std.stdio;
+            writeln("Produced.");
         }
     }
 

@@ -45,6 +45,7 @@ class SettleAction : Action {
         if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
                 && this.menu.origin.world.getTileAt(target).city is null) {
             City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, initialSize);
+            cityToAdd.isActive = false;
             this.menu.origin.world.getTileAt(target).city = cityToAdd;
             this.menu.origin.owner.cities ~= cityToAdd;
             this.menu.origin.owner.resources -= settleCost;
