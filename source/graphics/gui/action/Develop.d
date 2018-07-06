@@ -26,6 +26,7 @@ class DevelopAction : Action {
             (cast(City)this.menu.origin).develop();
             this.menu.updateMap();
             this.menu.setNotification("Developed city to level "~(cast(City)this.menu.origin).level.to!string);
+            this.disableOrigin();
         }
     }
 

@@ -39,7 +39,7 @@ class SettleAction : Action {
 
     /**
      * If the location obtained from the query is valid,
-     * add a city there
+     * add a city there and consume an action
      */
     override void performAfterQuery(Coordinate target, string str="") {
         if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
@@ -50,6 +50,7 @@ class SettleAction : Action {
             this.menu.origin.owner.resources -= settleCost;
             this.menu.updateMap();
             this.menu.setNotification("Settled a new city at ("~target.x.to!string~", "~target.y.to!string~")");
+            this.disableOrigin();
         }
     }
 

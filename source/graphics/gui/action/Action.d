@@ -44,4 +44,15 @@ abstract class Action {
         (cast(GameActivity)this.container.activity).query = query;
     }
 
+    /**
+     * Causes the action performed to disable the origin
+     * In other words, the action consumes an action of the origin
+     */
+    void disableOrigin() {
+        if(this.menu.origin !is null) {
+            this.menu.origin.isActive = false;
+        }
+        this.menu.configuration = menuNull(this.container, this.menu);
+    }
+
 }
