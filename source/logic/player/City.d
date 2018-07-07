@@ -9,7 +9,7 @@ import logic.world.World;
 immutable int baseCityLevel = 3; ///The normal level at which cities begin
 immutable int resourcesPerLevel = 1; ///The number of resources a city yields per turn per level
 immutable int levelsPerAction = 5; ///The number of levels a city must have before it can take an extra action
-immutable double percentRepairedPerTurn = 0.1; ///How much of a city's garrison is replenished every turn
+immutable double percentRepairedPerTurn = 0.15; ///How much of a city's garrison is replenished every turn
 
 /**
  * A stationary population and production center on the map
@@ -28,6 +28,7 @@ class City : TileElement {
     this(Player owner, Coordinate location, World world, int level=baseCityLevel) {
         super(owner, location, world);
         this.level = level;
+        this.defense = this.maxDefense;
     }
 
     /**
@@ -38,7 +39,7 @@ class City : TileElement {
         foreach(unit; this.garrison) {
             garrisonDefense += unit.garrisonValue();
         }
-        return 50 + this.level * 15;
+        return 30 + this.level * 10;
     }
 
     /**

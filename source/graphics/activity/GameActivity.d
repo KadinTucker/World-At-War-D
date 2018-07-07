@@ -90,4 +90,24 @@ class GameActivity : Activity {
         initSettle.perform();
     }
 
+    /**
+     * Ends the turn and resolves resource income and city repair
+     */
+    void endTurn() {
+        foreach(city; this.players[this.activePlayerIndex].cities) {
+            city.isActive = true;
+        } 
+        foreach(military; this.players[this.activePlayerIndex].military) {
+            military.isActive = true;
+            if(cast(Army)military) {
+                (cast(Army)military).movementPoints = (cast(Army)military).moves;
+            }
+        }
+        this.players[this.activePlayerIndex].resolveTurnEnd();
+        this.activePlayerIndex += 1;
+        this.activePlayerIndex %= this.players.length;
+        this.map.selectedElement = null; //TODO: make selected element, if owned by now active player, have proper menu
+        this.updateComponents();
+    }
+
 }

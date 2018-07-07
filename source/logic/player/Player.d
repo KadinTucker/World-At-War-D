@@ -30,19 +30,14 @@ class Player {
     }
 
     /**
-     * Settles a city for this player.
-     * Returns whether or not the settling was successful.
-     * Params:
-     *      world = the world being settled in
-     *      location = the location being settled at
+     * Resolves the end of a player's turn by getting their income
+     * Runs all contained cities' turn end methods
      */
-    bool settleCity(World world, Coordinate location){
-        if(world.getTileAt(location).owner == this){
-            territory -= 1;
-            cities ~= new City(this, location, world);
-            return true;
+    void resolveTurnEnd() {
+        this.resources += this.territory;
+        foreach(city; this.cities) {
+            city.resolveTurn();
         }
-        return false;
     }
 
 }

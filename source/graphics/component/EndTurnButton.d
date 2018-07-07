@@ -47,21 +47,7 @@ class EndTurnButton : Component {
         if(event.type == SDL_MOUSEBUTTONDOWN) {
             if(event.button.button == SDL_BUTTON_LEFT) {
                 if(this._location.contains(this.container.mouse.location)) {
-                    Player refPlayer = (cast(GameActivity)this.container.activity).map.activePlayer;
-                    foreach(city; refPlayer.cities) {
-                        city.isActive = true;
-                    } 
-                    foreach(military; refPlayer.military) {
-                        military.isActive = true;
-                        if(cast(Army)military) {
-                            (cast(Army)military).movementPoints = (cast(Army)military).moves;
-                        }
-                    }
-                    (cast(GameActivity)this.container.activity).activePlayerIndex += 1;
-                    (cast(GameActivity)this.container.activity).activePlayerIndex %= 
-                            (cast(GameActivity)this.container.activity).players.length;
-                    (cast(GameActivity)this.container.activity).map.selectedElement = null; //TODO: make selected element, if owned by now active player, have proper menu
-                    (cast(GameActivity)this.container.activity).updateComponents();
+                    (cast(GameActivity)this.container.activity).endTurn();
                 }
             }
         }

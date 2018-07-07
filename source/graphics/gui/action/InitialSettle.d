@@ -4,6 +4,8 @@ import d2d;
 import graphics;
 import logic;
 
+immutable int startingCityLevel = 5;
+
 /**
  * Settles a city
  * Different from regular settle action, only occurs at the
@@ -41,7 +43,7 @@ class InitialSettleAction : Action {
     override void performAfterQuery(Coordinate target, string str="") {
         if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
                 && this.menu.origin.world.getTileAt(target).city is null) {
-            City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, 3);
+            City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, startingCityLevel);
             this.menu.origin.world.getTileAt(target).city = cityToAdd;
             this.menu.origin.owner.cities ~= cityToAdd;
             this.menu.updateScreen();
