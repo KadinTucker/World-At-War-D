@@ -4,17 +4,22 @@ import d2d;
 import graphics;
 import logic;
 
+import std.conv;
+
 /**
  * The component which displays information at the top of the screen
  * Shows the territory amount, amount of resources, and also handles
  * access to the menu
+ * TODO: Add more information to be displayed:
+ * - Turn number
+ * - Active player
+ * - Resource Income
  */
 class TopBar : Component {
 
     iRectangle _location; ///The location of the bar
-    Texture barBase; ///The base of the bar
-    Texture resourceBox; ///The box which displays resources
-    Texture territoryBox; ///The box which displays territory
+    Texture barTexture; ///The texture to be drawn
+    Font renderingFont; ///The font used to render numbers for the display
 
     /**
      * Constructs a new top bar in the given container
@@ -22,7 +27,8 @@ class TopBar : Component {
     this(Display container, iRectangle location) {
         super(container);
         this._location = location;
-        this.barBase = new Texture(loadImage("res/Interface/topbar.png"), container.renderer);
+        this.barTexture = new Texture(loadImage("res/Interface/topbar.png"), container.renderer);
+        this.renderingFont = new Font("res/Font/Courier.ttf", 14);
     }
 
     /**
@@ -44,7 +50,7 @@ class TopBar : Component {
      * TODO:
      */
     override void draw() {
-        this.container.renderer.copy(this.barBase, this._location);
+        this.container.renderer.copy(this.barTexture, this._location);
     }
 
     /**
@@ -57,10 +63,21 @@ class TopBar : Component {
     /**
      * Updates the information displayed on the bar
      * of the given player
-     * TODO:
+     * TODO: Add more information to be displayed
      */
-    void updateBoxes(Player activePlayer) {
-
+    void updateTexture(Player activePlayer) {
+        if(activePlayer is null) {
+            this.barTexture = new Texture(loadImage("res/Interface/topbar.png"), container.renderer);
+            return;
+        }
+        Surface barBase = loadImage("res/Interface/topbar.png");
+        Surface resource = loadImage("res/Interface/resourceLabel.png");
+        resource.blit(this.renderingFont.renderTextSolid(activePlayer.resources.to!string, Color(60, 180, 60)), null, 70, 2);
+        Surface territory = loadImage("res/Interface/territoryLabel.png");
+        territory.blit(this.renderingFont.renderTextSolid(activePlayer.territory.to!string, Color(60, 180, 60)), null, 55, 2);
+        barBase.blit(resource, null, 10, 0);
+        barBase.blit(territory, null, 130, 0);
+        this.barTexture = new Texture(barBase, this.container.renderer);
     }
 
 }

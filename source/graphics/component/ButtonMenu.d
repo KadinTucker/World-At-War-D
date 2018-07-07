@@ -105,11 +105,11 @@ class ButtonMenu : Component {
     }
 
     /**
-     * Updates the map texture after a change
+     * Updates the container's components
      * For easy access from actions
      */
-    void updateMap() {
-        (cast(GameActivity)this.container.activity).map.updateTexture();
+    void updateScreen() {
+        (cast(GameActivity)this.container.activity).updateComponents();
     }
     
 }

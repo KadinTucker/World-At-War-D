@@ -22,6 +22,7 @@ class GameActivity : Activity {
     int activePlayerIndex; ///The index of the active player
     Map map; ///The map component; for easy access
     ButtonMenu buttonMenu; ///The button menu for actions; for easy access
+    TopBar topBar; ///the bar at the top which displays everything
     NotificationPanel notifications; ///The notification panel for easy access
 
     /**
@@ -45,7 +46,8 @@ class GameActivity : Activity {
         this.components ~= new QueryIndicator(container, this);
         this.notifications = new NotificationPanel(container, new iRectangle(0, 480, 690, 60));
         this.components ~= this.notifications;
-        this.components ~= new TopBar(container, new iRectangle(0, 0, 1100, 16));
+        this.topBar = new TopBar(container, new iRectangle(0, 0, 1100, 16));
+        this.components ~= this.topBar;
         this.components ~= new EndTurnButton(container, new iRectangle(1010, 570, 90, 30));
     }
 
@@ -67,6 +69,14 @@ class GameActivity : Activity {
         if(this.query !is null) {
             this.query.ask(event);
         }
+    }
+
+    /**
+     * Updates each of the components of the activity
+     */
+    void updateComponents() {
+        this.map.updateTexture();
+        this.topBar.updateTexture(this.players[this.activePlayerIndex]);
     }
 
     /**

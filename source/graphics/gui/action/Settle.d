@@ -49,7 +49,7 @@ class SettleAction : Action {
             this.menu.origin.world.getTileAt(target).city = cityToAdd;
             this.menu.origin.owner.cities ~= cityToAdd;
             this.menu.origin.owner.resources -= settleCost;
-            this.menu.updateMap();
+            this.menu.updateScreen();
             this.menu.setNotification("Settled a new city at ("~target.x.to!string~", "~target.y.to!string~")");
             this.disableOrigin();
         }

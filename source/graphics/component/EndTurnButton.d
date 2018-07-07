@@ -61,6 +61,7 @@ class EndTurnButton : Component {
                     (cast(GameActivity)this.container.activity).activePlayerIndex %= 
                             (cast(GameActivity)this.container.activity).players.length;
                     (cast(GameActivity)this.container.activity).map.selectedElement = null; //TODO: make selected element, if owned by now active player, have proper menu
+                    (cast(GameActivity)this.container.activity).updateComponents();
                 }
             }
         }

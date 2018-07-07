@@ -24,7 +24,7 @@ class DevelopAction : Action {
     override void perform() {
         if(cast(City)this.menu.origin) {
             (cast(City)this.menu.origin).develop();
-            this.menu.updateMap();
+            this.menu.updateScreen();
             this.menu.setNotification("Developed city to level "~(cast(City)this.menu.origin).level.to!string);
             this.disableOrigin();
         }

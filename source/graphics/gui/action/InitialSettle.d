@@ -44,12 +44,13 @@ class InitialSettleAction : Action {
             City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, 3);
             this.menu.origin.world.getTileAt(target).city = cityToAdd;
             this.menu.origin.owner.cities ~= cityToAdd;
-            this.menu.updateMap();
+            this.menu.updateScreen();
             this.playerIndex++;
             if(this.playerIndex < (cast(GameActivity)this.container.activity).players.length) {
                 this.perform();
             } else {
                 (cast(GameActivity)this.container.activity).activePlayerIndex = 0;
+                this.menu.updateScreen();
             }
         } else {
             this.perform();
