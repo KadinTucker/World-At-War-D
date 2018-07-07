@@ -19,6 +19,7 @@ class GameActivity : Activity {
     Query query; ///The currently active query
     TileElement selected; ///The currently selected object
     Player[] players; ///The players in the game
+    int activePlayerIndex; ///The index of the active player
     Map map; ///The map component; for easy access
     ButtonMenu buttonMenu; ///The button menu for actions; for easy access
     NotificationPanel notifications; ///The notification panel for easy access
@@ -45,6 +46,7 @@ class GameActivity : Activity {
         this.notifications = new NotificationPanel(container, new iRectangle(0, 480, 690, 60));
         this.components ~= this.notifications;
         this.components ~= new TopBar(container, new iRectangle(0, 0, 1100, 16));
+        this.components ~= new EndTurnButton(container, new iRectangle(1010, 570, 90, 30));
     }
 
     /**

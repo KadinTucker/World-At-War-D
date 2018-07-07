@@ -49,9 +49,7 @@ class InitialSettleAction : Action {
             if(this.playerIndex < (cast(GameActivity)this.container.activity).players.length) {
                 this.perform();
             } else {
-                (cast(GameActivity)this.container.activity).map.selectedElement = this.menu.origin.owner.cities[0];
-                (cast(GameActivity)this.container.activity).map.activePlayer = this.menu.origin.owner;
-                this.menu.configuration = ActionMenu.cityMenu;
+                (cast(GameActivity)this.container.activity).activePlayerIndex = 0;
             }
         } else {
             this.perform();

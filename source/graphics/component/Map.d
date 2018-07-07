@@ -13,7 +13,6 @@ class Map : Component {
     iVector pan; ///The offset of the center of the map
     World world; ///The world to be drawn by the map
     TileElement selectedElement; ///The tile element selected by the player
-    Player activePlayer; ///The player currently taking their turn
     Texture mapTexture; ///The compiled texture of all map elements on the screen
     Texture[3] selectionTextures; ///The textures used in drawing selections
 
@@ -44,6 +43,13 @@ class Map : Component {
      */
     @property void location(iRectangle newLocation) {
         this._location = newLocation;
+    }
+
+    /**
+     * Gets the active player in the game
+     */
+    @property Player activePlayer() {
+        return (cast(GameActivity)this.container.activity).players[(cast(GameActivity)this.container.activity).activePlayerIndex];
     }
 
     /**
