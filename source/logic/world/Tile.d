@@ -45,27 +45,6 @@ class Coordinate {
 }
 
 /**
- * Given a coordinate, returns the coordinate that 
- * results from moving in the given direction
- */
-Coordinate moveDirection(Coordinate coord, Direction direction) {
-        int[2] change;
-        if(direction == Direction.NORTH) {
-            change[1] = -1;
-        }
-        else if(direction == Direction.EAST) {
-            change[0] = 1;
-        }
-        if(direction == Direction.SOUTH) {
-            change[1] = 1;
-        }
-        if(direction == Direction.WEST) {
-            change[0] = -1;
-        }
-        return new Coordinate(coord.x + change[0], coord.y + change[1]);
-    }
-
-/**
  * A tile to be found in the world
  * Has a terrain; may also house a battalion, city, 
  * and may be owned by a player as territory
@@ -82,6 +61,27 @@ class Tile {
      */
     this(Terrain terrain) {
         this.terrain = terrain;
+    }
+
+    /**
+     * Given a coordinate, returns the coordinate that 
+     * results from moving in the given direction
+     */
+    static Coordinate moveDirection(Coordinate coord, Direction direction) {
+        int[2] change;
+        if(direction == Direction.NORTH) {
+            change[1] = -1;
+        }
+        else if(direction == Direction.EAST) {
+            change[0] = 1;
+        }
+        if(direction == Direction.SOUTH) {
+            change[1] = 1;
+        }
+        if(direction == Direction.WEST) {
+            change[0] = -1;
+        }
+        return new Coordinate(coord.x + change[0], coord.y + change[1]);
     }
 
 }
