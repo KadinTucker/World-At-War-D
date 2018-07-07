@@ -18,6 +18,7 @@ class DirectionQuery : Query {
      */
     this(Action action, Display container) {
         super(action, container);
+        this.direction = Direction.NO_DIRECTION;
         Surface arrows = new Surface(150, 150, SDL_PIXELFORMAT_RGBA32);
         arrows.blit(loadImage("res/Interface/directionarrowright"), null, 100, 50);
         arrows.blit(loadImage("res/Interface/directionarrowup"), null, 50, 0);
@@ -30,16 +31,43 @@ class DirectionQuery : Query {
      * Checks if the player has chosen a direction
      * Uses the arrow keys to determine direction
      * or the mouse
-     * TODO:
      */
     override void ask(SDL_Event event) {
-        
+        if(event.type == SDL_KEYDOWN) {
+            if(event.key.keysym.sym == SDLK_UP) {
+                this.direction = Direction.NORTH;
+            } else if(event.key.keysym.sym == SDLK_RIGHT) {
+                this.direction = Direction.EAST;
+            } else if(event.key.keysym.sym == SDLK_DOWN) {
+                this.direction = Direction.SOUTH;
+            } else if(event.key.keysym.sym == SDLK_LEFT) {
+                this.direction = Direction.WEST;
+            }
+        } else if(event.type == SDL_MOUSEBUTTONDOWN) {
+            if(event.button.button == SDL_BUTTON_LEFT) {
+                if(Tile.getManhattanDistance((cast(GameActivity)this.container.activity).map.getHoveredTile, 
+                        this.action.menu.origin.location) == 1) {
+                    if((cast(GameActivity)this.container.activity).map.getHoveredTile.x > this.action.menu.origin.location.x) {
+                        this.direction = Direction.EAST;
+                    } else if((cast(GameActivity)this.container.activity).map.getHoveredTile.x < this.action.menu.origin.location.x) {
+                        this.direction = Direction.WEST;
+                    } else if((cast(GameActivity)this.container.activity).map.getHoveredTile.y > this.action.menu.origin.location.y) {
+                        this.direction = Direction.NORTH;
+                    } else if((cast(GameActivity)this.container.activity).map.getHoveredTile.y < this.action.menu.origin.location.y) {
+                        this.direction = Direction.SOUTH;
+                    }
+                }
+            }
+        }
+        if(this.direction != Direction.NO_DIRECTION) {
+            this.isFulfilled = true;
+            this.performAction();
+        }
     }
 
     /**
      * Indicates that the player should choose a location
      * by drawing arrows around the origin
-     * TODO:
      */
     override void indicate() {
         Map refMap = (cast(GameActivity)this.container.activity).map;

@@ -4,6 +4,8 @@ import logic.player.City;
 import logic.player.Player;
 import logic.unit.Unit;
 
+import std.math;
+
 /**
  * An enumeration of all terrain types
  */
@@ -19,6 +21,7 @@ enum Terrain {
  */
 enum Direction {
 
+    NO_DIRECTION=-1,
     NORTH=0,
     EAST=1,
     SOUTH=2,
@@ -82,6 +85,14 @@ class Tile {
             change[0] = -1;
         }
         return new Coordinate(coord.x + change[0], coord.y + change[1]);
+    }
+
+    /**
+     * Return the manhattan distance (distance along edges)
+     * between two coordinates
+     */
+    static int getManhattanDistance(Coordinate coord1, Coordinate coord2) {
+        return abs(coord1.x - coord2.x) + abs(coord1.y - coord2.y);
     }
 
 }
