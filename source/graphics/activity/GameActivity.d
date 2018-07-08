@@ -80,7 +80,7 @@ class GameActivity : Activity {
     void updateComponents() {
         this.map.updateTexture();
         this.topBar.updateTexture(this.players[this.activePlayerIndex]);
-        //this.info.updateTexture(this.world.getTileAt(this.map.getHoveredTile()));
+        this.info.updateTexture(this.world.getTileAt(this.map.getHoveredTile()));
     }
 
     /**

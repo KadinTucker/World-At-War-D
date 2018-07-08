@@ -60,7 +60,9 @@ class InformationPanel : Component {
      * TODO: More information to be displayed
      */
     void updateTexture(Tile tile) {
-        if(tile.element is null) {
+        if(tile is null) {
+            this.panelTexture = new Texture(loadImage("res/Interface/informationpanel.png"), this.container.renderer);
+        } else if(tile.element is null) {
             Surface base = loadImage("res/Interface/informationpanel.png");
             Surface titleLabel = this.renderingFont.renderTextSolid("Tile "~tile.location.toString());
             if(tile.owner !is null) {
@@ -74,8 +76,10 @@ class InformationPanel : Component {
             Surface base = loadImage("res/Interface/informationpanel.png");
             Surface titleLabel = this.renderingFont.renderTextSolid("City at "~refCity.location.toString());
             Surface ownerLabel = this.renderingFont.renderTextSolid("Owner: "~refCity.owner.name);
+            Surface levelLabel = this.renderingFont.renderTextSolid("Level: "~refCity.level.to!string);
             base.blit(titleLabel, null, 6, 8);
             base.blit(ownerLabel, null, 6, 26);
+            base.blit(levelLabel, null, 6, 44);
             this.panelTexture = new Texture(base, this.container.renderer);
         } else {
             this.panelTexture = new Texture(loadImage("res/Interface/informationpanel.png"), this.container.renderer);
