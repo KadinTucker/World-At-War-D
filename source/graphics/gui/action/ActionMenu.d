@@ -23,7 +23,7 @@ class ActionMenu {
             new DevelopAction(container, menu),
             new SettleAction(container, menu), 
             new ProduceAction(container, menu), 
-            null, 
+            new MobilizeAction(container, menu), 
             null, 
             null
         ];

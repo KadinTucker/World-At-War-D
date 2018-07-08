@@ -20,10 +20,10 @@ class DirectionQuery : Query {
         super(action, container);
         this.direction = Direction.NO_DIRECTION;
         Surface arrows = new Surface(150, 150, SDL_PIXELFORMAT_RGBA32);
-        arrows.blit(loadImage("res/Interface/directionarrowright"), null, 100, 50);
-        arrows.blit(loadImage("res/Interface/directionarrowup"), null, 50, 0);
-        arrows.blit(loadImage("res/Interface/directionarrowdown"), null, 50, 100);
-        arrows.blit(loadImage("res/Interface/directionarrowrleft"), null, 0, 50);
+        arrows.blit(loadImage("res/Interface/directionarrowright.png"), null, 100, 50);
+        arrows.blit(loadImage("res/Interface/directionarrowup.png"), null, 50, 0);
+        arrows.blit(loadImage("res/Interface/directionarrowdown.png"), null, 50, 100);
+        arrows.blit(loadImage("res/Interface/directionarrowleft.png"), null, 0, 50);
         this.directionArrows = new Texture(arrows, this.container.renderer);
     }
 
@@ -33,6 +33,9 @@ class DirectionQuery : Query {
      * or the mouse
      */
     override void ask(SDL_Event event) {
+        if(this.isFulfilled) {
+            return; 
+        }
         if(event.type == SDL_KEYDOWN) {
             if(event.key.keysym.sym == SDLK_UP) {
                 this.direction = Direction.NORTH;
@@ -52,9 +55,9 @@ class DirectionQuery : Query {
                     } else if((cast(GameActivity)this.container.activity).map.getHoveredTile.x < this.action.menu.origin.location.x) {
                         this.direction = Direction.WEST;
                     } else if((cast(GameActivity)this.container.activity).map.getHoveredTile.y > this.action.menu.origin.location.y) {
-                        this.direction = Direction.NORTH;
-                    } else if((cast(GameActivity)this.container.activity).map.getHoveredTile.y < this.action.menu.origin.location.y) {
                         this.direction = Direction.SOUTH;
+                    } else if((cast(GameActivity)this.container.activity).map.getHoveredTile.y < this.action.menu.origin.location.y) {
+                        this.direction = Direction.NORTH;
                     }
                 }
             }

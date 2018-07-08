@@ -35,6 +35,10 @@ class City : TileElement {
         return baseCityDefense + this.level * defensePerLevel;
     }
 
+    void refreshGarrison() {
+        this.garrison = new Army(this.owner, this.location, this.world);
+    }
+
     /**
      * What happens the city receives damage from the given attacker
      */
