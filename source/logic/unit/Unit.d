@@ -19,6 +19,14 @@ abstract class Unit : TileElement {
      */
     this(Player owner, Coordinate location, World world) {
         super(owner, location, world);
+    }
+
+    /**
+     * Mobilizes the unit by adding itself
+     * to the owner's military and to the map
+     * at its location
+     */
+    void mobilize() {
         owner.military ~= this;
         world.getTileAt(location).unit = this;
     }
@@ -26,6 +34,7 @@ abstract class Unit : TileElement {
     /**
      * The unit gets destroyed
      * Any traces are removed
+     * Also used when the unit is garrisoned
      */
     void getDestroyed() {
         this.owner.military.remove(this.owner.military.countUntil(this));

@@ -129,8 +129,7 @@ class Map : Component {
                 if(world[x][y].city !is null) {
                     mapSurface.blit(TileDisplay.generateCityTexture(world[x][y].city), null,
                             this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);
-                }
-                if(world[x][y].unit !is null) {
+                } else if(world[x][y].unit !is null) {
                     if(cast(Army)world[x][y].unit) {
                         mapSurface.blit(TileDisplay.generateArmyTexture(cast(Army)world[x][y].unit), null,
                                 this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);

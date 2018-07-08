@@ -48,6 +48,9 @@ class Army : Unit {
      * Averages move amounts of each unit; infantry are counted 1/5 as much
      */
     @property int moves() {
+        if(this.troops[0] <= 0 && this.troops[1] <= 0 && this.troops[2] <= 0) {
+            return 0;
+        }
         return (infantryMovement * this.troops[0] / inverseInfantryProportion + tankMovement * this.troops[1] + artilleryMovement * this.troops[2])
                 / (this.troops[0] / inverseInfantryProportion + this.troops[1] + this.troops[2]);
     }
