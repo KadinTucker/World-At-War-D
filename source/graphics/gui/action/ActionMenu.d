@@ -28,8 +28,8 @@ class ActionMenu {
             null
         ];
         this.produceOptionsLandMenu = [
-            null,
-            null,
+            new ProduceOption(container, menu, "Tank", 20, &ProduceOption.produceTank),
+            new ProduceOption(container, menu, "Artillery", 15, &ProduceOption.produceArtillery),
             null,
             null,
             null,

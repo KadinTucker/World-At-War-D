@@ -74,11 +74,11 @@ class Map : Component {
                             this.selectCity(cast(City)hovered.element);
                         } else if(cast(Unit)hovered.element) {
                             this.selectUnit(cast(Unit)hovered.element);
-                        } else {
-                            this.menu.configuration = ActionMenu.nullMenu;
-                            this.menu.setNotification(" ");
-                            this.selectedElement = null;
-                        }
+                        } 
+                    } else {
+                        this.menu.configuration = ActionMenu.nullMenu;
+                        this.menu.setNotification(" ");
+                        this.selectedElement = null;
                     }
                 }
             }
