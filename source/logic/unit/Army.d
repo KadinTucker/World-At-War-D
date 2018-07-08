@@ -58,13 +58,14 @@ class Army : Unit {
     /**
      * Moves the unit
      * Can only move onto empty land
+     * TODO: Moving onto a city garrisons
      */
     override void move(Coordinate target) {
         if(this.world.getTileAt(target).terrain == Terrain.LAND
-                && this.world.getTileAt(target).unit is null) {
-            this.world.getTileAt(this.location).unit = null;
+                && this.world.getTileAt(target).element is null) {
+            this.world.getTileAt(this.location).element = null;
             this.location = target;
-            this.world.getTileAt(this.location).unit = this;
+            this.world.getTileAt(this.location).element = this;
         }
     }
 

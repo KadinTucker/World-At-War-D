@@ -1,8 +1,6 @@
 module logic.world.Tile;
 
-import logic.player.City;
-import logic.player.Player;
-import logic.unit.Unit;
+import logic;
 
 import std.math;
 
@@ -55,8 +53,7 @@ class Coordinate {
 class Tile {
 
     Terrain terrain; ///The terrain type of the tile
-    Unit unit; ///Any unit that may be on this tile
-    City city; ///A city that may be on this tile
+    TileElement element; ///The tile element present on this tile
     Player owner; ///The owner of this tile
 
     /**

@@ -28,7 +28,7 @@ abstract class Unit : TileElement {
      */
     void mobilize() {
         owner.military ~= this;
-        world.getTileAt(location).unit = this;
+        world.getTileAt(location).element = this;
     }
 
     /**
@@ -38,7 +38,7 @@ abstract class Unit : TileElement {
      */
     void getDestroyed() {
         this.owner.military.remove(this.owner.military.countUntil(this));
-        world.getTileAt(location).unit = null;
+        world.getTileAt(location).element = null;
     }
 
     /**

@@ -69,14 +69,16 @@ class Map : Component {
                 if(this._location.contains(this.container.mouse.location)
                         && (cast(GameActivity)this.container.activity).query is null) {
                     Tile hovered = this.world.getTileAt(this.getHoveredTile());
-                    if(hovered.city !is null) {
-                        this.selectCity(hovered.city);
-                    } else if(hovered.unit !is null) {
-                        this.selectUnit(hovered.unit);
-                    } else {
-                        this.menu.configuration = ActionMenu.nullMenu;
-                        this.menu.setNotification(" ");
-                        this.selectedElement = null;
+                    if(hovered.element !is null) {
+                        if(cast(City)hovered.element) {
+                            this.selectCity(cast(City)hovered.element);
+                        } else if(cast(Unit)hovered.element) {
+                            this.selectUnit(cast(Unit)hovered.element);
+                        } else {
+                            this.menu.configuration = ActionMenu.nullMenu;
+                            this.menu.setNotification(" ");
+                            this.selectedElement = null;
+                        }
                     }
                 }
             }
@@ -126,12 +128,12 @@ class Map : Component {
                     mapSurface.blit(landSurface, null, this._location.initialPoint.x + 50 * x, 
                             this._location.initialPoint.y + 50 * y);
                 }
-                if(world[x][y].city !is null) {
-                    mapSurface.blit(TileDisplay.generateCityTexture(world[x][y].city), null,
-                            this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);
-                } else if(world[x][y].unit !is null) {
-                    if(cast(Army)world[x][y].unit) {
-                        mapSurface.blit(TileDisplay.generateArmyTexture(cast(Army)world[x][y].unit), null,
+                if(world[x][y].element !is null) {
+                    if(cast(City)world[x][y].element) {
+                        mapSurface.blit(TileDisplay.generateCityTexture(cast(City)world[x][y].element), null,
+                                this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);
+                    } else if(cast(Army)world[x][y].element) {
+                        mapSurface.blit(TileDisplay.generateArmyTexture(cast(Army)world[x][y].element), null,
                                 this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);
                     }
                 }

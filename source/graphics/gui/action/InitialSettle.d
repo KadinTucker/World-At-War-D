@@ -42,9 +42,9 @@ class InitialSettleAction : Action {
      */
     override void performAfterQuery(Coordinate target, string str="") {
         if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
-                && this.menu.origin.world.getTileAt(target).city is null) {
+                && this.menu.origin.world.getTileAt(target).element is null) {
             City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, startingCityLevel);
-            this.menu.origin.world.getTileAt(target).city = cityToAdd;
+            this.menu.origin.world.getTileAt(target).element = cityToAdd;
             this.menu.origin.owner.cities ~= cityToAdd;
             this.menu.updateScreen();
             this.playerIndex++;

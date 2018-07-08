@@ -1,7 +1,6 @@
 module logic.player.City;
 
 import logic;
-import graphics;
 
 immutable int baseCityLevel = 3; ///The normal level at which cities begin
 immutable int resourcesPerLevel = 1; ///The number of resources a city yields per turn per level
