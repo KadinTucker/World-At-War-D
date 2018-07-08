@@ -2,10 +2,11 @@ module logic.player.City;
 
 import logic;
 
-immutable int baseCityLevel = 3; ///The normal level at which cities begin
 immutable int resourcesPerLevel = 1; ///The number of resources a city yields per turn per level
 immutable int levelsPerAction = 5; ///The number of levels a city must have before it can take an extra action
 immutable double percentRepairedPerTurn = 0.15; ///How much of a city's garrison is replenished every turn
+immutable int baseCityDefense = 30;
+immutable int defensePerLevel = 10;
 
 /**
  * A stationary population and production center on the map
@@ -13,7 +14,6 @@ immutable double percentRepairedPerTurn = 0.15; ///How much of a city's garrison
 class City : TileElement {
 
     int level; ///The level of this city, affects production and number of actions
-    int actions; ///The number of actions this city can take
     int defense; ///The current defense value of the city
     Army garrison; ///The army garrisoned in the city
 
@@ -21,7 +21,7 @@ class City : TileElement {
      * Constructs a new city owned by the given player
      * at the given location in the given world, starting at the given level
      */
-    this(Player owner, Coordinate location, World world, int level=baseCityLevel) {
+    this(Player owner, Coordinate location, World world, int level) {
         super(owner, location, world);
         this.level = level;
         this.garrison = new Army(owner, location, world);
@@ -32,7 +32,7 @@ class City : TileElement {
      * Gets the maximum defense of the city
      */
     @property int maxDefense() {
-        return 30 + this.level * 10 + garrison.garrisonValue();
+        return baseCityDefense + this.level * defensePerLevel + garrison.garrisonValue();
     }
 
     /**
@@ -61,7 +61,6 @@ class City : TileElement {
         } else {
             this.owner.resources += this.level * resourcesPerLevel;
         }
-        this.actions = this.level / levelsPerAction + 1;
     }
 
     /**
@@ -69,7 +68,7 @@ class City : TileElement {
      */
     void develop() {
         this.level += 1;
-        this.actions -= 1;
+        this.defense += defensePerLevel;
     }
 
 }

@@ -7,7 +7,7 @@ import logic;
 
 import std.conv;
 
-immutable int numPlayers = 2; ///TODO: Make this a chosen option at start of game
+immutable int numPlayers = 3; ///TODO: Make this a chosen option at start of game
 
 /**
  * The main game activity
