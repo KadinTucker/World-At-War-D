@@ -1,10 +1,7 @@
 module logic.player.City;
 
-import logic.player.Player;
-import logic.unit.Unit;
-import logic.world.Tile;
-import logic.world.TileElement;
-import logic.world.World;
+import logic;
+import graphics;
 
 immutable int baseCityLevel = 3; ///The normal level at which cities begin
 immutable int resourcesPerLevel = 1; ///The number of resources a city yields per turn per level
@@ -19,7 +16,7 @@ class City : TileElement {
     int level; ///The level of this city, affects production and number of actions
     int actions; ///The number of actions this city can take
     int defense; ///The current defense value of the city
-    Unit[] garrison; ///The units garrisoned in the city
+    Army garrison; ///The army garrisoned in the city
 
     /**
      * Constructs a new city owned by the given player
@@ -28,6 +25,7 @@ class City : TileElement {
     this(Player owner, Coordinate location, World world, int level=baseCityLevel) {
         super(owner, location, world);
         this.level = level;
+        this.garrison = new Army(owner, location, world);
         this.defense = this.maxDefense;
     }
 
@@ -35,20 +33,14 @@ class City : TileElement {
      * Gets the maximum defense of the city
      */
     @property int maxDefense() {
-        int garrisonDefense;
-        foreach(unit; this.garrison) {
-            garrisonDefense += unit.garrisonValue();
-        }
-        return 30 + this.level * 10;
+        return 30 + this.level * 10 + garrison.garrisonValue();
     }
 
     /**
      * What happens the city receives damage from the given attacker
      */
     override void takeDamage(int damage, Unit attacker) {
-        foreach(unit; garrison) {
-            unit.garrisonAction(damage, attacker, this);
-        }
+        this.garrison.garrisonAction(damage, attacker, this);
         this.defense -= damage;
         if(this.defense <= 0) {
             this.owner = attacker.owner;

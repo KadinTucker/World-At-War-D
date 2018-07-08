@@ -27,16 +27,10 @@ abstract class Unit : TileElement {
      * The unit gets destroyed
      * Any traces are removed
      */
-    abstract void getDestroyed() {
+    void getDestroyed() {
         this.owner.military.remove(this.owner.military.countUntil(this));
         world.getTileAt(location).unit = null;
     }
-
-    /**
-     * What happens when the unit is attacked
-     * with the given amount of damage
-     */
-    abstract void takeDamage(int damage); 
 
     /**
      * What happens when the unit takes a movement action 

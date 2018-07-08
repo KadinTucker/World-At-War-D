@@ -33,8 +33,12 @@ abstract class Action {
      * Performs the action from a query
      * Uses whatever the query resulted in, 
      * either a coordinate or a string
+     * Not all actions use queries, so
+     * it is an optional override
      */
-    abstract void performAfterQuery(Coordinate target, string str="");
+    void performAfterQuery(Coordinate target, string str="") {
+
+    }
 
     /**
      * Sets a query to the contained display

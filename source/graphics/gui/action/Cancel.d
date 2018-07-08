@@ -29,11 +29,4 @@ class CancelAction : Action {
         this.menu.setNotification(" ");
     }
 
-    /**
-     * Does not use queries
-     */
-    override void performAfterQuery(Coordinate target, string str="") {
-
-    }
-
 }
