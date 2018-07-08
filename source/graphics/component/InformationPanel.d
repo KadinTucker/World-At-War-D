@@ -84,10 +84,12 @@ class InformationPanel : Component {
             Surface infantryLabel = this.renderingFont.renderTextSolid("Infantry: "~refArmy.troops[0].to!string);
             Surface tankLabel = this.renderingFont.renderTextSolid("Tanks: "~refArmy.troops[1].to!string);
             Surface artilleryLabel = this.renderingFont.renderTextSolid("Artillery: "~refArmy.troops[2].to!string);
+            Surface movesLabel = this.renderingFont.renderTextSolid("Moves: "~refArmy.movementPoints.to!string);
             base.blit(idLabel, null, 6, 44);
             base.blit(infantryLabel, null, 6, 62);
             base.blit(tankLabel, null, 6, 80);
             base.blit(artilleryLabel, null, 6, 98);
+            base.blit(movesLabel, null, 150, 6);
         }
         this.panelTexture = new Texture(base, this.container.renderer);
     }

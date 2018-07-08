@@ -29,6 +29,12 @@ class TileDisplay {
      * TODO: make json based; make flag colors based on player color
      */
     static void loadFlags() {
+        flags ~= loadImage("res/Flag/Historical/unitedstates.png");
+        flags ~= loadImage("res/Flag/Historical/japan.png");
+        flags ~= loadImage("res/Flag/Historical/unitedkingdom.png");
+        flags ~= loadImage("res/Flag/Historical/nazi.png");
+        flags ~= loadImage("res/Flag/Historical/soviet.png");
+        flags ~= loadImage("res/Flag/Historical/italy.png");
         flags ~= loadImage("res/Flag/blue.png");
         flags ~= loadImage("res/Flag/red.png");
         flags ~= loadImage("res/Flag/green.png");
@@ -48,6 +54,7 @@ class TileDisplay {
             cityTexture.blit(skylines[(i * 737 + 329 * city.location.x + city.location.y * 239) % skylines.length],
                     null, new iRectangle((i * 157 + city.location.x * 243 + city.location.y * 131) % 50 - 25, 30, 20, 20));
         }
+        cityTexture.blit(flags[city.owner.number], null, 0, 0);
         return cityTexture;
     }
 
@@ -58,13 +65,14 @@ class TileDisplay {
     static Surface generateArmyTexture(Army army) {
         Surface armyTexture;
         int armyValue = army.troops[0] + 20 * army.troops[1] + 20 * army.troops[2];
-        if(armyValue < 50) {
+        if(armyValue < 40) {
             armyTexture = loadImage("res/Unit/smallarmy.png");
-        } else if(armyValue < 100) {
+        } else if(armyValue < 80) {
             armyTexture = loadImage("res/Unit/medarmy.png");
         } else {
             armyTexture = loadImage("res/Unit/largearmy.png");
         }
+        armyTexture.blit(flags[army.owner.number], null, 0, 0);
         return armyTexture;
     }
 

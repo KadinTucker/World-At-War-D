@@ -19,7 +19,8 @@ class MobilizeAction : Action {
     }
 
     /**
-     * Sets a notification and sets the menu to be production options
+     * Sets a notification and a direction query of where to mobilize
+     * if the player has enough resources
      */
     override void perform() {
         if(cast(City)this.menu.origin && !(cast(City)this.menu.origin).garrison.isEmpty()) {

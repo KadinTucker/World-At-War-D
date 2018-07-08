@@ -109,7 +109,8 @@ class Map : Component {
      */
     void selectUnit(Unit unit) {
         this.selectedElement = unit;
-        this.menu.configuration = ActionMenu.nullMenu;
+        this.menu.configuration = ActionMenu.armyMenu;
+        this.menu.setNotification(" ");
     }
 
     /**

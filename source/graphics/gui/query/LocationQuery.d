@@ -32,6 +32,14 @@ class LocationQuery : Query {
                     (cast(GameActivity)(this.container.activity)).notifications.notification = "";
                     this.performAction();
                 }
+            } else if(event.button.button == SDL_BUTTON_RIGHT) {
+                this.isFulfilled = true;
+                this.action.menu.setNotification("Cancelled");
+            }
+        } else if(event.type == SDL_KEYDOWN) {
+            if(event.key.keysym.sym == SDLK_ESCAPE) {
+                this.isFulfilled = true;
+                this.action.menu.setNotification("Cancelled");
             }
         }
     }

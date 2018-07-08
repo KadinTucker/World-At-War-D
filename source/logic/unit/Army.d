@@ -41,6 +41,7 @@ class Army : Unit {
         super(owner, location, world);
         this.troops = [0, 0, 0];
         this.wounds = [0, 0, 0];
+        this.movementPoints = this.moves;
     }
 
     /**
@@ -76,6 +77,8 @@ class Army : Unit {
             this.world.getTileAt(this.location).element = null;
             this.location = target;
             this.world.getTileAt(this.location).element = this;
+            this.movementPoints -= 1;
+            this.captureTerritory(this.world.getTileAt(target));
         }
     }
 
@@ -161,10 +164,15 @@ class Army : Unit {
      * Reduces movement points based on the hitpoints of the army
      */
     private void captureTerritory(Tile tile) {
-        if(tile is null || tile.owner != this.owner) {
+        if(tile !is null && tile.owner != this.owner) {
             this.movementPoints -= territoryCaptureCost / 
                     (this.troops[0] * infantryHP + this.troops[1] * tankHP + this.troops[2] * artilleryHP);
-            tile.owner.territory -= 1;
+            if(this.movementPoints < 0) {
+                this.movementPoints = 0;
+            }
+            if(tile.owner !is null) {
+                tile.owner.territory -= 1;
+            }
             tile.owner = this.owner;
             this.owner.territory += 1;
         }

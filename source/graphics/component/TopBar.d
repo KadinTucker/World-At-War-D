@@ -13,7 +13,6 @@ import std.conv;
  * TODO: Add more information to be displayed:
  * - Turn number
  * - Active player
- * - Resource Income
  */
 class TopBar : Component {
 
