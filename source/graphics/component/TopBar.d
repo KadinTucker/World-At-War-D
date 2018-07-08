@@ -71,11 +71,12 @@ class TopBar : Component {
         }
         Surface barBase = loadImage("res/Interface/topbar.png");
         Surface resource = loadImage("res/Interface/resourceLabel.png");
-        resource.blit(this.renderingFont.renderTextSolid(activePlayer.resources.to!string, Color(60, 180, 60)), null, 70, 2);
+        resource.blit(this.renderingFont.renderTextSolid(activePlayer.resources.to!string~"(+"~activePlayer.getIncome().to!string~")",
+                Color(60, 180, 60)), null, 70, 2);
         Surface territory = loadImage("res/Interface/territoryLabel.png");
         territory.blit(this.renderingFont.renderTextSolid(activePlayer.territory.to!string, Color(60, 180, 60)), null, 55, 2);
         barBase.blit(resource, null, 10, 0);
-        barBase.blit(territory, null, 130, 0);
+        barBase.blit(territory, null, 180, 0);
         this.barTexture = new Texture(barBase, this.container.renderer);
     }
 

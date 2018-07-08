@@ -62,6 +62,7 @@ class Army : Unit {
     override void mobilize() {
         super.mobilize();
         this.world.getTileAt(this.location).owner = this.owner;
+        this.world.getTileAt(this.location).owner.territory += 1;
     }
     
     /**

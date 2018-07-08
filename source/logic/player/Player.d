@@ -40,4 +40,17 @@ class Player {
         }
     }
 
+    /**
+     * Gets how many resources the player gets every turn
+     */
+    int getIncome() {
+        int income = this.territory;
+        foreach(city; this.cities) {
+            if(city.defense >= city.maxDefense) {
+                income += city.level;
+            }
+        }
+        return income;
+    }
+
 }
