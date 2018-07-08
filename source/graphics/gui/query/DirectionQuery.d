@@ -37,13 +37,13 @@ class DirectionQuery : Query {
             return; 
         }
         if(event.type == SDL_KEYDOWN) {
-            if(event.key.keysym.sym == SDLK_UP) {
+            if(event.key.keysym.sym == SDLK_w) {
                 this.direction = Direction.NORTH;
-            } else if(event.key.keysym.sym == SDLK_RIGHT) {
+            } else if(event.key.keysym.sym == SDLK_d) {
                 this.direction = Direction.EAST;
-            } else if(event.key.keysym.sym == SDLK_DOWN) {
+            } else if(event.key.keysym.sym == SDLK_s) {
                 this.direction = Direction.SOUTH;
-            } else if(event.key.keysym.sym == SDLK_LEFT) {
+            } else if(event.key.keysym.sym == SDLK_a) {
                 this.direction = Direction.WEST;
             } else if(event.key.keysym.sym == SDLK_ESCAPE) {
                 this.isFulfilled = true;

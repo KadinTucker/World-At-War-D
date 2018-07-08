@@ -97,8 +97,8 @@ class Map : Component {
             this.menu.configuration = ActionMenu.cityMenu;
         } else {
             this.menu.configuration = ActionMenu.nullMenu;
-            this.menu.setNotification(" ");
         }
+        this.menu.setNotification(" ");
     }
 
     /**

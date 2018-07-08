@@ -54,6 +54,7 @@ class InitialSettleAction : Action {
             } else {
                 (cast(GameActivity)this.container.activity).activePlayerIndex = 0;
                 this.menu.updateScreen();
+                this.menu.setNotification("Player "~(cast(GameActivity)this.container.activity).players[0].name~", take your turn");
                 (cast(GameActivity)this.container.activity).info.updateTexture(null);
             }
         } else {

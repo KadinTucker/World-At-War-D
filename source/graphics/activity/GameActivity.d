@@ -118,6 +118,7 @@ class GameActivity : Activity {
         this.activePlayerIndex %= this.players.length;
         this.map.selectedElement = null; //TODO: make selected element, if owned by now active player, have proper menu
         this.updateComponents();
+        this.notifications.notification = "Player "~this.players[this.activePlayerIndex].name~", take your turn";
     }
 
 }

@@ -25,6 +25,7 @@ class MoveAction : Action {
      */
     override void perform() {
         if(cast(Army)this.menu.origin && (cast(Army)this.menu.origin).movementPoints > 0) {
+            this.menu.setNotification((cast(Army)this.menu.origin).movementPoints.to!string~" move(s) remaining");
             this.setQuery(new DirectionQuery(this, this.container));
             this.menu.configuration = ActionMenu.nullMenu;
         } else {
@@ -39,13 +40,12 @@ class MoveAction : Action {
      */
     override void performAfterQuery(Coordinate target, string str="") {
         (cast(Army)this.menu.origin).move(target);
-        this.menu.setNotification((cast(Army)this.menu.origin).movementPoints.to!string~" move(s) remaining");
         this.menu.updateScreen();
         this.menu.updateInformation();
         if((cast(Army)this.menu.origin).movementPoints > 0) {
             this.perform();
         } else {
-            this.menu.setNotification(" ");
+            this.menu.setNotification("Out of moves");
         }
     }
 

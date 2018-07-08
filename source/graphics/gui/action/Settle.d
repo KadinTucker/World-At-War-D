@@ -43,7 +43,8 @@ class SettleAction : Action {
      */
     override void performAfterQuery(Coordinate target, string str="") {
         if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
-                && this.menu.origin.world.getTileAt(target).element is null) { //TODO: Make it required to be owned territory and if there is a unit garrison it
+                && this.menu.origin.world.getTileAt(target).element is null
+                && this.menu.origin.world.getTileAt(target).owner == this.menu.origin.owner) { //TODO: Make it so that if there is a unit garrison it
             City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, initialSize);
             cityToAdd.isActive = false;
             this.menu.origin.world.getTileAt(target).element = cityToAdd;
@@ -53,6 +54,8 @@ class SettleAction : Action {
             this.menu.updateScreen();
             this.menu.setNotification("Settled a new city at ("~target.x.to!string~", "~target.y.to!string~")");
             this.disableOrigin();
+        } else {
+            this.menu.setNotification("The destination must be an empty land tile that you own");
         }
     }
 
