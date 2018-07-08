@@ -22,6 +22,18 @@ abstract class Unit : TileElement {
     }
 
     /**
+     * Returns whether or not the unit has any troops remaining
+     */
+    bool isEmpty() {
+        foreach(troopType; this.troops) {
+            if(troopType > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Mobilizes the unit by adding itself
      * to the owner's military and to the map
      * at its location
@@ -34,7 +46,7 @@ abstract class Unit : TileElement {
     /**
      * The unit gets destroyed
      * Any traces are removed
-     * Also used when the unit is garrisoned
+     * Also used when the unit is garrisoned or embarked
      */
     void getDestroyed() {
         this.owner.military.remove(this.owner.military.countUntil(this));
