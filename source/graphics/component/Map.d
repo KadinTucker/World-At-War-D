@@ -80,6 +80,7 @@ class Map : Component {
                         this.menu.setNotification(" ");
                         this.selectedElement = null;
                     }
+                    (cast(GameActivity)this.container.activity).info.updateTexture(hovered);
                 }
             }
         }

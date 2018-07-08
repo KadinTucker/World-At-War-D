@@ -27,7 +27,7 @@ class World {
         foreach(x; 0..nrows) {
             tiles ~= blankArray.dup;
             foreach(y; 0..ncols) {
-                tiles[x] ~= new Tile(Terrain.WATER);
+                tiles[x] ~= new Tile(Terrain.WATER, new Coordinate(x, y));
             }
         }
         foreach(i; 0..ncontinents) {

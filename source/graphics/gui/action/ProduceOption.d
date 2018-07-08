@@ -35,7 +35,7 @@ class ProduceOption : Action {
             this.production(this.menu);
             this.menu.origin.owner.resources -= this.cost;
             this.menu.updateScreen();
-            this.menu.setNotification("Produced a "~this.name~" for "~this.cost.to!string~" resources");
+            this.menu.setNotification("Produced "~this.name~" for "~this.cost.to!string~" resources");
             this.disableOrigin();
         } else {
             this.menu.setNotification("Not enough resources");

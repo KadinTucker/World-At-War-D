@@ -47,7 +47,6 @@ class TopBar : Component {
 
     /**
      * Draws the top bar to the screen
-     * TODO:
      */
     override void draw() {
         this.container.renderer.copy(this.barTexture, this._location);
@@ -67,7 +66,7 @@ class TopBar : Component {
      */
     void updateTexture(Player activePlayer) {
         if(activePlayer is null) {
-            this.barTexture = new Texture(loadImage("res/Interface/topbar.png"), container.renderer);
+            this.barTexture = new Texture(loadImage("res/Interface/topbar.png"), this.container.renderer);
             return;
         }
         Surface barBase = loadImage("res/Interface/topbar.png");

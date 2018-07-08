@@ -22,8 +22,9 @@ class GameActivity : Activity {
     int activePlayerIndex; ///The index of the active player
     Map map; ///The map component; for easy access
     ButtonMenu buttonMenu; ///The button menu for actions; for easy access
-    TopBar topBar; ///the bar at the top which displays everything
+    TopBar topBar; ///the bar at the top which displays global player statistics
     NotificationPanel notifications; ///The notification panel for easy access
+    InformationPanel info; ///The information panel for easy access
 
     /**
      * Constructs a new GameActivity
@@ -48,6 +49,8 @@ class GameActivity : Activity {
         this.components ~= this.notifications;
         this.topBar = new TopBar(container, new iRectangle(0, 0, 1100, 16));
         this.components ~= this.topBar;
+        this.info = new InformationPanel(container, new iRectangle(690, 480, 410, 120));
+        this.components ~= this.info;
         this.components ~= new EndTurnButton(container, new iRectangle(1010, 570, 90, 30));
     }
 
@@ -77,6 +80,7 @@ class GameActivity : Activity {
     void updateComponents() {
         this.map.updateTexture();
         this.topBar.updateTexture(this.players[this.activePlayerIndex]);
+        //this.info.updateTexture(this.world.getTileAt(this.map.getHoveredTile()));
     }
 
     /**

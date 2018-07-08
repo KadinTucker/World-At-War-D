@@ -32,7 +32,7 @@ class City : TileElement {
      * Gets the maximum defense of the city
      */
     @property int maxDefense() {
-        return baseCityDefense + this.level * defensePerLevel + garrison.garrisonValue();
+        return baseCityDefense + this.level * defensePerLevel;
     }
 
     /**

@@ -2,6 +2,7 @@ module logic.world.Tile;
 
 import logic;
 
+import std.conv;
 import std.math;
 
 /**
@@ -43,6 +44,14 @@ class Coordinate {
         this.y = y;
     }
 
+    /**
+     * Converts the coordinate into a string
+     * (x, y)
+     */
+    override string toString() {
+        return "("~this.x.to!string~", "~this.y.to!string~")";
+    }
+
 }
 
 /**
@@ -55,12 +64,14 @@ class Tile {
     Terrain terrain; ///The terrain type of the tile
     TileElement element; ///The tile element present on this tile
     Player owner; ///The owner of this tile
+    Coordinate location; ///The coordinates of the tile
 
     /**
      * Constructs a new tile with the given terrain
      */
-    this(Terrain terrain) {
+    this(Terrain terrain, Coordinate location) {
         this.terrain = terrain;
+        this.location = location;
     }
 
     /**
