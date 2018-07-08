@@ -62,28 +62,34 @@ class InformationPanel : Component {
     void updateTexture(Tile tile) {
         if(tile is null) {
             this.panelTexture = new Texture(loadImage("res/Interface/informationpanel.png"), this.container.renderer);
-        } else if(tile.element is null) {
-            Surface base = loadImage("res/Interface/informationpanel.png");
-            Surface titleLabel = this.renderingFont.renderTextSolid("Tile "~tile.location.toString());
-            if(tile.owner !is null) {
-                Surface ownerLabel = this.renderingFont.renderTextSolid("Owner: "~tile.owner.name);
-                base.blit(ownerLabel, null, 6, 26);
-            } 
-            base.blit(titleLabel, null, 6, 8);
-            this.panelTexture = new Texture(base, this.container.renderer);
-        } else if(cast(City)tile.element) {
-            City refCity = cast(City)tile.element;
-            Surface base = loadImage("res/Interface/informationpanel.png");
-            Surface titleLabel = this.renderingFont.renderTextSolid("City at "~refCity.location.toString());
-            Surface ownerLabel = this.renderingFont.renderTextSolid("Owner: "~refCity.owner.name);
-            Surface levelLabel = this.renderingFont.renderTextSolid("Level: "~refCity.level.to!string);
-            base.blit(titleLabel, null, 6, 8);
-            base.blit(ownerLabel, null, 6, 26);
-            base.blit(levelLabel, null, 6, 44);
-            this.panelTexture = new Texture(base, this.container.renderer);
-        } else {
-            this.panelTexture = new Texture(loadImage("res/Interface/informationpanel.png"), this.container.renderer);
+            return;
         }
+        Surface base = loadImage("res/Interface/informationpanel.png");
+        Surface titleLabel = this.renderingFont.renderTextSolid("Tile "~tile.location.toString());
+        if(tile.owner !is null) {
+            Surface ownerLabel = this.renderingFont.renderTextSolid("Owner: "~tile.owner.name);
+            base.blit(ownerLabel, null, 6, 26);
+        } 
+        base.blit(titleLabel, null, 6, 8);
+        this.panelTexture = new Texture(base, this.container.renderer);
+        if(cast(City)tile.element) {
+            City refCity = cast(City)tile.element;
+            Surface idLabel = this.renderingFont.renderTextSolid("City");
+            Surface levelLabel = this.renderingFont.renderTextSolid("Level: "~refCity.level.to!string);
+            base.blit(idLabel, null, 6, 44);
+            base.blit(levelLabel, null, 6, 62);
+        } else if(cast(Army)tile.element) {
+            Army refArmy = cast(Army)tile.element;
+            Surface idLabel = this.renderingFont.renderTextSolid("Army");
+            Surface infantryLabel = this.renderingFont.renderTextSolid("Infantry: "~refArmy.troops[0].to!string);
+            Surface tankLabel = this.renderingFont.renderTextSolid("Tanks: "~refArmy.troops[1].to!string);
+            Surface artilleryLabel = this.renderingFont.renderTextSolid("Artillery: "~refArmy.troops[2].to!string);
+            base.blit(idLabel, null, 6, 44);
+            base.blit(infantryLabel, null, 6, 62);
+            base.blit(tankLabel, null, 6, 80);
+            base.blit(artilleryLabel, null, 6, 98);
+        }
+        this.panelTexture = new Texture(base, this.container.renderer);
     }
 
 }

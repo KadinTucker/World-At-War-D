@@ -128,6 +128,10 @@ class Map : Component {
                 } else if(world[x][y].terrain == Terrain.LAND) {
                     mapSurface.blit(landSurface, null, this._location.initialPoint.x + 50 * x, 
                             this._location.initialPoint.y + 50 * y);
+                    if(world[x][y].owner !is null) {
+                        mapSurface.blit(TileDisplay.flags[world[x][y].owner.number], null, this._location.initialPoint.x + 50 * x, 
+                                this._location.initialPoint.y + 50 * y);
+                    }
                 }
                 if(world[x][y].element !is null) {
                     if(cast(City)world[x][y].element) {

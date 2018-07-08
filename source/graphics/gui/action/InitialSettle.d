@@ -45,6 +45,7 @@ class InitialSettleAction : Action {
                 && this.menu.origin.world.getTileAt(target).element is null) {
             City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, startingCityLevel);
             this.menu.origin.world.getTileAt(target).element = cityToAdd;
+            this.menu.origin.world.getTileAt(target).owner = cityToAdd.owner;
             this.menu.origin.owner.cities ~= cityToAdd;
             (cast(GameActivity)this.container.activity).map.updateTexture();
             this.playerIndex++;

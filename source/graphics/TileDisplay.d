@@ -13,9 +13,9 @@ class TileDisplay {
     static Surface[] flags; ///Every flag for unit displays
 
     /**
-    * Places all skylines in the list of skylines for city display
-    * TODO: make json based
-    */
+     * Places all skylines in the list of skylines for city display
+     * TODO: make json based
+     */
     static void loadSkylines() {
         skylines ~= loadImage("res/City/joburg.png");
         skylines ~= loadImage("res/City/moscow.png");
@@ -25,9 +25,9 @@ class TileDisplay {
     }
 
     /**
-    * Puts all flag images in the list of flags for indicating player
-    * TODO: make json based; make flag colors based on player color
-    */
+     * Puts all flag images in the list of flags for indicating player
+     * TODO: make json based; make flag colors based on player color
+     */
     static void loadFlags() {
         flags ~= loadImage("res/Flag/blue.png");
         flags ~= loadImage("res/Flag/red.png");
@@ -35,9 +35,9 @@ class TileDisplay {
     }
 
     /**
-    * Generates a semi-random image for a city
-    * Creates mostly unique textures
-    */
+     * Generates a semi-random image for a city
+     * Creates mostly unique textures
+     */
     static Surface generateCityTexture(City city) {
         Surface cityTexture = new Surface(50, 50, SDL_PIXELFORMAT_RGBA32);
         foreach(i; 0..city.level) {
@@ -48,14 +48,13 @@ class TileDisplay {
             cityTexture.blit(skylines[(i * 737 + 329 * city.location.x + city.location.y * 239) % skylines.length],
                     null, new iRectangle((i * 157 + city.location.x * 243 + city.location.y * 131) % 50 - 25, 30, 20, 20));
         }
-        cityTexture.blit(flags[city.owner.number], null, 0, 0);
         return cityTexture;
     }
 
     /**
-    * Generates the surface for an army based on its owner
-    * and number of units
-    */
+     * Generates the surface for an army based on its owner
+     * and number of units
+     */
     static Surface generateArmyTexture(Army army) {
         Surface armyTexture;
         int armyValue = army.troops[0] + 20 * army.troops[1] + 20 * army.troops[2];
@@ -66,7 +65,6 @@ class TileDisplay {
         } else {
             armyTexture = loadImage("res/Unit/largearmy.png");
         }
-        armyTexture.blit(flags[army.owner.number], null, 0, 0);
         return armyTexture;
     }
 

@@ -47,6 +47,7 @@ class SettleAction : Action {
             City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, initialSize);
             cityToAdd.isActive = false;
             this.menu.origin.world.getTileAt(target).element = cityToAdd;
+            this.menu.origin.world.getTileAt(target).owner = cityToAdd.owner;
             this.menu.origin.owner.cities ~= cityToAdd;
             this.menu.origin.owner.resources -= settleCost;
             this.menu.updateScreen();

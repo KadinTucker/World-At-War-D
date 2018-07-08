@@ -111,5 +111,13 @@ class ButtonMenu : Component {
     void updateScreen() {
         (cast(GameActivity)this.container.activity).updateComponents();
     }
+
+    /**
+     * Updates the container's information panel
+     * For easy access from actions
+     */
+    void updateInformation() {
+        (cast(GameActivity)this.container.activity).updateInformation();
+    }
     
 }

@@ -54,6 +54,15 @@ class Army : Unit {
         return (infantryMovement * this.troops[0] / inverseInfantryProportion + tankMovement * this.troops[1] + artilleryMovement * this.troops[2])
                 / (this.troops[0] / inverseInfantryProportion + this.troops[1] + this.troops[2]);
     }
+
+    /**
+     * Runs unit mobilize, but captures the territory 
+     * onto which it is mobilized
+     */
+    override void mobilize() {
+        super.mobilize();
+        this.world.getTileAt(this.location).owner = this.owner;
+    }
     
     /**
      * Moves the unit
