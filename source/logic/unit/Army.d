@@ -4,8 +4,8 @@ import logic;
 
 //Below are statistics of each unit type
 immutable int infantryHP = 5;
-immutable int tankHP = 35;
-immutable int artilleryHP = 10;
+immutable int tankHP = 30;
+immutable int artilleryHP = 15;
 
 immutable int infantryAttack = 3;
 immutable int tankAttack = 12;
@@ -23,7 +23,7 @@ immutable int artilleryMovement = 4;
 
 //The movement point cost to capture a territory
 //divided by the army's hp
-immutable int territoryCaptureCost = 300;
+immutable int territoryCaptureCost = 250;
 
 /**
  * A land army unit
@@ -117,7 +117,6 @@ class Army : Unit {
 
     /**
      * Attacks the target location
-     * TODO:
      */
     override void attack(TileElement target, int index) {
         if(index == 0) {

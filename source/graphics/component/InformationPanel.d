@@ -76,14 +76,16 @@ class InformationPanel : Component {
             City refCity = cast(City)tile.element;
             Surface idLabel = this.renderingFont.renderTextSolid("City");
             Surface levelLabel = this.renderingFont.renderTextSolid("Level: "~refCity.level.to!string);
+            Surface defenseLabel = this.renderingFont.renderTextSolid("Defense: "~refCity.defense.to!string~"/"~refCity.maxDefense.to!string);
             base.blit(idLabel, null, 6, 44);
             base.blit(levelLabel, null, 6, 62);
+            base.blit(defenseLabel, null, 6, 80);
         } else if(cast(Army)tile.element) {
             Army refArmy = cast(Army)tile.element;
             Surface idLabel = this.renderingFont.renderTextSolid("Army");
-            Surface infantryLabel = this.renderingFont.renderTextSolid("Infantry: "~refArmy.troops[0].to!string);
-            Surface tankLabel = this.renderingFont.renderTextSolid("Tanks: "~refArmy.troops[1].to!string);
-            Surface artilleryLabel = this.renderingFont.renderTextSolid("Artillery: "~refArmy.troops[2].to!string);
+            Surface infantryLabel = this.renderingFont.renderTextSolid("Infantry: "~refArmy.troops[0].to!string~" ("~refArmy.wounds[0].to!string~"/"~infantryHP.to!string~")");
+            Surface tankLabel = this.renderingFont.renderTextSolid("Tanks: "~refArmy.troops[1].to!string~" ("~refArmy.wounds[1].to!string~"/"~tankHP.to!string~")");
+            Surface artilleryLabel = this.renderingFont.renderTextSolid("Artillery: "~refArmy.troops[2].to!string~" ("~refArmy.wounds[2].to!string~"/"~artilleryHP.to!string~")");
             Surface movesLabel = this.renderingFont.renderTextSolid("Moves: "~refArmy.movementPoints.to!string);
             base.blit(idLabel, null, 6, 44);
             base.blit(infantryLabel, null, 6, 62);
