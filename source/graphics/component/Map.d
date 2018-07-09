@@ -96,7 +96,7 @@ class Map : Component {
         if(this.selectedElement.isActive && this.selectedElement.owner == this.activePlayer) {
             this.menu.configuration = ActionMenu.cityMenu;
         } else {
-            this.menu.configuration = ActionMenu.nullMenu;
+            this.menu.configuration = ActionMenu.cityDisabledMenu;
         }
         this.menu.setNotification(" ");
     }

@@ -7,7 +7,7 @@ import logic;
 
 import std.conv;
 
-immutable int numPlayers = 12; ///TODO: Make this a chosen option at start of game
+immutable int numPlayers = 3; ///TODO: Make this a chosen option at start of game
 
 /**
  * The main game activity
@@ -25,6 +25,8 @@ class GameActivity : Activity {
     TopBar topBar; ///the bar at the top which displays global player statistics
     NotificationPanel notifications; ///The notification panel for easy access
     InformationPanel info; ///The information panel for easy access
+    EndTurnButton endTurnButton; ///That button which, when clicked, ends the turn
+    Texture background; ///The background of the screen
 
     /**
      * Constructs a new GameActivity
@@ -51,13 +53,19 @@ class GameActivity : Activity {
         this.components ~= this.topBar;
         this.info = new InformationPanel(container, new iRectangle(690, 480, 410, 120));
         this.components ~= this.info;
-        this.components ~= new EndTurnButton(container, new iRectangle(1010, 570, 90, 30));
+        this.endTurnButton = new EndTurnButton(container, new iRectangle(1010, 570, 90, 30));
+        this.components ~= this.endTurnButton;
+        this.background = new Texture(loadImage("res/Interface/background.png"), container.renderer);
+        this.moveComponents();
     }
 
     /**
+     * Every frame, run this method
+     * Draws the background
      * Sets the query to null if it is fulfilled
      */
     override void draw() {
+        this.container.renderer.copy(this.background, new iRectangle(0, 0, this.container.window.size.x, this.container.window.size.y));
         if(this.query !is null) {
             if(this.query.isFulfilled) {
                 this.query = null;
@@ -72,6 +80,23 @@ class GameActivity : Activity {
         if(this.query !is null) {
             this.query.ask(event);
         }
+        if(event.type == SDL_WINDOWEVENT) {
+            if(event.window.event == SDL_WINDOWEVENT_RESIZED) {
+                this.moveComponents();
+            }
+        }
+    }
+
+    /**
+     * Moves the components to fit the screen when resized
+     */
+    private void moveComponents() {
+        this.topBar.location = new iRectangle(0, 0, this.container.window.size.x, 16);
+        this.map.location = new iRectangle(0, 16, this.container.window.size.x, this.container.window.size.y - 136);
+        this.notifications.location = new iRectangle(0, this.container.window.size.y - 120, 690, 60);
+        this.buttonMenu.location = new iRectangle(0, this.container.window.size.y - 60, 690, 60);
+        this.info.location = new iRectangle(this.container.window.size.x - 410, this.container.window.size.y - 120, 410, 120);
+        this.endTurnButton.location = new iRectangle(this.container.window.size.x - 90, this.container.window.size.y - 30, 90, 30);
     }
 
     /**

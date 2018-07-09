@@ -15,6 +15,7 @@ class ActionMenu {
     static Action[6] produceOptionsLandMenu; ///The configuration active when a city is producing units 
     static Action[6] armyMenu; ///The menu active when there is an army selected
     static Action[6] attackOptionsLandMenu; ///The menu for choosing an army's attack
+    static Action[6] cityDisabledMenu; ///The menu when a city is disabled 
 
     /**
      * Initializes every menu configuration for the game
@@ -25,6 +26,14 @@ class ActionMenu {
             new DevelopAction(container, menu),
             new SettleAction(container, menu), 
             new ProduceAction(container, menu), 
+            new MobilizeAction(container, menu), 
+            null, 
+            null
+        ];
+        this.cityDisabledMenu = [
+            null,
+            null,
+            null,
             new MobilizeAction(container, menu), 
             null, 
             null
