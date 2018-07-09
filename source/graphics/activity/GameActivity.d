@@ -109,9 +109,7 @@ class GameActivity : Activity {
         } 
         foreach(military; this.players[this.activePlayerIndex].military) {
             military.isActive = true;
-            if(cast(Army)military) {
-                (cast(Army)military).movementPoints = (cast(Army)military).moves;
-            }
+            military.resolveTurn();
         }
         this.players[this.activePlayerIndex].resolveTurnEnd();
         this.activePlayerIndex += 1;

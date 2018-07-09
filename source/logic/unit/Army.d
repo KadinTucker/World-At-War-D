@@ -2,6 +2,8 @@ module logic.unit.Army;
 
 import logic;
 
+import std.math;
+
 //Below are statistics of each unit type
 immutable int infantryHP = 5;
 immutable int tankHP = 30;
@@ -41,6 +43,7 @@ class Army : Unit {
         super(owner, location, world);
         this.troops = [0, 0, 0];
         this.wounds = [0, 0, 0];
+        this.attacked = [false, false];
         this.movementPoints = this.moves;
     }
 
@@ -52,8 +55,11 @@ class Army : Unit {
         if(this.isEmpty()) {
             return 0;
         }
-        return (infantryMovement * this.troops[0] / inverseInfantryProportion + tankMovement * this.troops[1] + artilleryMovement * this.troops[2])
-                / (this.troops[0] / inverseInfantryProportion + this.troops[1] + this.troops[2]);
+        return cast(int)round((cast(double)infantryMovement * (cast(double)this.troops[0] / cast(double)inverseInfantryProportion) 
+                + cast(double)tankMovement * cast(double)this.troops[1] 
+                + cast(double)artilleryMovement * cast(double)this.troops[2])
+                / (cast(double)this.troops[0] / cast(double)inverseInfantryProportion 
+                + cast(double)this.troops[1] + cast(double)this.troops[2]));
     }
 
     /**
@@ -117,17 +123,19 @@ class Army : Unit {
 
     /**
      * Attacks the target location
+     * Index of zero means tanks and infantry,
+     * One means artillery
      */
     override void attack(TileElement target, int index) {
+        super.attack(target, index);
         if(index == 0) {
             target.takeDamage(infantryAttack * this.troops[0], this);
-        } else if(index == 1) {
             if(cast(City)target) {
                 target.takeDamage(tankSiege * this.troops[1], this);
             } else {
                 target.takeDamage(tankAttack * this.troops[1], this);
             }
-        } else if(index == 2) {
+        } else if(index == 1) {
             target.takeDamage(arilleryAttack * this.troops[2], this);
         }
     }
@@ -156,6 +164,15 @@ class Army : Unit {
             this.troops[1] += unit.troops[1];
             this.troops[2] += unit.troops[2];
         }
+    }
+
+    /**
+     * Resolves the turn by refreshing the attacks of the units
+     * And the army's movement points
+     */
+    override void resolveTurn() {
+        super.resolveTurn();
+        this.movementPoints = this.moves;
     }
 
     /**

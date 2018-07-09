@@ -46,8 +46,8 @@ class ActionMenu {
             null
         ];
         this.attackOptionsLandMenu = [
-            new AttackOption(container, menu, "Front Line", [0, 1], 1),
-            new AttackOption(container, menu, "Artillery", [2], 3),
+            new AttackOption(container, menu, "Front Line", 0, 1),
+            new AttackOption(container, menu, "Artillery", 1, 3),
             null,
             null,
             null,

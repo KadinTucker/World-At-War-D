@@ -12,6 +12,7 @@ abstract class Unit : TileElement {
 
     int[] troops; ///A list of all of the troop types in the unit
     int[] wounds; ///A list of wounds of each troop type
+    bool[] attacked; ///A list of whether or not each troop type has attacked
 
     /**
      * Constructs a new unit
@@ -62,8 +63,11 @@ abstract class Unit : TileElement {
     /**
      * Attacks the given target
      * Index references the specific troop that attacks
+     * Sets the attacked values of the index to be true
      */
-    abstract void attack(TileElement target, int index);
+    void attack(TileElement target, int index) {
+        this.attacked[index] = true;
+    }
 
     /**
      * How the unit impacts a city while garrisoned
@@ -81,5 +85,15 @@ abstract class Unit : TileElement {
      * Adds to this unit another unit
      */
     abstract void add(Unit unit);
+
+    /**
+     * Resolves the unit's turn
+     * Refreshes all attacks
+     */
+    void resolveTurn() {
+        for(int i; i < this.attacked.length; i++) {
+            this.attacked[i] = false;
+        }
+    }
 
 }
