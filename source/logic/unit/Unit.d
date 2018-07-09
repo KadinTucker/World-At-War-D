@@ -42,6 +42,9 @@ abstract class Unit : TileElement {
     void mobilize() {
         owner.military ~= this;
         world.getTileAt(location).element = this;
+        for(int i = 0; i < this.attacked.length; i++) {
+            this.attacked[i] = true;
+        }
     }
 
     /**

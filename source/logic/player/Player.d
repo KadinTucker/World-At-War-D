@@ -47,7 +47,7 @@ class Player {
         int income = this.territory;
         foreach(city; this.cities) {
             if(city.defense >= city.maxDefense) {
-                income += city.level;
+                income += 2 * city.level;
             }
         }
         return income;

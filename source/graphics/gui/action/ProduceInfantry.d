@@ -6,7 +6,7 @@ import logic;
 
 import std.conv;
 
-immutable int infantryCost = 5;
+immutable int infantryCost = 10;
 
 /**
  * An action which produces infantry units

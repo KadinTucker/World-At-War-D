@@ -4,6 +4,8 @@ import d2d;
 import logic;
 import graphics;
 
+import std.random;
+
 /**
  * A class full of static methods for displaying tile elements
  */
@@ -35,9 +37,13 @@ class TileDisplay {
         flags ~= loadImage("res/Flag/Historical/nazi.png");
         flags ~= loadImage("res/Flag/Historical/soviet.png");
         flags ~= loadImage("res/Flag/Historical/italy.png");
-        flags ~= loadImage("res/Flag/blue.png");
-        flags ~= loadImage("res/Flag/red.png");
-        flags ~= loadImage("res/Flag/green.png");
+        flags ~= loadImage("res/Flag/Historical/kuomintang.png");
+        flags ~= loadImage("res/Flag/Historical/secondreich.png");
+        flags ~= loadImage("res/Flag/Historical/china.png");
+        flags ~= loadImage("res/Flag/Historical/ottoman.png");
+        flags ~= loadImage("res/Flag/Historical/russia.png");
+        flags ~= loadImage("res/Flag/Historical/france.png");
+        flags.randomShuffle();
     }
 
     /**

@@ -70,6 +70,7 @@ class Army : Unit {
         super.mobilize();
         this.world.getTileAt(this.location).owner = this.owner;
         this.world.getTileAt(this.location).owner.territory += 1;
+        this.movementPoints = 0;
     }
     
     /**
