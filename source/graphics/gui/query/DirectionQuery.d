@@ -46,8 +46,7 @@ class DirectionQuery : Query {
             } else if(event.key.keysym.sym == SDLK_a) {
                 this.direction = Direction.WEST;
             } else if(event.key.keysym.sym == SDLK_ESCAPE) {
-                this.isFulfilled = true;
-                this.action.menu.setNotification("Cancelled");
+                this.cancel();
             }
         } else if(event.type == SDL_MOUSEBUTTONDOWN) {
             if(event.button.button == SDL_BUTTON_LEFT) {
@@ -64,8 +63,7 @@ class DirectionQuery : Query {
                     }
                 }
             } else if(event.button.button == SDL_BUTTON_RIGHT) {
-                this.isFulfilled = true;
-                this.action.menu.setNotification("Cancelled");
+                this.cancel();
             }
         }
         if(this.direction != Direction.NO_DIRECTION) {

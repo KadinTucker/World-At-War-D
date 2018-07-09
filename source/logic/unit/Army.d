@@ -23,7 +23,7 @@ immutable int artilleryMovement = 4;
 
 //The movement point cost to capture a territory
 //divided by the army's hp
-immutable int territoryCaptureCost = 250;
+immutable int territoryCaptureCost = 200;
 
 /**
  * A land army unit

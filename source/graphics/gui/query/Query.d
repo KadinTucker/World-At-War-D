@@ -19,6 +19,14 @@ abstract class Query {
     }
 
     /**
+     * Cancels the query
+     */
+    void cancel() {
+        this.isFulfilled = true;
+        this.action.menu.setNotification("Cancelled");
+    }
+
+    /**
      * Tries to get input from the user to fulfil the query
      */
     abstract void ask(SDL_Event event);

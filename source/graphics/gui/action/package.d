@@ -10,5 +10,6 @@ public import graphics.gui.action.InitialSettle;
 public import graphics.gui.action.Mobilize;
 public import graphics.gui.action.Move;
 public import graphics.gui.action.Produce;
+public import graphics.gui.action.ProduceInfantry;
 public import graphics.gui.action.ProduceOption;
 public import graphics.gui.action.Settle;

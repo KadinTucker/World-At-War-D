@@ -47,7 +47,8 @@ class City : TileElement {
         this.defense -= damage;
         if(this.defense <= 0) {
             this.owner = attacker.owner;
-            this.defense = cast(int)(0.1 * cast(double)this.defense);
+            this.defense = cast(int)(percentRepairedPerTurn * cast(double)this.defense);
+            this.isActive = false;
         }
     }
 

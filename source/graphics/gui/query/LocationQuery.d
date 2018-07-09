@@ -33,13 +33,11 @@ class LocationQuery : Query {
                     this.performAction();
                 }
             } else if(event.button.button == SDL_BUTTON_RIGHT) {
-                this.isFulfilled = true;
-                this.action.menu.setNotification("Cancelled");
+                this.cancel();
             }
         } else if(event.type == SDL_KEYDOWN) {
             if(event.key.keysym.sym == SDLK_ESCAPE) {
-                this.isFulfilled = true;
-                this.action.menu.setNotification("Cancelled");
+                this.cancel();
             }
         }
     }
