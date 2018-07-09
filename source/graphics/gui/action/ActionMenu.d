@@ -38,7 +38,7 @@ class ActionMenu {
         ];
         this.armyMenu = [
             new MoveAction(container, menu),
-            null,
+            new AttackAction(container, menu),
             null,
             null,
             null,
