@@ -52,9 +52,11 @@ class MobilizeAction : Action {
             } else if(cast(Army)this.menu.origin.world.getTileAt(target).element) {
                 (cast(City)this.menu.origin).garrison.addTo(cast(Army)this.menu.origin.world.getTileAt(target).element);
                 this.menu.setNotification("Mobilized army at "~target.toString());
+                this.menu.updateScreen();
             } else if(cast(City)this.menu.origin.world.getTileAt(target).element) {
                 (cast(City)this.menu.origin).garrison.addTo((cast(City)this.menu.origin.world.getTileAt(target).element).garrison);
                 this.menu.setNotification("Mobilized army at "~target.toString());
+                this.menu.updateScreen();
             }
         } else {
             this.menu.setNotification("Invalid location: it must be a land tile");

@@ -51,6 +51,7 @@ class MoveAction : Action {
             if((cast(Army)this.menu.origin).isDestroyed) {
                 this.menu.setNotification("Merged with another element");
                 (cast(GameActivity)this.container.activity).map.selectedElement = null;
+                this.menu.updateScreen();
             }
         }
     }
