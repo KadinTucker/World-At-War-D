@@ -7,7 +7,7 @@ import logic;
 import std.conv;
 
 //Define constants used in settling cities
-immutable int settleCost = 30;
+immutable int settleCost = 60;
 immutable int initialSize = 3;
 
 /**
@@ -43,10 +43,15 @@ class SettleAction : Action {
      */
     override void performAfterQuery(Coordinate target, string str="") {
         if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
-                && this.menu.origin.world.getTileAt(target).element is null
-                && this.menu.origin.world.getTileAt(target).owner == this.menu.origin.owner) { //TODO: Make it so that if there is a unit garrison it
+                && this.menu.origin.world.getTileAt(target).owner == this.menu.origin.owner
+                && (this.menu.origin.world.getTileAt(target).element is null 
+                || !cast(City)this.menu.origin.world.getTileAt(target).element)) {
             City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, initialSize);
             cityToAdd.isActive = false;
+            if(this.menu.origin.world.getTileAt(target).element !is null && cast(Army)this.menu.origin.world.getTileAt(target).element) {
+                cityToAdd.garrison = (cast(Army)this.menu.origin.world.getTileAt(target).element);
+                (cast(Army)this.menu.origin.world.getTileAt(target).element).getDestroyed();
+            }
             this.menu.origin.world.getTileAt(target).element = cityToAdd;
             this.menu.origin.world.getTileAt(target).owner = cityToAdd.owner;
             this.menu.origin.owner.cities ~= cityToAdd;
@@ -55,7 +60,7 @@ class SettleAction : Action {
             this.menu.setNotification("Settled a new city at ("~target.x.to!string~", "~target.y.to!string~")");
             this.disableOrigin();
         } else {
-            this.menu.setNotification("The destination must be an empty land tile that you own");
+            this.menu.setNotification("The destination must be a land tile that you own without an existing city");
         }
     }
 

@@ -13,6 +13,7 @@ abstract class Unit : TileElement {
     int[] troops; ///A list of all of the troop types in the unit
     int[] wounds; ///A list of wounds of each troop type
     bool[] attacked; ///A list of whether or not each troop type has attacked
+    bool isDestroyed; ///Whether or not the unit still exists in the world
 
     /**
      * Constructs a new unit
@@ -55,6 +56,7 @@ abstract class Unit : TileElement {
     void getDestroyed() {
         this.owner.military.remove(this.owner.military.countUntil(this));
         world.getTileAt(location).element = null;
+        this.isDestroyed = true;
     }
 
     /**
@@ -85,9 +87,9 @@ abstract class Unit : TileElement {
     abstract int garrisonValue();
 
     /**
-     * Adds to this unit another unit
+     * Adds to another unit from this unit
      */
-    abstract void add(Unit unit);
+    abstract void addTo(Unit unit);
 
     /**
      * Resolves the unit's turn
@@ -98,5 +100,17 @@ abstract class Unit : TileElement {
             this.attacked[i] = false;
         }
     }
+
+    /**
+     * Disables the unit by setting all of its attacks to true
+     */
+    void disable() {
+        if(this.attacked !is null) {
+            for(int i; i < this.attacked.length; i++) {
+                this.attacked[i] = true;
+            }
+        }
+    }
+
 
 }

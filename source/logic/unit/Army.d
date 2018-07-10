@@ -79,14 +79,21 @@ class Army : Unit {
      * TODO: Moving onto a city garrisons
      */
     override void move(Coordinate target) {
-        if(this.world.getTileAt(target).terrain == Terrain.LAND
-                && this.world.getTileAt(target).element is null) {
-            this.world.getTileAt(this.location).element = null;
-            this.location = target;
-            this.world.getTileAt(this.location).element = this;
-            this.movementPoints -= 1;
-            this.captureTerritory(this.world.getTileAt(target));
-        }
+        if(this.world.getTileAt(target).terrain == Terrain.LAND) {
+            if(this.world.getTileAt(target).element is null) {
+                this.world.getTileAt(this.location).element = null;
+                this.location = target;
+                this.world.getTileAt(this.location).element = this;
+                this.movementPoints -= 1;
+                this.captureTerritory(this.world.getTileAt(target));
+            } else if(cast(City)this.world.getTileAt(target).element) {
+                this.addTo((cast(City)this.world.getTileAt(target).element).garrison);
+                this.getDestroyed();
+            } else if(cast(Army)this.world.getTileAt(target).element) {
+                this.addTo(cast(Army)this.world.getTileAt(target).element);
+                this.getDestroyed();
+            }
+        } 
     }
 
     /**
@@ -156,14 +163,16 @@ class Army : Unit {
     }
 
     /**
-     * Adds the armies from another unit to this one
+     * Adds this unit to another target unit
      * The target unit must be an army
      */
-    override void add(Unit unit) {
+    override void addTo(Unit unit) {
         if(cast(Army)unit) {
-            this.troops[0] += unit.troops[0];
-            this.troops[1] += unit.troops[1];
-            this.troops[2] += unit.troops[2];
+            unit.troops[0] += this.troops[0];
+            unit.troops[1] += this.troops[1];
+            unit.troops[2] += this.troops[2];
+            this.disable();
+            unit.disable();
         }
     }
 
@@ -174,6 +183,14 @@ class Army : Unit {
     override void resolveTurn() {
         super.resolveTurn();
         this.movementPoints = this.moves;
+    }
+
+    /**
+     * Disables the army
+     */
+    override void disable() {
+        super.disable();
+        this.movementPoints = 0;
     }
 
     /**

@@ -24,12 +24,14 @@ class MoveAction : Action {
      * or the query is cancelled
      */
     override void perform() {
-        if(cast(Army)this.menu.origin && (cast(Army)this.menu.origin).movementPoints > 0) {
-            this.menu.setNotification((cast(Army)this.menu.origin).movementPoints.to!string~" move(s) remaining");
-            this.setQuery(new DirectionQuery(this, this.container));
-            this.menu.configuration = ActionMenu.nullMenu;
-        } else {
-            this.menu.setNotification("No movement points left");
+        if(cast(Army)this.menu.origin) {
+            if((cast(Army)this.menu.origin).movementPoints > 0) {
+                this.menu.setNotification((cast(Army)this.menu.origin).movementPoints.to!string~" move(s) remaining");
+                this.setQuery(new DirectionQuery(this, this.container));
+                this.menu.configuration = ActionMenu.nullMenu;
+            } else {
+                this.menu.setNotification("No movement points left");
+            }
         }
     }
 
@@ -46,6 +48,10 @@ class MoveAction : Action {
             this.perform();
         } else {
             this.menu.setNotification("Out of moves");
+            if((cast(Army)this.menu.origin).isDestroyed) {
+                this.menu.setNotification("Merged with another element");
+                (cast(GameActivity)this.container.activity).map.selectedElement = null;
+            }
         }
     }
 

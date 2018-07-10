@@ -24,7 +24,7 @@ class City : TileElement {
     this(Player owner, Coordinate location, World world, int level) {
         super(owner, location, world);
         this.level = level;
-        this.garrison = new Army(owner, location, world);
+        this.refreshGarrison();
         this.defense = this.maxDefense;
     }
 
@@ -64,7 +64,7 @@ class City : TileElement {
                 this.defense = this.maxDefense;
             }
         } else {
-            this.owner.resources += this.level * resourcesPerLevel;
+            this.owner.resources += 2 * this.level * resourcesPerLevel;
         }
     }
 

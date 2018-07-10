@@ -56,7 +56,9 @@ abstract class Action {
         if(this.menu.origin !is null) {
             this.menu.origin.isActive = false;
         }
-        this.menu.configuration = ActionMenu.nullMenu;
+        if(cast(City)this.menu.origin) {
+            this.menu.configuration = ActionMenu.cityDisabledMenu;
+        }
     }
 
 }
