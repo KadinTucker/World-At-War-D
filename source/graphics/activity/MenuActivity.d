@@ -6,7 +6,6 @@ import logic;
 
 /**
  * The main menu activity
- * Currently just a way of getting to the main game
  */
 class MenuActivity : Activity {
 
@@ -18,8 +17,9 @@ class MenuActivity : Activity {
     this(Display container) {
         super(container);
         Font font = new Font("res/Font/Cantarell-Regular.ttf", 15);
-        this.drawTexture = new Texture(font.renderTextSolid("click anywhere to begin the game", 
-                Color(255, 255, 255)), this.container.renderer);
+        Surface background = loadImage("res/Interface/background.png");
+        background.blit(font.renderTextSolid("click anywhere to begin the game", Color(255, 255, 255)), null, 500, 500);
+        this.drawTexture = new Texture(background, this.container.renderer);
     }
 
     /**
@@ -27,7 +27,7 @@ class MenuActivity : Activity {
      * Temporary; currently just shows some text
      */
     override void draw() {
-        this.container.renderer.copy(this.drawTexture, 500, 500);
+        this.container.renderer.copy(this.drawTexture, 0, 0);
     }
 
     /**

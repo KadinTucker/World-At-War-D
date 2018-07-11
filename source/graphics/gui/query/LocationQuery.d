@@ -28,9 +28,14 @@ class LocationQuery : Query {
             if(event.button.button == SDL_BUTTON_LEFT) {
                 if((cast(GameActivity)(this.container.activity)).map.location.contains(this.container.mouse.location)) {
                     this.coord = (cast(GameActivity)this.container.activity).map.getHoveredTile();
-                    this.isFulfilled = true;
-                    (cast(GameActivity)(this.container.activity)).notifications.notification = "";
-                    this.performAction();
+                    if((cast(GameActivity)this.container.activity).map.world.getTileAt(coord) !is null) {
+                        this.isFulfilled = true;
+                        this.action.menu.setNotification("");
+                        this.performAction();
+                    } else {
+                        this.action.menu.setNotification("Please click a tile on the map");
+                        this.coord = null;
+                    }
                 }
             } else if(event.button.button == SDL_BUTTON_RIGHT) {
                 this.cancel();
@@ -48,7 +53,7 @@ class LocationQuery : Query {
      */
     override void indicate() {
         this.container.renderer.fill((cast(GameActivity)(this.container.activity)).map.location, Color(255, 0, 0, 50));
-        (cast(GameActivity)(this.container.activity)).map.fillHovered(Color(255, 0, 0, 75));
+        (cast(GameActivity)this.container.activity).map.fillHovered(Color(255, 0, 0, 75));
     }
 
     /**

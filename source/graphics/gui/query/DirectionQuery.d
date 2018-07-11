@@ -66,9 +66,13 @@ class DirectionQuery : Query {
                 this.cancel();
             }
         }
-        if(this.direction != Direction.NO_DIRECTION) {
+        if(this.direction != Direction.NO_DIRECTION 
+                && (cast(GameActivity)this.container.activity).map.world.getTileAt(
+                Tile.moveDirection(this.action.menu.origin.location, this.direction)) !is null) {
             this.isFulfilled = true;
             this.performAction();
+        } else {
+            this.direction = Direction.NO_DIRECTION;
         }
     }
 

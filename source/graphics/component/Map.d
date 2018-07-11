@@ -69,7 +69,7 @@ class Map : Component {
                 if(this._location.contains(this.container.mouse.location)
                         && (cast(GameActivity)this.container.activity).query is null) {
                     Tile hovered = this.world.getTileAt(this.getHoveredTile());
-                    if(hovered.element !is null) {
+                    if(hovered !is null && hovered.element !is null) {
                         if(cast(City)hovered.element) {
                             this.selectCity(cast(City)hovered.element);
                         } else if(cast(Unit)hovered.element) {
@@ -77,7 +77,7 @@ class Map : Component {
                         } 
                     } else {
                         this.menu.configuration = ActionMenu.nullMenu;
-                        this.menu.setNotification(" ");
+                        this.menu.setNotification("");
                         this.selectedElement = null;
                     }
                     (cast(GameActivity)this.container.activity).info.updateTexture(hovered);

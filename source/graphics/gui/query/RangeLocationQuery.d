@@ -51,9 +51,14 @@ class RangeLocationQuery : Query {
                         && Tile.getManhattanDistance((cast(GameActivity)(this.container.activity)).map.getHoveredTile(), 
                         this.action.menu.origin.location) <= this.range) {
                     this.coord = (cast(GameActivity)this.container.activity).map.getHoveredTile();
-                    this.isFulfilled = true;
-                    (cast(GameActivity)(this.container.activity)).notifications.notification = "";
-                    this.performAction();
+                    if((cast(GameActivity)this.container.activity).map.world.getTileAt(coord) !is null) {
+                        this.isFulfilled = true;
+                        this.action.menu.setNotification("");
+                        this.performAction();
+                    } else {
+                        this.action.menu.setNotification("Please click a tile on the map");
+                        this.coord = null;
+                    }
                 }
             } else if(event.button.button == SDL_BUTTON_RIGHT) {
                 this.isFulfilled = true;
