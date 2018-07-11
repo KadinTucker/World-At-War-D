@@ -1,4 +1,4 @@
-module graphics.gui.action.Build;
+module graphics.gui.action.city.Build;
 
 import d2d;
 import graphics;
@@ -53,7 +53,8 @@ class BuildAction : Action {
                 } else {
                     this.menu.configuration = ActionMenu.cityMenu;
                 }
-            } else {
+                this.menu.origin.owner.resources -= buildCost;
+            } else if(this.menu.origin.isActive) {
                 City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, initialSize);
                 cityToAdd.isActive = false;
                 if(this.menu.origin.world.getTileAt(target).element !is null && cast(Army)this.menu.origin.world.getTileAt(target).element) {
@@ -65,8 +66,12 @@ class BuildAction : Action {
                 this.menu.origin.owner.cities ~= cityToAdd;
                 this.menu.setNotification("Settled a new city at "~target.toString());
                 this.disableOrigin();
+                this.menu.configuration = ActionMenu.cityDisabledMenu;
+                this.menu.origin.owner.resources -= buildCost;
+            } else {
+                this.menu.setNotification("Cannot settle a new city without an action");
+                this.menu.configuration = ActionMenu.cityDisabledMenu;
             }
-            this.menu.origin.owner.resources -= buildCost;
             this.menu.updateScreen();
         } else {
             this.menu.setNotification("The destination must be a land tile that you own");

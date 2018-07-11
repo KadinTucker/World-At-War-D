@@ -52,7 +52,7 @@ class TileDisplay {
      */
     static Surface generateCityTexture(City city) {
         Surface cityTexture = new Surface(50, 50, SDL_PIXELFORMAT_RGBA32);
-        foreach(i; 0..city.level) {
+        foreach(i; 0..city.level + 3) {
             if((i + 1) % 3 == 0) {
                 cityTexture.blit(skylines[(i * 171 + 329 * city.location.x + 329 * city.location.y) % skylines.length],
                         null, (i * 247 + city.location.x * 483 + city.location.y * 137) % 50 - 25, 0);

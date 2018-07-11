@@ -1,4 +1,4 @@
-module graphics.gui.action.ProduceOption;
+module graphics.gui.action.city.ProduceOption;
 
 import d2d;
 

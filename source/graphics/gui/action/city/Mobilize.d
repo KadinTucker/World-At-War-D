@@ -1,4 +1,4 @@
-module graphics.gui.action.Mobilize;
+module graphics.gui.action.city.Mobilize;
 
 import d2d;
 import graphics;

@@ -1,4 +1,4 @@
-module graphics.gui.action.Move;
+module graphics.gui.action.unit.Move;
 
 import d2d;
 import graphics;

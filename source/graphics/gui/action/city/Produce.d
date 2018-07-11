@@ -1,4 +1,4 @@
-module graphics.gui.action.Produce;
+module graphics.gui.action.city.Produce;
 
 import d2d;
 import graphics;

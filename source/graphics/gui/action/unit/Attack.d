@@ -1,4 +1,4 @@
-module graphics.gui.action.Attack;
+module graphics.gui.action.unit.Attack;
 
 import d2d;
 import graphics;
