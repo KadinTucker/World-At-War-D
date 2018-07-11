@@ -31,10 +31,10 @@ class RangeLocationQuery : Query {
     private void getIndicationTexture() {
         Surface base = new Surface(50 * (1 + 2 * this.range), 50 * (1 + 2 * this.range), SDL_PIXELFORMAT_RGBA32);
         for(int i = 0; i <= this.range; i++) {
-            base.fill(new iRectangle(50 * (this.range - i), 50 * i, 50 * (1 + 2 * i), 50));
+            base.fill(new iRectangle(50 * (this.range - i), 50 * i, 50 * (1 + 2 * i), 50), Color(255, 0, 0, 70));
         }
         for(int i = this.range + 1; i < 2 * this.range; i++) {
-            base.fill(new iRectangle(50 * (i % this.range), 50 * i, 50 * (1 + 2 * this.range - 2 * (i % (this.range))), 50));
+            base.fill(new iRectangle(50 * (i % this.range), 50 * i, 50 * (1 + 2 * this.range - 2 * (i % (this.range))), 50), Color(255, 0, 0, 70));
         }
         base.fill(new iRectangle(50 * this.range, 50 * this.range * 2, 50, 50), Color(255, 0, 0, 70));
         this.indicationTexture = new Texture(base, this.container.renderer);

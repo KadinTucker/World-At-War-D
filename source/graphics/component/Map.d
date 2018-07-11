@@ -93,10 +93,14 @@ class Map : Component {
      */
     void selectCity(City city) {
         this.selectedElement = city;
-        if(this.selectedElement.isActive && this.selectedElement.owner == this.activePlayer) {
-            this.menu.configuration = ActionMenu.cityMenu;
+        if(this.selectedElement.owner == this.activePlayer) {
+            if(this.selectedElement.isActive) {
+                this.menu.configuration = ActionMenu.cityMenu;
+            } else {
+                this.menu.configuration = ActionMenu.cityDisabledMenu;
+            }
         } else {
-            this.menu.configuration = ActionMenu.cityDisabledMenu;
+            this.menu.configuration = ActionMenu.nullMenu;
         }
         this.menu.setNotification(" ");
     }

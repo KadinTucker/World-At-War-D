@@ -26,8 +26,8 @@ class ActionMenu {
             new MobilizeAction(container, menu), 
             new BuildAction(container, menu),
             new DevelopAction(container, menu),
-            new SettleAction(container, menu), 
             new ProduceAction(container, menu), 
+            null,
             null
         ];
         this.cityDisabledMenu = [
