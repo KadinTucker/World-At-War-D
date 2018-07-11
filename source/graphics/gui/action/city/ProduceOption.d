@@ -48,6 +48,7 @@ class ProduceOption : Action {
     static void produceTank(ButtonMenu menu) {
         if(cast(City)menu.origin) {
             (cast(City)menu.origin).garrison.troops[1] += 1;
+            (cast(City)menu.origin).defense += tankDefense;
         }
     }
 
@@ -57,6 +58,7 @@ class ProduceOption : Action {
     static void produceArtillery(ButtonMenu menu) {
         if(cast(City)menu.origin) {
             (cast(City)menu.origin).garrison.troops[2] += 1;
+            (cast(City)menu.origin).defense += artilleryDefense;
         }
     }
 

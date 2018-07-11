@@ -16,7 +16,8 @@ immutable int arilleryAttack = 13;
 immutable int tankSiege = 9;
 
 immutable int infantryDefense = 5;
-immutable int tankDefense = 6;
+immutable int tankDefense = 17;
+immutable int artilleryDefense = 18;
 
 immutable int infantryMovement = 5;
 immutable int inverseInfantryProportion = 5; //Reciprocal of how much infantry are counted in movement calculation
@@ -29,7 +30,6 @@ immutable int territoryCaptureCost = 200;
 
 /**
  * A land army unit
- * TODO:
  */
 class Army : Unit {
 

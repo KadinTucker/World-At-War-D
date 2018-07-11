@@ -25,8 +25,8 @@ class City : TileElement {
     this(Player owner, Coordinate location, World world, int level) {
         super(owner, location, world);
         this.level = level;
-        this.refreshGarrison();
-        this.refreshHarbor();
+        this.garrison = new Army(this.owner, this.location, this.world);
+        this.harbor = new Fleet(this.owner, this.location, this.world);
         this.defense = this.maxDefense;
     }
 
@@ -34,13 +34,14 @@ class City : TileElement {
      * Gets the maximum defense of the city
      */
     @property int maxDefense() {
-        return baseCityDefense + this.level * defensePerLevel;
+        return baseCityDefense + this.level * defensePerLevel + this.garrison.garrisonValue();
     }
 
     /**
      * Resets the garrison of the city
      */
     void refreshGarrison() {
+        this.defense -= this.garrison.garrisonValue();
         this.garrison = new Army(this.owner, this.location, this.world);
     }
 

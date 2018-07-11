@@ -44,6 +44,7 @@ class ProduceInfantryAction : Action {
         if(this.menu.origin.owner.resources >= infantryCost * numToMake) {
             (cast(City)this.menu.origin).garrison.troops[0] += numToMake;
             this.menu.setNotification("Produced "~numToMake.to!string~" infantry");
+            (cast(City)menu.origin).defense += infantryDefense * numToMake;
             this.menu.origin.owner.resources -= infantryCost * numToMake;
             this.disableOrigin();
             this.menu.updateScreen();

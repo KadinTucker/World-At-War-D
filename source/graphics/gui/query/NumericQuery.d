@@ -87,6 +87,9 @@ class NumericQuery : Query {
      * into one single string
      */
     private string unifyStringArray() {
+        if(this.currentText.length == 0) {
+            return "0";
+        }
         string unifiedString = "";
         foreach(str; this.currentText) {
             unifiedString = unifiedString~str;
