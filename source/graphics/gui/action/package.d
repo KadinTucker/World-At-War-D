@@ -4,6 +4,7 @@ public import graphics.gui.action.Action;
 public import graphics.gui.action.ActionMenu;
 public import graphics.gui.action.Attack;
 public import graphics.gui.action.AttackOption;
+public import graphics.gui.action.Build;
 public import graphics.gui.action.Cancel;
 public import graphics.gui.action.Develop;
 public import graphics.gui.action.InitialSettle;

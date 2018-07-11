@@ -23,19 +23,19 @@ class ActionMenu {
     static void initializeMenuConfigurations(Display container, ButtonMenu menu) {
         this.nullMenu = [null, null, null, null, null, null];
         this.cityMenu = [
+            new MobilizeAction(container, menu), 
+            new BuildAction(container, menu),
             new DevelopAction(container, menu),
             new SettleAction(container, menu), 
             new ProduceAction(container, menu), 
-            new MobilizeAction(container, menu), 
-            null, 
             null
         ];
         this.cityDisabledMenu = [
-            null,
-            null,
-            null,
             new MobilizeAction(container, menu), 
+            new BuildAction(container, menu),
+            null,
             null, 
+            null,
             null
         ];
         this.produceOptionsLandMenu = [

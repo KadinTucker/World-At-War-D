@@ -70,8 +70,6 @@ class World {
                 && location.x >= 0
                 && location.y <= tiles[location.x].length - 1
                 && location.y >= 0) {
-            import std.stdio;
-            writeln(location);
             return tiles[location.x][location.y];
         } 
         return null;

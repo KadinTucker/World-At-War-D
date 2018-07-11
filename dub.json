@@ -13,7 +13,7 @@
 
 	"license": "proprietary",
 	"dependencies": {
-			 "d2d": "~>1.6.1"
+		"d2d": "~>1.6.3"
      }
 
 }
