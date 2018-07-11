@@ -34,7 +34,6 @@ class DisembarkAction : Action {
      * Once a direction has been acquired, disembark there if valid
      */
     override void performAfterQuery(Coordinate target, string str="") {
-        import std.stdio;
         if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND ) {
             if(this.menu.origin.world.getTileAt(target).element is null) {
                 (cast(Fleet)this.menu.origin).embarked.location = target;
@@ -42,10 +41,8 @@ class DisembarkAction : Action {
                 (cast(Fleet)this.menu.origin).embarked.disable();
             } else if(cast(City)this.menu.origin.world.getTileAt(target).element) {
                 (cast(Fleet)this.menu.origin).embarked.addTo((cast(City)this.menu.origin.world.getTileAt(target).element).garrison);
-                writeln("Added to city");
             } else if(cast(Army)this.menu.origin.world.getTileAt(target).element) {
                 (cast(Fleet)this.menu.origin).embarked.addTo(cast(Army)this.menu.origin.world.getTileAt(target).element);
-                writeln("Added to army");
             } else {
                 return;
             }

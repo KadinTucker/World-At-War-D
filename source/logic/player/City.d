@@ -41,8 +41,6 @@ class City : TileElement {
      * Resets the garrison of the city
      */
     void refreshGarrison() {
-        import std.stdio;
-        writeln("Refreshing garrison");
         this.garrison = new Army(this.owner, this.location, this.world);
     }
 
@@ -50,8 +48,6 @@ class City : TileElement {
      * Resets the harbor of the city
      */
     void refreshHarbor() {
-        import std.stdio;
-        writeln("Refreshing harbor");
         this.harbor = new Fleet(this.owner, this.location, this.world);
     }
 
