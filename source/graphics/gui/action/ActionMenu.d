@@ -104,7 +104,7 @@ class ActionMenu {
         this.fleetMenu = [
             new MoveAction(container, menu),
             new SwitchMenuAction(container, menu, "Attack  ", "Attack with what?", this.attackWaterMenu),
-            null,
+            new DisembarkAction(container, menu),
             null,
             null,
             null

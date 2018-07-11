@@ -37,6 +37,14 @@ class Fleet : Unit {
         this.wounds = [0, 0, 0, 0];
         this.attacked = [false, false, false];
         this.movementPoints = fleetMoves;
+        this.refreshEmbarked();
+    }
+
+    /**
+     * Refreshes the embarked fleet
+     */
+    void refreshEmbarked() {
+        this.embarked = new Army(this.owner, this.location, this.world);
     }
 
     /**
@@ -165,6 +173,7 @@ class Fleet : Unit {
             unit.troops[1] += this.troops[1];
             unit.troops[2] += this.troops[2];
             unit.troops[3] += this.troops[3];
+            this.embarked.addTo((cast(Fleet)unit).embarked);
             this.disable();
             unit.disable();
         }

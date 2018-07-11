@@ -26,6 +26,7 @@ class City : TileElement {
         super(owner, location, world);
         this.level = level;
         this.refreshGarrison();
+        this.refreshHarbor();
         this.defense = this.maxDefense;
     }
 
@@ -36,8 +37,21 @@ class City : TileElement {
         return baseCityDefense + this.level * defensePerLevel;
     }
 
+    /**
+     * Resets the garrison of the city
+     */
     void refreshGarrison() {
+        import std.stdio;
+        writeln("Refreshing garrison");
         this.garrison = new Army(this.owner, this.location, this.world);
+    }
+
+    /**
+     * Resets the harbor of the city
+     */
+    void refreshHarbor() {
+        import std.stdio;
+        writeln("Refreshing harbor");
         this.harbor = new Fleet(this.owner, this.location, this.world);
     }
 

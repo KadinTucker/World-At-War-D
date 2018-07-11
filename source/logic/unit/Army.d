@@ -68,6 +68,9 @@ class Army : Unit {
      */
     override void mobilize() {
         super.mobilize();
+        if(this.world.getTileAt(this.location).owner !is null) {
+            this.world.getTileAt(this.location).owner.territory -= 1;
+        }
         this.world.getTileAt(this.location).owner = this.owner;
         this.world.getTileAt(this.location).owner.territory += 1;
         this.movementPoints = 0;
@@ -85,14 +88,17 @@ class Army : Unit {
                 this.world.getTileAt(this.location).element = this;
                 this.movementPoints -= 1;
                 this.captureTerritory(this.world.getTileAt(target));
+                return;
             } else if(cast(City)this.world.getTileAt(target).element) {
                 this.addTo((cast(City)this.world.getTileAt(target).element).garrison);
                 this.getDestroyed();
-            } else if(cast(Army)this.world.getTileAt(target).element) {
-                this.addTo(cast(Army)this.world.getTileAt(target).element);
-                this.getDestroyed();
+                return;
             }
         } 
+        if(cast(Unit)this.world.getTileAt(target).element) {
+            this.addTo(cast(Unit)this.world.getTileAt(target).element);
+            this.getDestroyed();
+        }
     }
 
     /**
@@ -172,6 +178,8 @@ class Army : Unit {
             unit.troops[2] += this.troops[2];
             this.disable();
             unit.disable();
+        } else if(cast(Fleet)unit) {
+            this.addTo((cast(Fleet)unit).embarked);
         }
     }
 

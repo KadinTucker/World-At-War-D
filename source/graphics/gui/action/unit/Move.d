@@ -45,11 +45,6 @@ class MoveAction : Action {
      * or the query is cancelled
      */
     override void perform() {
-        if(this.menu.origin is null) {
-            import std.stdio;
-            writeln("Selected element null. Sadness.");
-            return;
-        }
         if(this.hasMovementPoints(this.menu.origin)) {
             this.menu.setNotification(this.getMovementPoints(this.menu.origin).to!string~" move(s) remaining");
             this.setQuery(new DirectionQuery(this, this.container));
@@ -60,9 +55,7 @@ class MoveAction : Action {
     }
 
     /**
-     * Once a direction has been acquired, mobilize in that direction if valid
-     * TODO: Make mobilization onto friendly army add to the army and onto city
-     * garrison in that city
+     * Once a direction has been acquired, move in that direction if valid
      */
     override void performAfterQuery(Coordinate target, string str="") {
         (cast(Unit)this.menu.origin).move(target);
