@@ -64,6 +64,7 @@ class City : TileElement {
         if(this.defense <= 0) {
             this.owner = attacker.owner;
             this.garrison.owner = attacker.owner;
+            attacker.owner.cities ~= this;
             this.defense = cast(int)(percentRepairedPerTurn * cast(double)this.defense);
             this.isActive = false;
         } else {
