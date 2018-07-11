@@ -28,7 +28,7 @@ class TileDisplay {
 
     /**
      * Puts all flag images in the list of flags for indicating player
-     * TODO: make json based; make flag colors based on player color
+     * TODO: make json based;
      */
     static void loadFlags() {
         flags ~= loadImage("res/Flag/Historical/unitedstates.png");
@@ -70,10 +70,10 @@ class TileDisplay {
      */
     static Surface generateArmyTexture(Army army) {
         Surface armyTexture;
-        int armyValue = army.troops[0] + 20 * army.troops[1] + 20 * army.troops[2];
-        if(armyValue < 40) {
+        int armyValue = infantryCost * army.troops[0] + tankCost * army.troops[1] + artilleryCost * army.troops[2];
+        if(armyValue < 2 * (infantryCost + tankCost + artilleryCost)) {
             armyTexture = loadImage("res/Unit/smallarmy.png");
-        } else if(armyValue < 80) {
+        } else if(armyValue < 4 * (infantryCost + tankCost + artilleryCost)) {
             armyTexture = loadImage("res/Unit/medarmy.png");
         } else {
             armyTexture = loadImage("res/Unit/largearmy.png");
@@ -82,4 +82,22 @@ class TileDisplay {
         return armyTexture;
     }
 
+
+    /**
+     * Generates the surface for an fleet based on its owner
+     * and number of units
+     */
+    static Surface generateFleetTexture(Fleet fleet) {
+        Surface fleetTexture;
+        int fleetValue = 60 * fleet.troops[0] + 50 * fleet.troops[1] + 50 * fleet.troops[2] + 70 * fleet.troops[3];
+        if(fleetValue < 60 + 50 + 50 + 70) {
+            fleetTexture = loadImage("res/Unit/smallfleet.png");
+        } else if(fleetValue < 2 * (60 + 50 + 50 + 70)) {
+            fleetTexture = loadImage("res/Unit/medfleet.png");
+        } else {
+            fleetTexture = loadImage("res/Unit/largefleet.png");
+        }
+        fleetTexture.blit(flags[fleet.owner.number], null, 0, 0);
+        return fleetTexture;
+    }
 }

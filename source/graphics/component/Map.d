@@ -113,7 +113,11 @@ class Map : Component {
      */
     void selectUnit(Unit unit) {
         this.selectedElement = unit;
-        this.menu.configuration = ActionMenu.armyMenu;
+        if(cast(Army)unit) {
+            this.menu.configuration = ActionMenu.armyMenu;
+        } else if(cast(Fleet)unit) {
+            this.menu.configuration = ActionMenu.fleetMenu;
+        }
         this.menu.setNotification(" ");
     }
 
@@ -144,6 +148,9 @@ class Map : Component {
                                 this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);
                     } else if(cast(Army)world[x][y].element) {
                         mapSurface.blit(TileDisplay.generateArmyTexture(cast(Army)world[x][y].element), null,
+                                this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);
+                    } else if(cast(Fleet)world[x][y].element) {
+                        mapSurface.blit(TileDisplay.generateFleetTexture(cast(Fleet)world[x][y].element), null,
                                 this._location.initialPoint.x + 50 * x, this._location.initialPoint.y + 50 * y);
                     }
                 }

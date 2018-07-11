@@ -60,5 +60,42 @@ class ProduceOption : Action {
         }
     }
 
+    /**
+     * Produces a battleship
+     */
+    static void produceBattleship(ButtonMenu menu) {
+        if(cast(City)menu.origin) {
+            (cast(City)menu.origin).harbor.troops[0] += 1;
+        }
+    }
+
+    /**
+     * Produces a destroyer
+     */
+    static void produceDestroyer(ButtonMenu menu) {
+        if(cast(City)menu.origin) {
+            (cast(City)menu.origin).harbor.troops[1] += 1;
+        }
+    }
+
+    /**
+     * Produces a submarine
+     */
+    static void produceSubmarine(ButtonMenu menu) {
+        if(cast(City)menu.origin) {
+            (cast(City)menu.origin).harbor.troops[2] += 1;
+        }
+    }
+
+    /**
+     * Produces a carrier
+     */
+    static void produceCarrier(ButtonMenu menu) {
+        if(cast(City)menu.origin) {
+            (cast(City)menu.origin).harbor.troops[3] += 1;
+        }
+    }
+
+
 }
 

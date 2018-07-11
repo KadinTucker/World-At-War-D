@@ -92,6 +92,18 @@ class InformationPanel : Component {
             base.blit(tankLabel, null, 6, 80);
             base.blit(artilleryLabel, null, 6, 98);
             base.blit(movesLabel, null, 150, 6);
+        } else if(cast(Fleet)tile.element) {
+            Fleet refFleet = cast(Fleet)tile.element;
+            Surface idLabel = this.renderingFont.renderTextSolid("Fleet");
+            Surface infantryLabel = this.renderingFont.renderTextSolid("Battleships: "~refFleet.troops[0].to!string~" ("~refFleet.wounds[0].to!string~"/"~battleshipHP.to!string~")");
+            Surface tankLabel = this.renderingFont.renderTextSolid("Destroyers: "~refFleet.troops[1].to!string~" ("~refFleet.wounds[1].to!string~"/"~destroyerHP.to!string~")");
+            Surface artilleryLabel = this.renderingFont.renderTextSolid("Submarines: "~refFleet.troops[2].to!string~" ("~refFleet.wounds[2].to!string~"/"~submarineHP.to!string~")");
+            Surface movesLabel = this.renderingFont.renderTextSolid("Moves: "~refFleet.movementPoints.to!string);
+            base.blit(idLabel, null, 6, 44);
+            base.blit(infantryLabel, null, 6, 62);
+            base.blit(tankLabel, null, 6, 80);
+            base.blit(artilleryLabel, null, 6, 98);
+            base.blit(movesLabel, null, 150, 6);
         }
         this.panelTexture = new Texture(base, this.container.renderer);
     }

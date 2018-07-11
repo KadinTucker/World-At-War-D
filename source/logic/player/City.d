@@ -16,6 +16,7 @@ class City : TileElement {
     int level; ///The level of this city, affects production and number of actions
     int defense; ///The current defense value of the city
     Army garrison; ///The army garrisoned in the city
+    Fleet harbor; ///The fleet stationed in the harbor
 
     /**
      * Constructs a new city owned by the given player
@@ -37,6 +38,7 @@ class City : TileElement {
 
     void refreshGarrison() {
         this.garrison = new Army(this.owner, this.location, this.world);
+        this.harbor = new Fleet(this.owner, this.location, this.world);
     }
 
     /**
@@ -50,6 +52,8 @@ class City : TileElement {
             this.garrison.owner = attacker.owner;
             this.defense = cast(int)(percentRepairedPerTurn * cast(double)this.defense);
             this.isActive = false;
+        } else {
+            this.harbor.garrisonAction(damage, attacker, this);
         }
     }
 
