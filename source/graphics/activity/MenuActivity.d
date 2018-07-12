@@ -40,8 +40,8 @@ class MenuActivity : Activity {
     override void draw() {
         this.container.renderer.copy(this.drawTexture, 0, 0);
         if(this.newActivity !is null) {
-            this.container.activity = newActivity;
-            newActivity.startGame();
+            this.container.activity = this.newActivity;
+            this.newActivity.startGame();
         }
     }
 

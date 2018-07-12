@@ -120,8 +120,6 @@ class GameActivity : Activity {
      */
     void startGame() {
         Action initSettle = new InitialSettleAction(container, this.buttonMenu);
-        TileElement tempElement = new TileElement(null, null, this.world);
-        this.map.selectedElement = tempElement;
         initSettle.perform();
     }
 
@@ -141,7 +139,7 @@ class GameActivity : Activity {
         this.activePlayerIndex %= this.players.length;
         this.map.selectedElement = null; //TODO: make selected element, if owned by now active player, have proper menu
         this.updateComponents();
-        this.notifications.notification = "Player "~this.players[this.activePlayerIndex].name~", take your turn";
+        this.container.activity = new TurnTransitionActivity(this.container, this);
     }
 
 }

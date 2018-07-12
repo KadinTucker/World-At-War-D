@@ -14,7 +14,7 @@ immutable int startingCityLevel = 5;
  */
 class InitialSettleAction : Action {
 
-    int playerIndex = 0; ///The currently reached index of the initial settlements
+    GameActivity game; ///The game activity; stored so that turn transition can happen
 
     /**
      * Constructs a new action with the given name
@@ -22,6 +22,7 @@ class InitialSettleAction : Action {
      */
     this(Display container, ButtonMenu menu) {
         super(" ", container, menu);
+        this.game = cast(GameActivity)container.activity;
     }
 
     /**
@@ -29,9 +30,9 @@ class InitialSettleAction : Action {
      * Initiates a location query for the settlement
      */
     override void perform() {
-        this.menu.origin.owner = (cast(GameActivity)this.container.activity).players[this.playerIndex];
-        this.menu.setNotification("Player "~this.menu.origin.owner.name~", choose a location for your starting city");
-        this.setQuery(new LocationQuery(this, this.container));
+        this.container.activity = this.container.activity = new TurnTransitionActivity(this.container, this.game);
+        this.game.notifications.notification = "Player "~this.game.players[this.game.activePlayerIndex].name~", choose a location for your starting city";
+        this.game.query = new LocationQuery(this, this.container);
     }
 
     /**
@@ -41,21 +42,21 @@ class InitialSettleAction : Action {
      * If yes, move on to the next player
      */
     override void performAfterQuery(Coordinate target, string str="") {
-        if(this.menu.origin.world.getTileAt(target).terrain == Terrain.LAND 
-                && this.menu.origin.world.getTileAt(target).element is null) {
-            City cityToAdd = new City(this.menu.origin.owner, target, this.menu.origin.world, startingCityLevel);
-            this.menu.origin.world.getTileAt(target).element = cityToAdd;
-            this.menu.origin.world.getTileAt(target).owner = cityToAdd.owner;
-            this.menu.origin.owner.cities ~= cityToAdd;
-            (cast(GameActivity)this.container.activity).map.updateTexture();
-            this.playerIndex++;
-            if(this.playerIndex < (cast(GameActivity)this.container.activity).players.length) {
+        if(this.game.world.getTileAt(target).terrain == Terrain.LAND 
+                && this.game.world.getTileAt(target).element is null) {
+            City cityToAdd = new City(this.game.players[this.game.activePlayerIndex], target, this.game.world, startingCityLevel);
+            this.game.world.getTileAt(target).element = cityToAdd;
+            this.game.world.getTileAt(target).owner = cityToAdd.owner;
+            this.game.players[this.game.activePlayerIndex].cities ~= cityToAdd;
+            this.game.activePlayerIndex += 1;
+            if(this.game.activePlayerIndex < this.game.players.length) {
+                this.container.activity = new TurnTransitionActivity(this.container, this.game);
                 this.perform();
             } else {
-                (cast(GameActivity)this.container.activity).activePlayerIndex = 0;
-                this.menu.updateScreen();
-                this.menu.setNotification("Player "~(cast(GameActivity)this.container.activity).players[0].name~", take your turn");
-                (cast(GameActivity)this.container.activity).info.updateTexture(null);
+                this.game.activePlayerIndex = 0;
+                this.game.updateComponents();
+                this.game.info.updateTexture(null);
+                this.container.activity = new TurnTransitionActivity(this.container, this.game);
             }
         } else {
             this.perform();
