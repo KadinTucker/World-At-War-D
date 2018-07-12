@@ -33,10 +33,10 @@ class GameActivity : Activity {
      * Generates a world with 6 continents that is 40x30
      * TODO: make world generation based on json configs
      */
-    this(Display container) {
+    this(Display container, World world) {
         super(container);
         //Generate world and players
-        this.world = new World(6, 30, 40);
+        this.world = world;
         for(int i = 0; i < numPlayers; i++) {
             this.players ~= new Player("Player "~i.to!string, i);
         }

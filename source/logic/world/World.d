@@ -1,7 +1,9 @@
 module logic.world.World;
 
-import std.random;
+import std.file;
+import std.json;
 import std.math;
+import std.random;
 
 import logic.world.Tile;
 
@@ -58,6 +60,20 @@ class World {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Creates the world based on a custom scenario that is json encoded
+     */
+    this(string jsonFilename) {
+        string fileText = cast(string)read!string(jsonFilename);
+        JSONValue json = parseJSON(fileText);
+        for(int x; x < json["world"]["terrain"].array.length; x++) {
+            tiles ~= null;
+            for(int y; y < json["world"]["terrain"][x].array.length; y++) {
+                tiles[x] ~= new Tile(cast(Terrain)(cast(int)json["world"]["terrain"][y][x].integer), new Coordinate(x, y));
             }
         }
     }
