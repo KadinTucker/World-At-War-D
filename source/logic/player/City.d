@@ -17,6 +17,7 @@ class City : TileElement {
     int defense; ///The current defense value of the city
     Army garrison; ///The army garrisoned in the city
     Fleet harbor; ///The fleet stationed in the harbor
+    AirUnit airUnit; ///The air unit stationed in the city
 
     /**
      * Constructs a new city owned by the given player

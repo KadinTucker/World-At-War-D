@@ -35,6 +35,14 @@ abstract class Unit : TileElement {
         return true;
     }
 
+    int numTroops() {
+        int total;
+        foreach(troopType; this.troops) {
+            total += troopType;
+        }
+        return total;
+    }
+
     /**
      * Mobilizes the unit by adding itself
      * to the owner's military and to the map

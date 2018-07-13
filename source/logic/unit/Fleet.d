@@ -18,6 +18,8 @@ immutable int submarineLandAttack = 5;
 
 immutable int fleetMoves = 8;
 
+immutable int aircraftPerCarrier = 2;
+
 /**
  * A fleet of ships at sea
  */
@@ -25,7 +27,7 @@ class Fleet : Unit {
 
     int movementPoints; ///The amount of moves this fleet can take this turn
     Army embarked; ///An army that is embarked on this fleet
-    //TODO: Add air unit
+    AirUnit airUnit; ///The air unit stationed on this fleet's carriers
 
     /**
      * Constructs a new fleet
